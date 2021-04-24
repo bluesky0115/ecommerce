@@ -12,8 +12,8 @@
       @forelse ($category->products as $product)
           <div>
               <img src="'products'.{{$product->id}}" alt="">
-              {{$product->name}}
-              {{$product->price}}
+              <p>{{$product->name}}</p>
+              <p>{{$product->price}}</p>
               <a href="{{route('product.buy',$productId)}}">buy</a>
               <a href="{{route('products.addToCart',$productId)}}">add to cart</a>
               <a href="{{route('product.details',$productId)}}">detail</a>
