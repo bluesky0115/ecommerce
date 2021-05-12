@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\Request\ProductFormRequest;
 
 class ProductController extends Controller
 {
@@ -24,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
@@ -33,9 +34,16 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductFormRequest $request)
     {
-        //
+        $product=new Product;
+        $product->name=$request->name;
+        $product->cost=$request->cost;
+        $product->user_id=$request->userId;
+        $product->description=$request->description;
+        $product->save();
+        $product->cover=$product->id.'.'.$request->photo->extension();
+        $request->photo->saveAs('product',$product->cover,'public');
     }
 
     /**
@@ -44,9 +52,10 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
-        //
+        $product=Product::findOrFail($id);
+        return view('product.show',['product'=>$product]);
     }
 
     /**

@@ -1,11 +1,9 @@
 @extends('layouts.app')
 @section('main')
     <div>
-        {{$product->name}}
-        <img src="'products'.{{$product->id}}" alt="">
-        {{$product->price}}
-    </div>
-    <div>
-       <p> {{$product->description}}</p>
+        <p class="text-xl">{{$product->name}}</p>
+        <img src="products/{{$product->photo}}" alt="" width="200px">
+        <p>price {{$product->price}} birr</p>
+        <p> {{$product->description}}</p>
     </div>
 @endsection

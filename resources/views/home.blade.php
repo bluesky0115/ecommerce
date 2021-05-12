@@ -1,25 +1,30 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
-    <ul>
-    <li>All</li>
+<div>
+  <ul>
+    <li><a href="{{route()}}">all</a></li>
     @foreach ($categories as $category)
-      <li>{{$category->title}}</li>    
+      <li><a href="{{route('')}}">{{$category->name}}</a></li>    
     @endforeach
     </ul>
-    <div>
+</div>
+    <div class="flex">
       @forelse ($category->products as $product)
-          <div>
-              <img src="'products'.{{$product->id}}" alt="">
-              <p>{{$product->name}}</p>
-              <p>{{$product->price}}</p>
-              <a href="{{route('product.buy',$productId)}}">buy</a>
-              <a href="{{route('products.addToCart',$productId)}}">add to cart</a>
-              <a href="{{route('product.details',$productId)}}">detail</a>
+          <div class="flex-auto w-max">
+              <img src="/products{{$product->cover}}" alt="" width="100px">
+              <p class="text-xl text-center">{{$product->name}}</p>
+              <p class="text-xl text-center">{{$product->price}} birr</p>
+              <p>
+                <span><a href="{{route('product.buy',$productId)}}">buy</a></span>
+                <span>
+                  <addtocart-component product-id="{{$product->id}}" user-id="{{$user->id}}"/>
+                </span>
+                <span><a href="{{route('product.details',$productId)}}">detail</a></span>
+              </p>
           </div>
       @empty
-          <p>oops no products were found</p>
+          <p class="text-xl text-red-700 bg-red-100 w-max">oops no products were found</p>
       @endforelse
     </div>
 </div>
