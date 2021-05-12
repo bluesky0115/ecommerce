@@ -20,7 +20,7 @@
                 <span>
                   <addtocart-component product-id="{{$product->id}}" user-id="{{$user->id}}"/>
                 </span>
-                <span><a href="{{route('product.details',$productId)}}">detail</a></span>
+                <span><a href="{{route('product.details',$productId)}}">details</a></span>
               </p>
           </div>
       @empty

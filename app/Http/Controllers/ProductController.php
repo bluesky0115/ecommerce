@@ -64,9 +64,10 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product=Product::findorFail($id);
+        return view('product.edit',['product'=>$product]);
     }
 
     /**
@@ -76,9 +77,12 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductFormRequest $request)
     {
-        //
+        $product::findOrFail($id);
+        if($request->has('photo')){
+            Storage::update()
+        }
     }
 
     /**
@@ -90,5 +94,13 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+    public function getAddToCart()
+    {
+
+    }
+    public function postAddToCart()
+    {
+        
     }
 }
