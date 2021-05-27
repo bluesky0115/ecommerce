@@ -21,6 +21,11 @@
         </style>
     </head>
     <body>
-  
+      <div>
+        <nav>
+         <a href="{{route('login')}}">sign in</a>
+         <a href="{{route('register')}}">sign up</a>    
+        </nav>  
+      </div>
     </body>
 </html>

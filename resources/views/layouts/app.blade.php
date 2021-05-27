@@ -33,7 +33,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                      <li>cart()</li>
+                      <li>contact</li> 
                     </ul>
 
                     <!-- Right Side Of Navbar -->

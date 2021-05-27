@@ -24,10 +24,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('product')->group(function () {
     Route::get('create',[ProductController::class,'create'])->name('product.create');
     Route::post('create',[ProductController::class,'store'])->name('product.store');
-    Route::get('edit/{id}',[ProductController::class,'edit'])->name('product.edit');
+    Route::get('edit/{product}',[ProductController::class,'edit'])->name('product.edit');
     Route::patch('update',[ProductController::class,'update'])->name('product.update');
-    Route::get('show/{id}',[ProductController::class,'show'])->name('product.show');
-    Route::delete('delete/{id}',[ProductController::class,'delete'])->name('product.delete');
+    Route::get('show/{product}',[ProductController::class,'show'])->name('product.show');
+    Route::delete('delete/{product}',[ProductController::class,'delete'])->name('product.delete');
     Route::post('addtocart',[ProductController::class,'postAddToCart'])->name('product.getAddToCart');
     Route::post('addtocart',[ProductController::class,'postAddToCart'])->name('product.postAddToCart');
 });

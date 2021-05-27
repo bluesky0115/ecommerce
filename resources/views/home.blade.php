@@ -3,9 +3,9 @@
 <div class="container">
 <div>
   <ul>
-    <li><a href="{{route()}}">all</a></li>
+    <li><a href="{{route('/')}}">all</a></li>
     @foreach ($categories as $category)
-      <li><a href="{{route('')}}">{{$category->name}}</a></li>    
+      <li><a href="{{route('/')}}">{{$category->name}}</a></li>    
     @endforeach
     </ul>
 </div>

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Http\Request\ProductFormRequest;
+use App\Http\Requests\ProductFormRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -52,10 +53,10 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        $product=Product::findOrFail($id);
-        return view('product.show',['product'=>$product]);
+        $similarProducts=Product::where('category',$product->category)->take(10);
+        return view('product.show',['product'=>$product,'similarProducts'=>$similarProducts]);
     }
 
     /**
@@ -64,9 +65,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product=Product::findorFail($id);
+        $this->authorize('update',$product);
         return view('product.edit',['product'=>$product]);
     }
 
@@ -79,10 +80,15 @@ class ProductController extends Controller
      */
     public function update(ProductFormRequest $request)
     {
-        $product::findOrFail($id);
+        $product=Product::findOrFail($request->id);
+        $product->name=$request->name;
         if($request->has('photo')){
-            Storage::update()
+            Storage::delete('productCover/'.$product->cover);
+            $product->cover=$product->id.'.'.$request->cover->extension();
+            $request->cover->storeAs('productCover',$product->cover,'public');
         }
+        $product->price=$request->price;
+        $product->save();
     }
 
     /**
