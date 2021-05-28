@@ -16,7 +16,7 @@
               <p class="text-xl text-center">{{$product->name}}</p>
               <p class="text-xl text-center">{{$product->price}} birr</p>
               <p>
-                <span><a href="{{route('product.buy',$productId)}}">buy</a></span>
+                <span><a href="{{route('product.show',$product)}}">buy</a></span>
                 <span>
                   <addtocart-component product-id="{{$product->id}}" user-id="{{$user->id}}"/>
                 </span>

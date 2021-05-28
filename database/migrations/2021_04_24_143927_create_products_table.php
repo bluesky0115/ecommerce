@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('cost');
-            $table->foreginId('category_id');
+            $table->foreignId('category_id');
             $table->foreignId('user_id');
             $table->string('cover')->default('product.png');
             $table->text('description');
