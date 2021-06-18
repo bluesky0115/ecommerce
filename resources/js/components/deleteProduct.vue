@@ -10,12 +10,8 @@
      </form>
     </div>
   </div>
-  <div v-if="readyToDelete" class="absolute inset-0 opacity-50 bg-black z-10"></div>
-</div>
-</template>
-<script>
-export default {
-    props:['productId'],
+  <div v-if="readyToDelete" class="absolute -inset-full opacity-50 bg-black z-10"></div>
+</div>(productId)
     data(){
       return{
         deletedText:'delete',

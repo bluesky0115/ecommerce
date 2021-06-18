@@ -16,11 +16,10 @@
               <p class="text-xl text-center">{{$product->name}}</p>
               <p class="text-xl text-center">{{$product->price}} birr</p>
               <p>
-                <span><a href="{{route('product.show',$product)}}">buy</a></span>
-                <span>
-                  <addtocart-component product-id="{{$product->id}}" user-id="{{$user->id}}"/>
-                </span>
-                <span><a href="{{route('product.details',$productId)}}">details</a></span>
+              <a href="{{route('product.show',$product)}}">buy</a>
+              <addtocart-component product-id="{{$product->id}}" user-id="{{$user->id}}"/>
+              <a href="{{route('product.details',$product->id)}}">details</a>
+              <report-component product-id="{{$product->id}}">
               </p>
           </div>
       @empty

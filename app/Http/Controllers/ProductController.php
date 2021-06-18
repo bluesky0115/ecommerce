@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductFormRequest;
@@ -99,7 +99,20 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+      $product->delete();
+    }
+    public function search(Request $request)
+    {
+      $category_id=$request->category;
+      $searchQuery=$request->searchQuery;
+      if($category_id=='all'){
+        $products=Product::where('name','like',"${searchQuery}")->get();  
+      }
+      else{
+        $products=Product::where([['category_id',$category_id],['name','like',"${searchQuery}"]])->get();  
+      }
+      $categoryName=Category::find($category_id)?? "all"; 
+      return view('product.search',['products'=>$products,'searchQuery'=>$searchQuery,'categoryName'=>$categoryName]);
     }
     public function getAddToCart()
     {
