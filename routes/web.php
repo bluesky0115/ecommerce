@@ -37,4 +37,6 @@ Route::prefix('product')->group(function () {
 
 Route::get('/notifications',[UserController::class,'notifications']);
 Route::post('report',[UserController::class,'report']);
+Route::post('/report/remove',[UserController::class,'removeReport'])->name('report.remove');
+Route::get('reports',[AdminController::class,'reports']);
 Route::post('/notification/unread',[UserController::class,'unreadNotification']);
