@@ -21,6 +21,12 @@ class UserController extends Controller
    DB::table('reports')->insert(['user_id'=>$request->userId,'product_id'=>$request->productId,'reportText'=>$request->reportText]);
    return response()->json(['message'=>'report was succesfull']);
   }
+  public function notificationForm(Request $request)
+  {
+    $selectedCategories=json_encode($request->selectedCategories);
+    $user=User::find($request->userId);
+    $user->categories=$selectedCategories;
+  }
   public function unreadNotification(Request $request)
   {
    $user=User::find($request->userId);

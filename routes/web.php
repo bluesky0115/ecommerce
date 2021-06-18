@@ -35,8 +35,9 @@ Route::prefix('product')->group(function () {
     Route::post('addtocart',[ProductController::class,'postAddToCart'])->name('product.postAddToCart');
 });
 
-Route::get('/notifications',[UserController::class,'notifications']);
+Route::get('notifications',[UserController::class,'notifications']);
+Route::post('notification/category',[UserController::class,'notificationForm']);
 Route::post('report',[UserController::class,'report']);
-Route::post('/report/remove',[UserController::class,'removeReport'])->name('report.remove');
+Route::post('report/remove',[UserController::class,'removeReport'])->name('report.remove');
 Route::get('reports',[AdminController::class,'reports']);
-Route::post('/notification/unread',[UserController::class,'unreadNotification']);
+Route::post('notification/unread',[UserController::class,'unreadNotification']);
