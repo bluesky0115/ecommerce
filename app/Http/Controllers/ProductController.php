@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductFormRequest;
+use App\Notifications\NewProductNotification;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -42,9 +44,12 @@ class ProductController extends Controller
         $product->cost=$request->cost;
         $product->user_id=$request->userId;
         $product->description=$request->description;
+        $product->category=$request->category;
         $product->save();
         $product->cover=$product->id.'.'.$request->photo->extension();
-        $request->photo->saveAs('product',$product->cover,'public');
+        $request->photo->saveAs('products',$product->cover,'public');
+        $notifiedUsers=User::where('selectedCategories')->get();
+        $notifiedUsers->notify(new NewProductNotification($product)); 
     }
 
     /**

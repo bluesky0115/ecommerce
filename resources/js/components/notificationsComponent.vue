@@ -44,12 +44,12 @@ export default {
       .then(res=>{
         this.notificationPopup=false;
       })
-     }
+     },
      unreadNotification(notificationId){
        axios.post('/notification/unread',{notificationId:notificationId,userId:this.userId})
        .then(res=>{
-           let notification=notifications.find(notificationId)
-          this.notification.remove(notification); 
+           let index=notifications.findindex(item=> item.id==notificationId)
+          this.notifications.splice(index,1); 
        })
        .catch(err=>{
         
