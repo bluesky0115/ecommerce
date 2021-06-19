@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-    public function user()
+    public function users()
     {
-        return $this->belongsto(User::class);
+        return $this->belongstoMany(User::class);
     }
     public function products()
     {

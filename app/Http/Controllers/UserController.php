@@ -10,6 +10,12 @@ use stdClass;
 
 class UserController extends Controller
 {
+  public function cartItems(Request $request)
+  {
+    $user=User::find($request->userId);
+    $cartItems=$user->cart->products;
+    return response()->json(['cartItems'=>$cartItems]);
+  }
   public function notifications(Request $request)
   {
     $user=User::find($request->userId);

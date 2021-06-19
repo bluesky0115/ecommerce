@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,8 @@ Route::prefix('product')->group(function () {
     Route::post('addtocart',[ProductController::class,'postAddToCart'])->name('product.postAddToCart');
 });
 
+Route::get('orders',[OrderController::class,'index'])->name('orders');
+Route::get('cartItems',[UserController::class,'cartitems']);
 Route::get('notifications',[UserController::class,'notifications']);
 Route::post('notification/category',[UserController::class,'notificationForm']);
 Route::post('report',[UserController::class,'report']);

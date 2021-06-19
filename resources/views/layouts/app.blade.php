@@ -45,7 +45,7 @@
                       </form>  
                     </div>
                     <ul class="navbar-nav mr-auto">
-                      <li>cart()</li>
+                      <li><cart-component></li>
                       <li>contact us</li>
                       <notifications-component user-id="{{Auth::user()->id}}"/> 
                     </ul>
