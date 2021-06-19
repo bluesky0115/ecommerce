@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Category;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CategoryPolicy
+class OrderPolicy
 {
     use HandlesAuthorization;
 
@@ -25,12 +25,12 @@ class CategoryPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Order  $order
      * @return mixed
      */
-    public function view(User $user, Category $category)
+    public function view(User $user, Order $order)
     {
-        //
+      
     }
 
     /**
@@ -41,19 +41,17 @@ class CategoryPolicy
      */
     public function create(User $user)
     {
-      return in_array($user->email,[
-       'admin@admin.com',   
-      ])
+        //
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Order  $order
      * @return mixed
      */
-    public function update(User $user, Category $category)
+    public function update(User $user, Order $order)
     {
         //
     }
@@ -62,10 +60,10 @@ class CategoryPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Order  $order
      * @return mixed
      */
-    public function delete(User $user, Category $category)
+    public function delete(User $user, Order $order)
     {
         //
     }
@@ -74,10 +72,10 @@ class CategoryPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Order  $order
      * @return mixed
      */
-    public function restore(User $user, Category $category)
+    public function restore(User $user, Order $order)
     {
         //
     }
@@ -86,10 +84,10 @@ class CategoryPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Order  $order
      * @return mixed
      */
-    public function forceDelete(User $user, Category $category)
+    public function forceDelete(User $user, Order $order)
     {
         //
     }
