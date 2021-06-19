@@ -22,6 +22,9 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+            <div class="sm:inline none">
+              <navigation-component user-id="userId"/> 
+            </div>
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Home

@@ -1,11 +1,12 @@
 <template>
   <div>
    <div v-for="item in cartItems" :key="item.id" class="flex">
+   <input type="checkbox" v-model="orderedItems">
     <img src="" alt="">
     <div class="my-auto">
      <p>
       <span>quantity</span>
-      <select name="" id="">
+      <select name="" id="" required v-model="" @change="">
        <option value="1" selected>1</option>
        <option value="2">2</option>
        <option value="2">3</option>
@@ -29,7 +30,10 @@ export default {
  props:['userId'],
 
  data(){
-  cartItems:[]
+  return{
+   cartItems:[],
+   orderItems:[]
+  }
  },
 
  mounted(){

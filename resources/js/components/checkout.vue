@@ -7,7 +7,9 @@
 export default {
   props:['userId'],
   data(){
-   stripe:{}
+   return{
+    stripe:{}
+   }
   },
   mounted(){
     axios.get('/user',{params:{userId:this.userId}})

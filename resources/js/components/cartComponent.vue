@@ -15,7 +15,9 @@
 export default {
   props:['userId'],
   data(){
-   cartItems:[]
+   return{
+    cartItems:[]
+   }
   },
   mounted(){
     axios.get('/cartItems',{params:{userId:this.userId}})
