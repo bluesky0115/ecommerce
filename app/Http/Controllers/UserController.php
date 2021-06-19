@@ -23,7 +23,7 @@ class UserController extends Controller
   }
   public function notificationForm(Request $request)
   {
-    $selectedCategories=json_encode($request->selectedCategories);
+    $selectedCategories=$request->selectedCategories;
     $user=User::find($request->userId);
     $user->categories=$selectedCategories;
   }
