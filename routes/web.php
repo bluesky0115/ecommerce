@@ -37,6 +37,8 @@ Route::prefix('product')->group(function () {
 });
 
 Route::get('orders',[OrderController::class,'index'])->name('orders');
+Route::post('order/complete',[OrderController::class,'destroy'])->name('order.complete');
+
 Route::get('cartItems',[UserController::class,'cartitems']);
 Route::get('notifications',[UserController::class,'notifications']);
 Route::post('notification/category',[UserController::class,'notificationForm']);

@@ -18,7 +18,7 @@
    <h1>this website wants to send notifications</h1>
    <p>in which category you are interested ?</p>
     <form @submit.prevent="sendNotification">
-     <p v-for="category in categories">
+     <p v-for="category in categories" :key="category.id">
        <input type="checkbox" :key="category.id" value="category.id" v-model="selectedCategories">
        <span>{{category.name}}</span>
      </p>
