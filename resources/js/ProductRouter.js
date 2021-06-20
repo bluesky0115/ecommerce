@@ -7,11 +7,9 @@ const router=new VueRouter({
   mode:'history',
   routes:[
     {
-      path:'/clothes',
-      
+      path:':category',
+      name:':category',
+      component:()=>require('./components/productsComponent')
     },
-    {},
-    {},
-    {}
   ]
 })
