@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductFormRequest;
+use App\Models\Cart;
 use App\Notifications\NewProductNotification;
 use Illuminate\Support\Facades\Storage;
 
@@ -64,8 +65,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-      $recommendedProducts=Product::where('category',$product->category)->take(10);
-      return view('product.show',['product'=>$product,'similarProducts'=>$recommendedProducts]);
+      $recommendedProducts=Product::all();
+      return view('product.show',['product'=>$product,'recommendedProducts'=>$recommendedProducts]);
     }
 
     /**
@@ -123,12 +124,19 @@ class ProductController extends Controller
       $categoryName=Category::find($category_id)?? "all"; 
       return view('product.search',['products'=>$products,'searchQuery'=>$searchQuery,'categoryName'=>$categoryName]);
     }
-    public function getAddToCart()
+    public function AddToCart(Request $request)
     {
-
+      $user=User::find($request->userId);
+      $product=Product::find($request->productId);
+      $cart=$user->cart;
+      if($cart){
+        $cart->attach($product);
+      }
+      else{
+        $cart=new Cart;
+        $cart->user=$user;
+        $cart->prouct->attach($product);
+      }
     }
-    public function postAddToCart()
-    {
-        
-    }
+    
 }

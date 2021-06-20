@@ -17,6 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="icon" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Ficons-for-free.com%2Fcart%2Becommerce%2Bshop%2Bicon-1320166083122274571%2F&psig=AOvVaw2H2EmaGs_3xAxpAms6zC_V&ust=1624288459205000&source=images&cd=vfe&ved=0CAcQjRxqFwoTCPj2mKHApvECFQAAAAAdAAAAABAD">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>

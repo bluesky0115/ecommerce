@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -35,8 +36,7 @@ Route::prefix('product')->group(function () {
     Route::get('show/{product}',[ProductController::class,'show'])->name('product.show');
     Route::delete('delete/{product}',[ProductController::class,'delete'])->name('product.delete');
     Route::get('search',[ProductController::class,'search'])->name('product.search');
-    Route::post('addtocart',[ProductController::class,'postAddToCart'])->name('product.getAddToCart');
-    Route::post('addtocart',[ProductController::class,'postAddToCart'])->name('product.postAddToCart');
+    Route::post('addtocart',[ProductController::class,'AddToCart'])->name('product.AddToCart');
 });
 
 Route::prefix('profile')->group(function(){
@@ -64,3 +64,6 @@ Route::get('reports',[AdminController::class,'reports']);
 Route::get('categories',[CategoryController::class,'index']);
 Route::get('isAdmin',[UserController::class,'isAdmin']);
 Route::view('about','about')->name('about');
+
+Route::get('comments',[CommentController::class,'index']);
+Route::post('commnet/create',[CommentController::class,'store']);

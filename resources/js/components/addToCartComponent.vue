@@ -1,5 +1,7 @@
 <template>
- <button @click="addToCart" class="text-xl text-white rounded" :class="[added ? 'bg-green-500' : 'bg-blue-500']">{{buttonText}}</button>  
+ <form @submit.prevent="addToCart">
+  <input type="submit" :value="buttonText" class="text-md text-white rounded" :class="[added ? 'bg-green-500' : 'bg-blue-500']"> 
+  </form>  
 </template>
 <script>
  export default{
@@ -7,7 +9,7 @@
     data(){
         return{
           added:false,
-          addText:'add to cart'
+          buttonText:'add to cart'
         }
     },
     methods:{
@@ -15,7 +17,7 @@
           axios.post('/product/addtocart',{productId:this.productId,userId:this.userId})
           .then(res=>{
             this.addded=true;
-            this.addText='added';
+            this.buttonText='added';
           })
           .catch(err=>{
             

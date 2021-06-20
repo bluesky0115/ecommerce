@@ -1,26 +1,12 @@
 @extends('layouts.app')
 @section('content')
+<div class="block lg:flex xl:flex 2xl:flex">
+  <div class="w-full lg:w-2/3 xl:w-2/3 2xl:w-2/3 p-5">
     <div>
-        <p class="text-xl">{{$product->name}}</p>
-        <img src="/storage/products/{{$product->cover}}" alt="" width="300px">
-        <p>price {{$product->price}} birr</p>
-        <form action="">
-            {{ csrf_field() }}
-            <select name="" id="">
-                <option value="1" selected>1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>  
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
-              <input type="submit" value="buy">  
-        </form>
-        <p> {{$product->description}}</p>
+        <p class="text-xl mx-10">{{$product->name}}</p>
+        <img src="/storage/products/{{$product->cover}}" class="w-100 m-2">
+        <p class="text-xl mx-10">price {{$product->price}} birr</p>
+        <p class="text-xl mx-10"> {{$product->description}}</p>
     </div>
     <div>
        @can('update', Product::class)
@@ -38,24 +24,22 @@
        </form> 
        @endcan 
     </div>
-    <div>
-     <comment-component user-id="{{Auth::user()->id}}" product-id="{{product->id}}"/>    
-    </div>
-    <div>
-        <div class="flex">
-            @foreach ($similarProducts as $product)
-                <div class="flex-auto w-max">
-                    <img src="/products{{$product->cover}}" alt="" width="100px">
-                    <p class="text-xl text-center">{{$product->name}}</p>
-                    <p class="text-xl text-center">{{$product->price}} birr</p>
-                    <div>
-                      <span><a href="{{route('product.buy',$productId)}}">buy</a></span>
-                      <span>
-                        <addtocart-component product-id="{{$product->id}}" user-id="{{$user->id}}"/>
-                      </span>
-                      <span><a href="{{route('product.details',$productId)}}">details</a></span>
-                    </div>
+     <comment-component user-id="{{Auth::user()->id}}" product-id="{{$product->id}}"/>    
+   </div>
+        <div class="">
+            @foreach ($recommendedProducts as $product)
+                <a href="{{route('product.show',$product->id)}}">
+                    <div class="flex w-max m-2">
+                        <img src="/storage/products/{{$product->cover}}" alt="" width="200px">
+                        <div>
+                          <p class="text-xl text-center">{{$product->name}}</p>
+                          <p class="text-xl text-center">{{$product->price}} birr</p>  
+                          <addtocart-component product-id="{{$product->id}}" user-id="{{Auth::user()->id}}"/>
+                          <a href="{{route('product.show',$product->id)}}">details</a>
+                    </div>   
+                </a>
                 </div>
             @endforeach  
        </div>
+</div>
 @endsection
