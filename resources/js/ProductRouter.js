@@ -3,13 +3,12 @@ import VueRouter from 'vue=router'
 Vue.use(VueRouter);
 
 const router=new VueRouter({
-  base_url:'/products',
   mode:'history',
   routes:[
     {
-      path:':category',
+      path:'/products/:category',
       name:':category',
-      component:()=>require('./components/productsComponent')
+      component:()=>require('./components/productComponent')
     },
   ]
 })

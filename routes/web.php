@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -46,7 +47,7 @@ Route::prefix('profile')->group(function(){
 Route::get('orders',[OrderController::class,'index'])->name('orders');
 Route::post('order',[OrderController::class,'order']);
 Route::post('order/complete',[OrderController::class,'destroy'])->name('order.complete');
-
+Route::get('categories',[CategoryController::class,'index']);
 Route::get('cartItems',[UserController::class,'cartitems']);
 Route::get('notifications',[UserController::class,'notifications']);
 Route::post('notification/category',[UserController::class,'notificationForm']);

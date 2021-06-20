@@ -1,23 +1,26 @@
 <template>
   <div>
-   <router-link to="/">all</router-link>
-   <router-link v-for="category in categories " :key="category.id" :to="category.id">
-     {{category.name}}
-   </router-link>
+   <div v-for="product in products " :key="product.id">
+    <img :src="product.imageSource" alt="" class="">
+    <p>{{product.name}} {{product.price}} birr</p>
+    <p>{{product.description}}</p>
+    <a href="'product/show'+product.id">details</a>
+    <report-component user-id="userId" product-id="productId"></report-component>
+   </div>
   </div>     
 </template>
 <script>
 export default {
-  props:[],
+  props:['userId'],
   data(){
     return{
-      categories:[], 
+      products:[], 
      }     
   },
   mounted(){
    axios.get('/categories')
    .then(res=>{
-     this.categories=res.data.categories;
+     this.products=res.data.products;
    })
    .catch(err=>{
 
