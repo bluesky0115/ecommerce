@@ -1,7 +1,7 @@
 <template>
   <div>
   <div>
-    <router-link v-for="category in categories" :to="'/products/:category.name',params:{}" :key="category.id">
+    <router-link v-for="category in categories" :to="{name:'product', params:{categoryId:category.id,category:category.name}}" :key="category.id">
        {{category.name}}
     </router-link>
   </div>

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VueRouter from 'vue=router'
+import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 const router=new VueRouter({
@@ -7,8 +7,8 @@ const router=new VueRouter({
   routes:[
     {
       path:'/products/:category',
-      name:':category',
-      component:()=>require('./components/productComponent')
+      name:'category',
+      component:()=>require('./components/categoryComponent')
     },
   ]
 })
