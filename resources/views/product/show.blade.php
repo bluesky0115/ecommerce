@@ -1,8 +1,8 @@
 @extends('layouts.app')
-@section('main')
+@section('content')
     <div>
         <p class="text-xl">{{$product->name}}</p>
-        <img src="products/{{$product->photo}}" alt="" width="200px">
+        <img src="/storage/products/{{$product->cover}}" alt="" width="300px">
         <p>price {{$product->price}} birr</p>
         <form action="">
             {{ csrf_field() }}
@@ -27,7 +27,7 @@
        <form method="POST" action="{{route('product.update',$product->id)}}">
         {{csrf_field}}
         @method('update')
-        <input type="submit" value="delete">
+        <input type="submit" value="edit">
        </form> 
        @endcan
        @can('delete', Product::class)
@@ -37,6 +37,9 @@
         <input type="submit" value="delete">
        </form> 
        @endcan 
+    </div>
+    <div>
+     <comment-component user-id="{{Auth::user()->id}}" product-id="{{product->id}}"/>    
     </div>
     <div>
         <div class="flex">

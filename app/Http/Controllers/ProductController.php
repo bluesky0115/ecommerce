@@ -64,8 +64,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $similarProducts=Product::where('category',$product->category)->take(10);
-        return view('product.show',['product'=>$product,'similarProducts'=>$similarProducts]);
+      $recommendedProducts=Product::where('category',$product->category)->take(10);
+      return view('product.show',['product'=>$product,'similarProducts'=>$recommendedProducts]);
     }
 
     /**

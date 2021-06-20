@@ -28,6 +28,11 @@ class OrderController extends Controller
       }
       $user->orders=attach($order);  
     }
+    public function orderForm()
+    {
+      //$items=;
+      return view('order',);
+    }
     public function index()
     {
      $orders=Order::latest()->get();

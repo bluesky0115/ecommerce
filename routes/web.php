@@ -47,7 +47,8 @@ Route::prefix('profile')->group(function(){
 Route::get('products',[ProductController::class,'index']);
 
 Route::get('orders',[OrderController::class,'index'])->name('orders');
-Route::post('order',[OrderController::class,'order'])->name('order');
+Route::get('order',[OrderController::class,'orderForm'])->name('order');
+Route::post('order',[OrderController::class,'order']);
 Route::post('order/complete',[OrderController::class,'destroy'])->name('order.complete');
 
 Route::get('cartItems',[CartController::class,'cartItems']);
