@@ -40,7 +40,7 @@
     </div>
     <div>
         <div class="flex">
-            @foreach ($similaProducts as $product)
+            @foreach ($similarProducts as $product)
                 <div class="flex-auto w-max">
                     <img src="/products{{$product->cover}}" alt="" width="100px">
                     <p class="text-xl text-center">{{$product->name}}</p>

@@ -1,6 +1,6 @@
 <template>
   <div>
-  <div>
+  <div class="flex overflow-scroll mx-2">
     <router-link to="/all">all</router-link>
     <router-link v-for="category in categories" :to="{name:'product', params:{categoryId:category.id,category:category.name}}" :key="category.id">
        {{category.name}}
@@ -13,13 +13,13 @@
 export default {
   data(){
     return{
-     catagories:[]
+     categories:[]
     }
   },
   mounted(){
-    axios.get('/catagories')
+    axios.get('/categories')
     .then(res=>{
-      this.catagories=res.data.catagories;
+      this.categories=res.data.categories;
       console.log('categories '+this.categories);
     })
   }

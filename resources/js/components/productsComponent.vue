@@ -1,12 +1,14 @@
 <template>
-  <div>
-   <div v-for="product in products " :key="product.id">
-    <img :src="product.imageSource" alt="" class="">
+  <div class="flex">
+   <div v-for="product in products " :key="product.id" class="bg-gray-100 m-2 p-2">
+    <img :src="'/storage/products/'+product.cover" alt="" class="">
     <p>{{product.name}} {{product.price}} birr</p>
     <p>{{product.description}}</p>
-    <span>{{product.totalComments}} comments</span>
-    <a href="'product/show'+product.id">details</a>
-    <report-component user-id="userId" product-id="productId"></report-component>
+    <div class="flex">
+      <span>{{product.totalComments}} comments</span>
+      <a :href="'/product/show/'+product.id">details</a>
+      <report-component user-id="userId" product-id="productId"></report-component>
+    </div>
    </div>
   </div>     
 </template>

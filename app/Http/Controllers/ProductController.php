@@ -18,7 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+      $products=Product::all();
+      return response()->json(['products'=>$products]);
     }
 
     /**
@@ -48,9 +49,11 @@ class ProductController extends Controller
         $product->category_id=$request->userId;
         $product->save();
         $product->cover=$product->id.'.'.$request->photo->extension();
+        $product->save();
         $request->photo->storeAs('products',$product->cover,'public');
         //$notifiedUsers=User::where('selectedCategories')->get();
-        //$notifiedUsers->notify(new NewProductNotification($product)); 
+        //$notifiedUsers->notify(new NewProductNotification($product));
+        return redirect()->route('home'); 
     }
 
     /**

@@ -21,7 +21,7 @@ window.Vue = require('vue').default;
 
 // Vue.component('addtocart-component', require('./components/addToCartComponent.vue').default);
 // Vue.component('cart-component', require('./components/cartComponent.vue').default);
-Vue.component('categorylink-component', require('./components/categoryLinkComponent.vue').default);
+//Vue.component('categorylink-component', require('./components/categoryLinkComponent.vue').default);
 // Vue.component('category-component', require('./components/categoryComponent.vue').default);
 // Vue.component('checkout-component', require('./components/checkoutComponent.vue').default);
 // Vue.component('createprofile-component', require('./components/productsComponent.vue').default);
@@ -32,7 +32,7 @@ Vue.component('categorylink-component', require('./components/categoryLinkCompon
 // Vue.component('order-component', require('./components/orderComponent.vue').default);
 // Vue.component('orders-component', require('./components/ordersComponent.vue').default);
 Vue.component('products-component', require('./components/productsComponent.vue').default);
-// Vue.component('report-component', require('./components/reportComponent.vue').default);
+Vue.component('report-component', require('./components/reportComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
