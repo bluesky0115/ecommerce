@@ -19,9 +19,9 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-// Vue.component('addtocart-component', require('./components/addToCartComponent.vue').default);
+Vue.component('addtocart-component', require('./components/addToCartComponent.vue').default);
 // Vue.component('cart-component', require('./components/cartComponent.vue').default);
-//Vue.component('categorylink-component', require('./components/categoryLinkComponent.vue').default);
+// Vue.component('categorylink-component', require('./components/categoryLinkComponent.vue').default);
 // Vue.component('category-component', require('./components/categoryComponent.vue').default);
 // Vue.component('checkout-component', require('./components/checkoutComponent.vue').default);
 // Vue.component('createprofile-component', require('./components/productsComponent.vue').default);
@@ -29,7 +29,7 @@ window.Vue = require('vue').default;
 // Vue.component('editprofile-component', require('./components/productsComponent.vue').default);
 // Vue.component('navigation-component', require('./components/navigationComponent.vue').default);
 // Vue.component('notifications-component', require('./components/notificationsComponent.vue').default);
-// Vue.component('order-component', require('./components/orderComponent.vue').default);
+Vue.component('order-component', require('./components/orderComponent.vue').default);
 // Vue.component('orders-component', require('./components/ordersComponent.vue').default);
 Vue.component('products-component', require('./components/productsComponent.vue').default);
 Vue.component('report-component', require('./components/reportComponent.vue').default);

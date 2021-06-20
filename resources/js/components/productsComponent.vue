@@ -7,6 +7,7 @@
     <div class="flex">
       <span>{{product.totalComments}} comments</span>
       <a :href="'/product/show/'+product.id">details</a>
+      <addtocart-component product-id="product.id" user-id="userId" />
       <report-component user-id="userId" product-id="productId"></report-component>
     </div>
    </div>

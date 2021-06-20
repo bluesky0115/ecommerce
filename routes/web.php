@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -44,17 +45,20 @@ Route::prefix('profile')->group(function(){
   Route::post('update',[ProfileController::class,'update'])->name('profile.update');
 });
 Route::get('products',[ProductController::class,'index']);
+
 Route::get('orders',[OrderController::class,'index'])->name('orders');
-Route::post('order',[OrderController::class,'order']);
+Route::post('order',[OrderController::class,'order'])->name('order');
 Route::post('order/complete',[OrderController::class,'destroy'])->name('order.complete');
-Route::get('categories',[CategoryController::class,'index']);
-Route::get('cartItems',[UserController::class,'cartitems']);
+
+Route::get('cartItems',[CartController::class,'cartItems']);
+Route::post('cartItems/add');
 Route::get('notifications',[UserController::class,'notifications']);
 Route::post('notification/category',[UserController::class,'notificationForm']);
+Route::post('notification/unread',[UserController::class,'unreadNotification']);
+
 Route::post('report',[UserController::class,'report']);
 Route::post('report/remove',[UserController::class,'removeReport'])->name('report.remove');
 Route::get('reports',[AdminController::class,'reports']);
-Route::post('notification/unread',[UserController::class,'unreadNotification']);
 
 Route::get('categories',[CategoryController::class,'index']);
 Route::get('isAdmin',[UserController::class,'isAdmin']);

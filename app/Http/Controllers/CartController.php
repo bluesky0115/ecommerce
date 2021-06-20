@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -12,6 +14,25 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function cartItems(Request $request)
+    {
+      $user=User::find($request->userId);
+      $cartItems=$user->cart->products;
+      return response()->json(['cartItems'=>$cartItems]);
+    }
+    public function addToCart(Request $request)
+    {
+      $user=User::find($request->userId);
+      $product=Product::find($request->productId);
+      if($user->cart){
+        $user->cart->attach($product);
+      }
+      else{
+        $cart=new Cart;
+        $cart->user=$user;
+        $user->cart->attach($product);
+      }  
+    }
     public function index()
     {
         //
