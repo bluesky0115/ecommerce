@@ -38,7 +38,7 @@
                  <input type="text" name="searchQuery" required class="h-4/5 my-auto w-1/2 rounded border-2 border-gray-500 text-xl py-1 px-3 mx-1">
                  <input type="submit" value="search" class="text-xl text-white bg-gray-700">    
                 </form> 
-                  <a href="{{route('product.create')}}" class="text-xl">upload</a>
+                  <a href="{{route('product.create')}}" class="text-xl">add</a>
                   <cart-component>
                    @auth
                    <notifications-component user-id="{{Auth::user()->id}}"/>  
