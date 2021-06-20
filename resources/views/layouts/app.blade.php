@@ -15,7 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    <link rel="icon" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Ficons-for-free.com%2Fcart%2Becommerce%2Bshop%2Bicon-1320166083122274571%2F&psig=AOvVaw3ozcVL4U2z6KhYdVhOavCd&ust=1624265065207000&source=images&cd=vfe&ved=0CAcQjRxqFwoTCOiu6pDppfECFQAAAAAdAAAAABAD">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -40,7 +40,7 @@
                         <select name="category" id="" required class="">
                           <option value="all" selected>all</option>
                           @foreach ($categories as $category)
-                            <option value="{{$category->id}}">{{category->name}}</option>  
+                            <option value="{{$category->id}}">{{$category->name}}</option>  
                           @endforeach  
                         </select>
                        <input type="text" name="searchQuery" required class="">
@@ -50,7 +50,9 @@
                     <ul class="navbar-nav mr-auto">
                       <li><cart-component></li>
                       <li>contact us</li>
-                      <notifications-component user-id="{{Auth::user()->id}}"/> 
+                      @auth
+                      <notifications-component user-id="{{Auth::user()->id}}"/>  
+                      @endauth 
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
