@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -17,11 +18,15 @@ class OrderController extends Controller
     {
       $user=User::find($request->userId);
       $orderItems=$request->orderItems;
+      $order=new Order;
       foreach($orderItems as $orderItem){
-        $productId=$orderItem->id;
+        $product=Product::find($orderItem->id);
         $quantity=$orderItem->quantity;
-        $user->orders->attach([$productId=>['quantity'=>$quantity]]);  
+        $order->products=attach([$product=>[
+          'quantity'=>$product->quantity
+        ]]);
       }
+      $user->orders=attach($order);  
     }
     public function index()
     {

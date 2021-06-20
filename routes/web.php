@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,12 @@ Route::prefix('product')->group(function () {
     Route::get('search',[ProductController::class,'search'])->name('product.search');
     Route::post('addtocart',[ProductController::class,'postAddToCart'])->name('product.getAddToCart');
     Route::post('addtocart',[ProductController::class,'postAddToCart'])->name('product.postAddToCart');
+});
+
+Route::prefix('profile')->group(function(){
+  Route::get('create',[ProfileController::class,'create'])->name('profile.create');
+  Route::get('edit',[ProfileController::class,'eidt'])->name('profile.edit');
+  Route::post('update',[ProfileController::class,'update'])->name('profile.update');
 });
 
 Route::get('orders',[OrderController::class,'index'])->name('orders');
