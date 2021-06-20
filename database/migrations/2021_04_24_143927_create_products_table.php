@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->integer('price');
             $table->foreignId('user_id');
+            $table->foreignId('category_id');
             $table->string('cover')->default('product.png');
             $table->text('description');
             $table->timestamps();
