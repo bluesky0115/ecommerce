@@ -21,7 +21,7 @@ export default {
     }
   },
   mounted(){
-    axios.get('/product/category',{params:{categoryId:this.categoryId}})
+    axios.get('/category/product',{params:{categoryId:this.categoryId}})
     .then(res=>{
       this.products=res.data.products;
     })

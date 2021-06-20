@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-gray-700 shadow-sm">
             <div class="sm:inline none">
               <navigation-component user-id="userId"/> 
             </div>
@@ -44,7 +44,7 @@
                           @endforeach  
                         </select>
                        <input type="text" name="searchQuery" required class="">
-                       <input type="submit" vlaue="search" class="">    
+                       <input type="submit" value="search" class="">    
                       </form>  
                     </div>
                     <ul class="navbar-nav mr-auto">
