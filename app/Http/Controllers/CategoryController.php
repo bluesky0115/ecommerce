@@ -15,10 +15,6 @@ class CategoryController extends Controller
     public function index()
     {
       $categories=Category::all();
-      foreach($categories as $category){
-         $category->totalProduct=$category->products->count(); 
-      }
-      $categories=$categories->orderBy('totalProduct');
       return response()->json(['categories'=>$categories]);
     }
 

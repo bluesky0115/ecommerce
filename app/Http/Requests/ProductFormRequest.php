@@ -25,8 +25,8 @@ class ProductFormRequest extends FormRequest
     {
         return [
             'name'=>['required','string','min:3','max:20'],
-            'category'=>['required'],
-            'cost'=>['required'],
+            'categoryId'=>['required'],
+            'price'=>['required'],
             'photo'=>['required','image'],
             'description'=>['max:200']
         ];
@@ -39,7 +39,7 @@ class ProductFormRequest extends FormRequest
           'name.required'=>'product name should be minimum of 3 characters',
           'name.required'=>'product name should be maximum of 20  characters',
           'category.required'=>'product category is required',
-          'cost.required'=>'product cost is required',
+          'price.required'=>'product cost is required',
           'photo.required'=>'product picture is required',
           'photo.image'=>'product picture should be an image',
           'description.max'=>'product description should be less than 200 characters',

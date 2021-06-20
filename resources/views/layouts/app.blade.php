@@ -22,24 +22,25 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-gray-700 shadow-sm flex text-white">
-            <div class="container flex">
-                <a class="text-xl text-white m-1" href="/">
+            <div class="flex">
+                <a class="text-xl text-white m-1" href="{{route('home')}}">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
                 </a>
-                <form action="{{route('product.search')}}" class="w-full flex ml-5 px-2">
-                  <select name="category" id="" required class="my-auto bg-gray-700 text-xl text-white">
+                <form action="{{route('product.search')}}" class="w-4/5 flex ml-5 px-2">
+                 <input type="text" name="searchQuery" required class="text-gray-700 h-4/5 my-auto w-1/2 rounded border-2 border-gray-500 text-xl py-1 px-3 mx-1">
+                 <select name="category" id="" required class="my-auto bg-gray-700 text-xl text-white">
                     <option value="all" selected>all</option>
                     @foreach ($categories as $category)
                       <option value="{{$category->id}}">{{$category->name}}</option>  
                     @endforeach  
                   </select>
-                 <input type="text" name="searchQuery" required class="h-4/5 my-auto w-1/2 rounded border-2 border-gray-500 text-xl py-1 px-3 mx-1">
                  <input type="submit" value="search" class="text-xl text-white bg-gray-700">    
                 </form> 
-                  <a href="{{route('product.create')}}" class="text-xl">add</a>
-                  <cart-component>
+                  <a href="{{route('product.create')}}" class="text-xl mx-2">add</a>
+                  <a href="{{route('about')}}" class="text-xl mx-2">contact us</a>
+                  <cart-component>    
                    @auth
                    <notifications-component user-id="{{Auth::user()->id}}"/>  
                    @endauth 
@@ -47,10 +48,9 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="flex collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <a href="" class="{{route('about')}}" class="text-xl">contact us</a>
+    
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">

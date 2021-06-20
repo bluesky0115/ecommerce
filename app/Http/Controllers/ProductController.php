@@ -41,15 +41,16 @@ class ProductController extends Controller
     {
         $product=new Product;
         $product->name=$request->name;
-        $product->cost=$request->cost;
+        $product->price=$request->price;
         $product->user_id=$request->userId;
         $product->description=$request->description;
-        $product->category=$request->category;
+        $product->category_id=$request->categoryId;
+        $product->category_id=$request->userId;
         $product->save();
         $product->cover=$product->id.'.'.$request->photo->extension();
-        $request->photo->saveAs('products',$product->cover,'public');
-        $notifiedUsers=User::where('selectedCategories')->get();
-        $notifiedUsers->notify(new NewProductNotification($product)); 
+        $request->photo->storeAs('products',$product->cover,'public');
+        //$notifiedUsers=User::where('selectedCategories')->get();
+        //$notifiedUsers->notify(new NewProductNotification($product)); 
     }
 
     /**
