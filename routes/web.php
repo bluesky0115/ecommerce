@@ -56,3 +56,4 @@ Route::post('report/remove',[UserController::class,'removeReport'])->name('repor
 Route::get('reports',[AdminController::class,'reports']);
 Route::post('notification/unread',[UserController::class,'unreadNotification']);
 
+Route::view('about',view('about'))->name('about');
