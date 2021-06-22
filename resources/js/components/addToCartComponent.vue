@@ -1,8 +1,7 @@
 <template>
- <button @click="addToCart">
-  <img v-if="!addedToCart" src="/icons/addToCart.png" class="w-10 h-10">
-  <img v-else src="/icons/added.png" class="w-10 h-10">   
- </button>  
+ <form @submit.prevent="addToCart">
+  <input type="submit" :value="addText" class="cursor-pointer bg-blue-500 rounded text-white">  
+ </form>  
 </template>
 <script>
  export default{
@@ -10,6 +9,7 @@
     data(){
         return{
           addedToCart:false,
+          addText:'add'
         }
     },
     methods:{
@@ -18,12 +18,16 @@
            axios.post('/product/addtocart',{productId:this.productId,userId:this.userId})
           .then(res=>{
             this.addedToCart=true;
+            this.addText='added';
+            this.$emit('productAddedToCart',this.productId);
           }); 
           }
           else{
            axios.post('/product/removefromcart',{productId:this.productId,userId:this.userId})
            .then(res=>{
              this.addedToCart=false;
+             this.addText='add';
+             this.$emit('productRemovedFromCart',this.productId);
            })
           }
         }

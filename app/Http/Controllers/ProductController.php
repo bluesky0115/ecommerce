@@ -20,6 +20,9 @@ class ProductController extends Controller
     public function index()
     {
       $products=Product::all();
+      foreach($products as $product){
+        $product->totalComments=$product->comments->count();
+      }
       return response()->json(['products'=>$products]);
     }
 
@@ -114,29 +117,40 @@ class ProductController extends Controller
     public function search(Request $request)
     {
       $category_id=$request->category;
-      $searchQuery=$request->searchQuery;
+      $searchQuery=$request->searchQuery; 
       if($category_id=='all'){
         $products=Product::where('name','like',"${searchQuery}")->get();  
       }
       else{
         $products=Product::where([['category_id',$category_id],['name','like',"${searchQuery}"]])->get();  
       }
-      $categoryName=Category::find($category_id)?? "all"; 
+      $categoryName=Category::find($category_id)->name ?? 'product';
       return view('product.search',['products'=>$products,'searchQuery'=>$searchQuery,'categoryName'=>$categoryName]);
     }
-    public function AddToCart(Request $request)
+    public function addToCart(Request $request)
     {
       $user=User::find($request->userId);
       $product=Product::find($request->productId);
       $cart=$user->cart;
       if($cart){
-        $cart->attach($product);
+        $cart->products()->attach($product);
       }
       else{
         $cart=new Cart;
         $cart->user=$user;
-        $cart->prouct->attach($product);
+        $cart->products()->attach($product);
       }
     }
-    
+    public function removeFromCart(Request $request)
+    {
+      $user=User::find($request->userId);
+      $product=Product::find($request->productId);
+      $cart=$user->cart;
+      $cart->detach($product);
+    }
+    public function data(Request $request)
+    {
+      $product=Product::find($request->productId);
+      return response()->json(['product'=>$product]); 
+    }
 }

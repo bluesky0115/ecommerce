@@ -23,7 +23,7 @@
 </template>
 <script>
 export default {
-   props:['videoId','userId'],
+   props:['productId','userId'],
    data(){
     return{
      body:'',
@@ -35,9 +35,6 @@ export default {
           .then(res=>{
             this.comments=res.data.comments;
             this.user=res.data.user;
-            console.log(res.data.comments);
-          })
-          .catch(err=>{
           });           
    },
    methods:{

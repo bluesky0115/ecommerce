@@ -1,14 +1,13 @@
 <template>
-   <div class="flex p-2 bg-white">
-   <div v-for="product in products " :key="product.id" class="m-2">
+   <div class="flex p-2">
+   <div v-for="product in products " :key="product.id" class="rounded-xl m-2 hover:border-2 hover:border-primary hover:shadow-md">
     <a :href="'/product/show/'+product.id">
      <img :src="'/storage/products/'+product.cover" alt="" class="w-48">
      <p>{{product.name}} {{product.price}} birr</p>
      <p>{{product.description}}</p>
      <div class="flex">
       <span>{{product.totalComments}} comments</span>
-      <addtocart-component product-id="product.id" user-id="userId" />
-      <report-component user-id="userId" product-id="productId"></report-component>
+      <addtocart-component :productId="product.id" :userId="userId" />
      </div> 
     </a>
    </div>
@@ -16,20 +15,16 @@
 </template>
 <script>
 export default {
+  props:['userId'],
   data(){
     return{
       products:[], 
      }     
   },
   mounted(){
-   console.log('products component mounted');
    axios.get('/products')
    .then(res=>{
      this.products=res.data.products;
-     console.log(this.products);
-   })
-   .catch(err=>{
-
    });
   },
   methods:{

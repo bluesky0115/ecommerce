@@ -7,8 +7,9 @@
         <img src="/storage/products/{{$product->cover}}" class="w-100 m-2">
         <p class="text-xl mx-10">price {{$product->price}} birr</p>
         <p class="text-xl mx-10"> {{$product->description}}</p>
+        <report-component user-id="{{Auth::user()->id}}" product-id="{{$product->id}}"/>
     </div>
-    <div>
+    {{-- <div>
        @can('update', Product::class)
        <form method="POST" action="{{route('product.update',$product->id)}}">
         {{csrf_field}}
@@ -23,7 +24,7 @@
         <input type="submit" value="delete">
        </form> 
        @endcan 
-    </div>
+    </div> --}}
      <comment-component user-id="{{Auth::user()->id}}" product-id="{{$product->id}}"/>    
    </div>
         <div class="">

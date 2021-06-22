@@ -1854,21 +1854,35 @@ __webpack_require__.r(__webpack_exports__);
   props: ['productId', 'userId'],
   data: function data() {
     return {
-      added: false,
-      buttonText: 'add to cart'
+      addedToCart: false,
+      addText: 'add'
     };
   },
   methods: {
     addToCart: function addToCart() {
       var _this = this;
 
-      axios.post('/product/addtocart', {
-        productId: this.productId,
-        userId: this.userId
-      }).then(function (res) {
-        _this.addded = true;
-        _this.buttonText = 'added';
-      })["catch"](function (err) {});
+      if (!this.added) {
+        axios.post('/product/addtocart', {
+          productId: this.productId,
+          userId: this.userId
+        }).then(function (res) {
+          _this.addedToCart = true;
+          _this.addText = 'added';
+
+          _this.$emit('productAddedToCart', _this.productId);
+        });
+      } else {
+        axios.post('/product/removefromcart', {
+          productId: this.productId,
+          userId: this.userId
+        }).then(function (res) {
+          _this.addedToCart = false;
+          _this.addText = 'add';
+
+          _this.$emit('productRemovedFromCart', _this.productId);
+        });
+      }
     }
   }
 });
@@ -2083,7 +2097,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['videoId', 'userId'],
+  props: ['productId', 'userId'],
   data: function data() {
     return {
       body: '',
@@ -2101,8 +2115,7 @@ __webpack_require__.r(__webpack_exports__);
     }).then(function (res) {
       _this.comments = res.data.comments;
       _this.user = res.data.user;
-      console.log(res.data.comments);
-    })["catch"](function (err) {});
+    });
   },
   methods: {
     addComment: function addComment() {
@@ -2467,8 +2480,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['userId'],
   data: function data() {
     return {
       products: []
@@ -2477,11 +2490,9 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    console.log('products component mounted');
     axios.get('/products').then(function (res) {
       _this.products = res.data.products;
-      console.log(_this.products);
-    })["catch"](function (err) {});
+    });
   },
   methods: {}
 });
@@ -2514,26 +2525,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['productId', 'userId'],
   data: function data() {
     return {
+      product: {},
       reporting: false,
       reportText: '',
       reportMessage: null
     };
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    console.log('product id ' + this.productId + ' user id '["this"].userId);
+    axios.get('/product/data', {
+      productId: this.productId
+    }).then(function (res) {
+      _this.product = res.data.product;
+      console.log('reported product ' + _this.product);
+    });
+  },
   methods: {
     report: function report() {
-      var _this = this;
+      var _this2 = this;
 
       axios.post('/report', {
         userId: this.userId,
         productId: this.productId,
         reportText: this.reportText
       }).then(function (res) {
-        _this.reportMessage = "your report succesfully sent to adminstrators";
-        _this.reporting = false;
+        _this2.reportMessage = "your report succesfully sent to adminstrators";
+        _this2.reporting = false;
       });
     }
   }
@@ -39020,10 +39047,9 @@ var render = function() {
     },
     [
       _c("input", {
-        staticClass: "text-md text-white rounded",
-        class: [_vm.added ? "bg-green-500" : "bg-blue-500"],
+        staticClass: "cursor-pointer bg-blue-500 rounded text-white",
         attrs: { type: "submit" },
-        domProps: { value: _vm.buttonText }
+        domProps: { value: _vm.addText }
       })
     ]
   )
@@ -39106,7 +39132,7 @@ var render = function() {
                 [
                   _c(
                     "a",
-                    { attrs: { href: "/propducts/show/" + cartItem.id } },
+                    { attrs: { href: "/products/show/" + cartItem.id } },
                     [_vm._v(_vm._s(cartItem.name))]
                   )
                 ]
@@ -39874,37 +39900,45 @@ var render = function() {
     "div",
     { staticClass: "flex p-2 bg-white" },
     _vm._l(_vm.products, function(product) {
-      return _c("div", { key: product.id, staticClass: "m-2" }, [
-        _c("a", { attrs: { href: "/product/show/" + product.id } }, [
-          _c("img", {
-            staticClass: "w-48",
-            attrs: { src: "/storage/products/" + product.cover, alt: "" }
-          }),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(_vm._s(product.name) + " " + _vm._s(product.price) + " birr")
-          ]),
-          _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(product.description))]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "flex" },
-            [
-              _c("span", [_vm._v(_vm._s(product.totalComments) + " comments")]),
-              _vm._v(" "),
-              _c("addtocart-component", {
-                attrs: { "product-id": "product.id", "user-id": "userId" }
-              }),
-              _vm._v(" "),
-              _c("report-component", {
-                attrs: { "user-id": "userId", "product-id": "productId" }
-              })
-            ],
-            1
-          )
-        ])
-      ])
+      return _c(
+        "div",
+        {
+          key: product.id,
+          staticClass:
+            "rounded-xl m-2 hover:border-2 hover:border-primary hover:shadow-md"
+        },
+        [
+          _c("a", { attrs: { href: "/product/show/" + product.id } }, [
+            _c("img", {
+              staticClass: "w-48",
+              attrs: { src: "/storage/products/" + product.cover, alt: "" }
+            }),
+            _vm._v(" "),
+            _c("p", [
+              _vm._v(
+                _vm._s(product.name) + " " + _vm._s(product.price) + " birr"
+              )
+            ]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(product.description))]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex" },
+              [
+                _c("span", [
+                  _vm._v(_vm._s(product.totalComments) + " comments")
+                ]),
+                _vm._v(" "),
+                _c("addtocart-component", {
+                  attrs: { productId: product.id, userId: _vm.userId }
+                })
+              ],
+              1
+            )
+          ])
+        ]
+      )
     }),
     0
   )
@@ -39947,23 +39981,21 @@ var render = function() {
       ),
       _vm._v(" "),
       _vm.reporting
-        ? _c("div", { staticClass: "fixed z-20" }, [
-            _c(
-              "button",
-              {
-                on: {
-                  click: function($event) {
-                    _vm.reporting = false
-                  }
-                }
-              },
-              [_vm._v("x")]
-            ),
+        ? _c("div", { staticClass: "fixed top-1/2 left-1/2 z-20" }, [
+            _c("img", {
+              staticClass: "w-48",
+              attrs: { src: "/products/" + _vm.product.id }
+            }),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(_vm.product.name))]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(_vm.product.price) + " birr")]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(_vm.product.description))]),
             _vm._v(" "),
             _c(
               "form",
               {
-                attrs: { action: "" },
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
@@ -39972,6 +40004,18 @@ var render = function() {
                 }
               },
               [
+                _c(
+                  "button",
+                  {
+                    on: {
+                      click: function($event) {
+                        _vm.reporting = false
+                      }
+                    }
+                  },
+                  [_vm._v("x")]
+                ),
+                _vm._v(" "),
                 _c("textarea", {
                   directives: [
                     {

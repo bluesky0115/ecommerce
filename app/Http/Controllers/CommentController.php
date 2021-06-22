@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -12,9 +14,12 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+      $product=Product::find($request->productId);
+      $comments=$product->comments;
+      $user=User::find($request->userId);
+      return response()->json(['comments'=>$comments,'user'=>$user]);
     }
 
     /**

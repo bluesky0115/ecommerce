@@ -20,7 +20,7 @@
     <link rel="icon" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Ficons-for-free.com%2Fcart%2Becommerce%2Bshop%2Bicon-1320166083122274571%2F&psig=AOvVaw2_4410cN2jnrmeFPNRJIFi&ust=1624431066987000&source=images&cd=vfe&ved=0CAcQjRxqFwoTCKCJ47zTqvECFQAAAAAdAAAAABAE">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-200">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-gray-700 shadow-sm flex text-white">
             <div class="flex">

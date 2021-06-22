@@ -36,7 +36,9 @@ Route::prefix('product')->group(function () {
     Route::get('show/{product}',[ProductController::class,'show'])->name('product.show');
     Route::delete('delete/{product}',[ProductController::class,'delete'])->name('product.delete');
     Route::get('search',[ProductController::class,'search'])->name('product.search');
-    Route::post('addtocart',[ProductController::class,'AddToCart'])->name('product.AddToCart');
+    Route::get('data',[ProductController::class,'data']);
+    Route::post('addtocart',[ProductController::class,'addToCart']);
+    Route::post('removefromcart',[ProductController::class,'removeFromCart']);
 });
 
 Route::prefix('profile')->group(function(){
