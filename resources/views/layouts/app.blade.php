@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="icon" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Ficons-for-free.com%2Fcart%2Becommerce%2Bshop%2Bicon-1320166083122274571%2F&psig=AOvVaw2H2EmaGs_3xAxpAms6zC_V&ust=1624288459205000&source=images&cd=vfe&ved=0CAcQjRxqFwoTCPj2mKHApvECFQAAAAAdAAAAABAD">
+    <link rel="icon" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Ficons-for-free.com%2Fcart%2Becommerce%2Bshop%2Bicon-1320166083122274571%2F&psig=AOvVaw2_4410cN2jnrmeFPNRJIFi&ust=1624431066987000&source=images&cd=vfe&ved=0CAcQjRxqFwoTCKCJ47zTqvECFQAAAAAdAAAAABAE">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
@@ -42,7 +42,7 @@
                   <a href="{{route('product.create')}}" class="text-xl mx-2">add</a>
                   <a href="{{route('order')}}" class="text-xl mx-2">order</a>
                   <a href="{{route('about')}}" class="text-xl mx-2">contact us</a>
-                  <cart-component>    
+                  <cart-component user-id="{{Auth::user()->id}}">    
                    @auth
                    <notifications-component user-id="{{Auth::user()->id}}"/>  
                    @endauth 

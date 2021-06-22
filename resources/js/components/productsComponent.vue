@@ -16,16 +16,17 @@
 </template>
 <script>
 export default {
-  props:['userId'],
   data(){
     return{
       products:[], 
      }     
   },
   mounted(){
+   console.log('products component mounted');
    axios.get('/products')
    .then(res=>{
      this.products=res.data.products;
+     console.log(this.products);
    })
    .catch(err=>{
 

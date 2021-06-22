@@ -43,7 +43,7 @@ class CategoryPolicy
     {
       return in_array($user->email,[
        'admin@admin.com',   
-      ])
+      ]);
     }
 
     /**

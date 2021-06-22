@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
- <div class="bg-gray-200 p-10 -inset-full">
-  <div class="w-1/2 bg-white m-auto py-5 px-10 rounded-xl">
+ <div class="bg-gray-200 p-2 lg:p-10">
+  <div class="w-full md:w-2/3 lg:w-1/2 xl:w-1/2 bg-white m-auto py-5 px-10 rounded-xl">
     <p class="text-2xl m-2 font-semibold text-center">add product here</p>
      <form method="post" action="{{route('product.store')}}" enctype="multipart/form-data">
        {{ csrf_field() }}

@@ -44,6 +44,6 @@ class ProfileFormRequest extends FormRequest
             'street.required'=>'street should be in character format',
             'street.required'=>'street length should be minimum of 2 characters',
             'street.required'=>'street length should be maximum of 30 characters'
-        ]
+        ];
     }
 }

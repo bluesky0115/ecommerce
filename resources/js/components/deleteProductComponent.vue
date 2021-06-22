@@ -11,16 +11,20 @@
     </div>
   </div>
   <div v-if="readyToDelete" class="absolute -inset-full opacity-50 bg-black z-10"></div>
-</div>(productId)
-    data(){
-      return{
-        deletedText:'delete',
-        deleted:false,
-        readyToDelete:false,
-        product:{
-        
-        }
-      }  
+</div>
+</template>
+<script>
+export default{
+  props:['productId'],
+  data(){
+    return{
+      deletedText:'delete',
+      deleted:false,
+      readyToDelete:false,
+      product:{
+      
+      }
+    }  
     },
     methods:{
        deleteProduct(){

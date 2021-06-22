@@ -1,11 +1,10 @@
 <template>
   <div>
-  <div class="flex overflow-scroll mx-2">
-    <router-link to="/all">all</router-link>
-    <router-link v-for="category in categories" :to="{name:'product', params:{categoryId:category.id,category:category.name}}" :key="category.id">
+  <div class="flex">
+    <router-link v-for="category in categories" :to="{name:'category', params:{categoryId:category.id,category:category.name}}" :key="category.id" 
+    class="text-gray-800 capitalize text-2xl my-1 mx-3 active:border-bottom-2 active:border-gray-600">
        {{category.name}}
     </router-link>
-    <router-link to="/other">other</router-link>
   </div>
   </div>
 </template>
@@ -20,7 +19,6 @@ export default {
     axios.get('/categories')
     .then(res=>{
       this.categories=res.data.categories;
-      console.log('categories '+this.categories);
     })
   }
 }

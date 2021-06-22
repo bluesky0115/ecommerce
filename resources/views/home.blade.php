@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-  {{-- <categorylink-component/> --}}
-  <products-component/>
+  <header><categorylink-component/></header>
+  <main><products-component/></main>
 </div>
 @endsection

@@ -1,27 +1,31 @@
 <template>
- <form @submit.prevent="addToCart">
-  <input type="submit" :value="buttonText" class="text-md text-white rounded" :class="[added ? 'bg-green-500' : 'bg-blue-500']"> 
-  </form>  
+ <button @click="addToCart">
+  <img v-if="!addedToCart" src="/icons/addToCart.png" class="w-10 h-10">
+  <img v-else src="/icons/added.png" class="w-10 h-10">   
+ </button>  
 </template>
 <script>
  export default{
     props:['productId','userId'],
     data(){
         return{
-          added:false,
-          buttonText:'add to cart'
+          addedToCart:false,
         }
     },
     methods:{
         addToCart(){
-          axios.post('/product/addtocart',{productId:this.productId,userId:this.userId})
+          if(!this.added){
+           axios.post('/product/addtocart',{productId:this.productId,userId:this.userId})
           .then(res=>{
-            this.addded=true;
-            this.buttonText='added';
-          })
-          .catch(err=>{
-            
-          });
+            this.addedToCart=true;
+          }); 
+          }
+          else{
+           axios.post('/product/removefromcart',{productId:this.productId,userId:this.userId})
+           .then(res=>{
+             this.addedToCart=false;
+           })
+          }
         }
     }
  }
