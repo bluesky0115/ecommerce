@@ -42,9 +42,13 @@
                   <a href="{{route('product.create')}}" class="text-xl mx-2">add</a>
                   <a href="{{route('order')}}" class="text-xl mx-2">order</a>
                   <a href="{{route('about')}}" class="text-xl mx-2">contact us</a>
-                  <cart-component user-id="{{Auth::user()->id}}">    
+                  <div>
+                    <cart-component user-id="{{Auth::user()->id}}">    
+                  </div>    
                    @auth
-                   <notifications-component user-id="{{Auth::user()->id}}"/>  
+                   <div>
+                    <notifications-component user-id="{{Auth::user()->id}}"/>    
+                   </div>  
                    @endauth 
                </ul>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

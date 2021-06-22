@@ -25,13 +25,17 @@ class CartController extends Controller
       $user=User::find($request->userId);
       $product=Product::find($request->productId);
       if($user->cart){
-        $user->cart->attach($product);
+        $user->cart->syncWithoutDetaching($product);
       }
       else{
         $cart=new Cart;
         $cart->user=$user;
-        $user->cart->attach($product);
+        $user->cart->syncWithoutDetaching($product);
       }  
+    }
+    public function productInCart()
+    {
+      
     }
     public function index()
     {

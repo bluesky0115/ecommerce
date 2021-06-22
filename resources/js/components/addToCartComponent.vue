@@ -12,6 +12,12 @@
           addText:'add'
         }
     },
+    mounted(){
+     axios.get('/cart/product',{params:{userId:this.userId,productId:this.productId}})
+     .then(res=>{
+        this.addedToCart=res.data.addedToCart;
+     });
+    },
     methods:{
         addToCart(){
           if(!this.added){

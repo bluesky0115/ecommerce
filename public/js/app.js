@@ -1858,29 +1858,41 @@ __webpack_require__.r(__webpack_exports__);
       addText: 'add'
     };
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/cart/product', {
+      params: {
+        userId: this.userId,
+        productId: this.productId
+      }
+    }).then(function (res) {
+      _this.addedToCart = res.data.addedToCart;
+    });
+  },
   methods: {
     addToCart: function addToCart() {
-      var _this = this;
+      var _this2 = this;
 
       if (!this.added) {
         axios.post('/product/addtocart', {
           productId: this.productId,
           userId: this.userId
         }).then(function (res) {
-          _this.addedToCart = true;
-          _this.addText = 'added';
+          _this2.addedToCart = true;
+          _this2.addText = 'added';
 
-          _this.$emit('productAddedToCart', _this.productId);
+          _this2.$emit('productAddedToCart', _this2.productId);
         });
       } else {
         axios.post('/product/removefromcart', {
           productId: this.productId,
           userId: this.userId
         }).then(function (res) {
-          _this.addedToCart = false;
-          _this.addText = 'add';
+          _this2.addedToCart = false;
+          _this2.addText = 'add';
 
-          _this.$emit('productRemovedFromCart', _this.productId);
+          _this2.$emit('productRemovedFromCart', _this2.productId);
         });
       }
     }
@@ -2101,6 +2113,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       body: '',
+      user: {},
       comments: []
     };
   },
@@ -2281,7 +2294,13 @@ __webpack_require__.r(__webpack_exports__);
   props: ['userId'],
   data: function data() {
     return {
-      notifications: [],
+      notifications: [{
+        id: 1,
+        name: 'first notification'
+      }, {
+        id: 2,
+        name: 'second notification'
+      }],
       selectedCategories: [],
       notificationPopup: false
     };
@@ -2289,7 +2308,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get('notifications', {
+    axios.get('/notifications', {
       params: {
         userId: this.userId
       }
@@ -2542,12 +2561,10 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    console.log('product id ' + this.productId + ' user id '["this"].userId);
     axios.get('/product/data', {
       productId: this.productId
     }).then(function (res) {
       _this.product = res.data.product;
-      console.log('reported product ' + _this.product);
     });
   },
   methods: {
@@ -39130,11 +39147,9 @@ var render = function() {
                 "li",
                 { key: cartItem.id, staticClass: "hover:bg-gray-200 px-5" },
                 [
-                  _c(
-                    "a",
-                    { attrs: { href: "/products/show/" + cartItem.id } },
-                    [_vm._v(_vm._s(cartItem.name))]
-                  )
+                  _c("a", { attrs: { href: "/product/show/" + cartItem.id } }, [
+                    _vm._v(_vm._s(cartItem.name))
+                  ])
                 ]
               )
             }),
@@ -39587,139 +39602,90 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("button", [
-      _c(
-        "svg",
-        {
-          staticClass: "h-6 w-6",
-          attrs: {
-            xmlns: "http://www.w3.org/2000/svg",
-            fill: "none",
-            viewBox: "0 0 24 24",
-            stroke: "currentColor"
+    _c(
+      "button",
+      {
+        staticClass: "flex",
+        on: {
+          click: function($event) {
+            _vm.notificationPopup = true
           }
-        },
-        [
-          _c("path", {
+        }
+      },
+      [
+        _c(
+          "svg",
+          {
+            staticClass: "h-10 w-10",
             attrs: {
-              "stroke-linecap": "round",
-              "stroke-linejoin": "round",
-              "stroke-width": "2",
-              d:
-                "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+              xmlns: "http://www.w3.org/2000/svg",
+              fill: "none",
+              viewBox: "0 0 24 24",
+              stroke: "currentColor"
             }
-          })
-        ]
-      ),
-      _vm._v(" "),
-      _c("span", [_vm._v("(" + _vm._s(_vm.notifications.length) + ")")])
-    ]),
-    _vm._v(" "),
-    _c("div", [
-      _c(
-        "ul",
-        _vm._l(_vm.notifications, function(notification) {
-          return _c("li", { key: notification.id }, [
-            _c("a", { attrs: { href: notification.reference } }, [
-              _vm._v(_vm._s(notification.name))
-            ]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                on: {
-                  click: function($event) {
-                    return _vm.readNotification(notification.id)
-                  }
-                }
-              },
-              [_vm._v("x")]
-            )
-          ])
-        }),
-        0
-      )
-    ]),
+          },
+          [
+            _c("path", {
+              attrs: {
+                "stroke-linecap": "round",
+                "stroke-linejoin": "round",
+                "stroke-width": "2",
+                d:
+                  "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _vm.notifications.length
+          ? _c("span", { staticClass: "text-3xl" }, [
+              _vm._v("(" + _vm._s(_vm.notifications.length) + ")")
+            ])
+          : _vm._e()
+      ]
+    ),
     _vm._v(" "),
     _vm.notificationPopup
-      ? _c("div", {}, [
-          _c("h1", [_vm._v("this website wants to send notifications")]),
-          _vm._v(" "),
-          _c("p", [_vm._v("in which category you are interested ?")]),
-          _vm._v(" "),
+      ? _c("div", { staticClass: "fixed bg-green z-20" }, [
           _c(
-            "form",
-            {
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.sendNotification.apply(null, arguments)
-                }
-              }
-            },
-            [
-              _vm._l(_vm.categories, function(category) {
-                return _c("p", { key: category.id }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.selectedCategories,
-                        expression: "selectedCategories"
-                      }
-                    ],
-                    key: category.id,
-                    attrs: { type: "checkbox", value: "category.id" },
-                    domProps: {
-                      checked: Array.isArray(_vm.selectedCategories)
-                        ? _vm._i(_vm.selectedCategories, "category.id") > -1
-                        : _vm.selectedCategories
-                    },
+            "ul",
+            _vm._l(_vm.notifications, function(notification) {
+              return _c("li", { key: notification.id }, [
+                _c("a", { attrs: { href: notification.reference } }, [
+                  _vm._v(_vm._s(notification.name))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
                     on: {
-                      change: function($event) {
-                        var $$a = _vm.selectedCategories,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = "category.id",
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 &&
-                              (_vm.selectedCategories = $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              (_vm.selectedCategories = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
-                          }
-                        } else {
-                          _vm.selectedCategories = $$c
-                        }
+                      click: function($event) {
+                        return _vm.readNotification(notification.id)
                       }
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("span", [_vm._v(_vm._s(category.name))])
-                ])
-              }),
-              _vm._v(" "),
-              _c("input", { attrs: { type: "submit", value: "" } })
-            ],
-            2
+                  },
+                  [_vm._v("x")]
+                )
+              ])
+            }),
+            0
           )
         ])
       : _vm._e(),
     _vm._v(" "),
     _vm.notificationPopup
-      ? _c("div", {
-          staticClass: "absolute z-10 -inset-full bg-black opacity-50",
-          on: {
-            click: function($event) {
-              _vm.notificationPopup = false
+      ? _c(
+          "div",
+          {
+            staticClass: "absolute z-10 -inset-full bg-black opacity-50",
+            on: {
+              click: function($event) {
+                _vm.notificationPopup = false
+              }
             }
-          }
-        })
+          },
+          [_vm._v("something")]
+        )
       : _vm._e()
   ])
 }
@@ -39898,14 +39864,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "flex p-2 bg-white" },
+    { staticClass: "flex p-2" },
     _vm._l(_vm.products, function(product) {
       return _c(
         "div",
         {
           key: product.id,
           staticClass:
-            "rounded-xl m-2 hover:border-2 hover:border-primary hover:shadow-md"
+            "bg-white rounded-xl m-2 hover:border-2 hover:border-primary hover:shadow-md"
         },
         [
           _c("a", { attrs: { href: "/product/show/" + product.id } }, [
@@ -39981,10 +39947,10 @@ var render = function() {
       ),
       _vm._v(" "),
       _vm.reporting
-        ? _c("div", { staticClass: "fixed top-1/2 left-1/2 z-20" }, [
+        ? _c("div", { staticClass: "bg-white fixed top-1/2 left-1/2 z-20" }, [
             _c("img", {
               staticClass: "w-48",
-              attrs: { src: "/products/" + _vm.product.id }
+              attrs: { src: "/storage/products/" + _vm.product.cover }
             }),
             _vm._v(" "),
             _c("p", [_vm._v(_vm._s(_vm.product.name))]),

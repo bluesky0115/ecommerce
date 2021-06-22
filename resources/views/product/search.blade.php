@@ -1,15 +1,19 @@
 @extends('layouts.app')
 @section('content')
-  <div>
+  <div class="flex">
   @forelse ($products as $product)
+  <a href="{{route('product.show',$product->id)}}">
    <div>
-   <img src="/products/{{$product->id}}" alt="">
+   <img src="/storage/products/{{$product->cover}}" class="w-48">
    <p>{{$product->name}}</p>
-   <p>price {{$product->price}}</p>
-   <a href="{{route('product.show',$product->id)}}">details</a>    
+   <p>price {{$product->price}}</p> 
+   <div>
+    <addtocart-component user-id="{{Auth::user()->id}}" product-id="{{$product->id}}">  
    </div>   
+   </div> 
+  </a>  
   @empty
-   <p class="text-2xl text-center">there is no {{$categoryName}} like {{$searchQuery}}</p>   
+   <p class="text-2xl m-10">oops there is no {{$categoryName}} found like {{$searchQuery}}</p>   
   @endforelse    
   </div>  
 @endsection

@@ -18,6 +18,7 @@ class CreateProfilesTable extends Migration
             $table->string('addres');
             $table->string('city');
             $table->string('phone_number');
+            $table->json('categories');
             $table->timestamps();
         });
     }

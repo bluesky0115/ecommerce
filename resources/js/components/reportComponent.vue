@@ -2,8 +2,8 @@
   <div>
    <div>
      <button @click="reporting=true">report</button>
-     <div v-if="reporting" class="fixed top-1/2 left-1/2 z-20">
-       <img :src="'/products/'+product.id" class="w-48">
+     <div v-if="reporting" class="bg-white fixed top-1/2 left-1/2 z-20">
+       <img :src="'/storage/products/'+product.cover" class="w-48">
        <p>{{product.name}}</p>
        <p>{{product.price}} birr</p>
        <p>{{product.description}}</p>
@@ -29,11 +29,9 @@ export default {
      }
     },
     mounted(){
-      console.log('product id '+this.productId+' user id '.this.userId);
      axios.get('/product/data',{productId:this.productId})
      .then(res=>{
        this.product=res.data.product;
-       console.log('reported product '+this.product);
      });
     },
     methods:{
