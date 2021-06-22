@@ -8,14 +8,14 @@
     props:['productId','userId'],
     data(){
         return{
-          addedToCart:false,
+          productInCart:false,
           addText:'add'
         }
     },
     mounted(){
      axios.get('/cart/product',{params:{userId:this.userId,productId:this.productId}})
      .then(res=>{
-        this.addedToCart=res.data.addedToCart;
+        this.productInCart=res.data.productInCart;
      });
     },
     methods:{

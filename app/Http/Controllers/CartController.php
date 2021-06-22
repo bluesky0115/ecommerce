@@ -33,9 +33,18 @@ class CartController extends Controller
         $user->cart->syncWithoutDetaching($product);
       }  
     }
-    public function productInCart()
+    public function productInCart(Request $request)
     {
-
+      $user=User::find($request->userId);
+      $product=Product::find($request->productId);
+      $cart=$user->cart;
+      if(in_array($product,$cart->products)){
+        $productInCart=true;
+      }
+      else{
+        $productInCart=false;
+      }
+      return response()->json(['productInCart'=>$productInCart]);  
     }
     public function index()
     {

@@ -33,7 +33,7 @@ export default {
    props:['userId'],
    data(){
     return{
-      notifications:[{id:1,name:'first notification'},{id:2,name:'second notification'}],
+      notifications:[],
       selectedCategories:[],
       notificationPopup:false  
     }   

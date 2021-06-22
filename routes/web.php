@@ -7,6 +7,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
 Auth::routes();
@@ -66,7 +68,11 @@ Route::post('report/remove',[UserController::class,'removeReport'])->name('repor
 Route::get('reports',[AdminController::class,'reports']);
 
 Route::get('categories',[CategoryController::class,'index']);
-Route::get('isAdmin',[UserController::class,'isAdmin']);
+
+Route::get('user/profile',[ProfileController::class,'create'])->name('profile.create');
+Route::post('user/profile/{id}',[ProfileController::class,'update'])->name('profile.create');
+Route::get('user/isAdmin',[UserController::class,'isAdmin']);
+
 Route::view('about','about')->name('about');
 
 Route::get('comments',[CommentController::class,'index']);

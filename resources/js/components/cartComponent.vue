@@ -30,9 +30,6 @@ export default {
     .then(res=>{
       this.cartItems=res.data.cartItems;
     })
-    .catch(err=>{
-
-    });
   },
   methods:{
 
