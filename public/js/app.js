@@ -2135,8 +2135,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       body: '',
       editedBody: '',
-      user: {},
-      comments: []
+      editedId: null,
+      deletedId: null
     };
   },
   mounted: function mounted() {
@@ -2150,7 +2150,7 @@ __webpack_require__.r(__webpack_exports__);
     }).then(function (res) {
       _this.comments = res.data.comments;
       _this.user = res.data.user;
-      console.log(res.data.user);
+      console.log(res.data.comments);
     });
   },
   methods: {

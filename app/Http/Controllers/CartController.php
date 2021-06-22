@@ -35,7 +35,7 @@ class CartController extends Controller
     }
     public function productInCart()
     {
-      
+
     }
     public function index()
     {

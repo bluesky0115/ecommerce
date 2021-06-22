@@ -3,8 +3,8 @@
 <div class="block lg:flex xl:flex 2xl:flex">
   <div class="w-full lg:w-2/3 xl:w-2/3 2xl:w-2/3 p-5">
     <div>
+        <img src="/storage/products/{{$product->cover}}" class="w-100">
         <p class="text-2xl mx-10">{{$product->name}} <strong>{{$product->price}} birr</strong></p>
-        <img src="/storage/products/{{$product->cover}}" class="w-100 m-2">
         <p class="text-lg mx-10"> {{$product->description}}</p>
     </div>
     <div class="flex">
@@ -12,7 +12,7 @@
         <report-component user-id="{{Auth::user()->id}}" product-id="{{$product->id}}"/>
       </div>
        @can('update',$product)
-        <button class="m-2 text-xl text-white bg-blue-500 px-2 rounded cursor-pointer">edit</button>
+        <a href="{{route('product.edit',$product->id)}}" class="m-2 text-xl text-white bg-blue-500 px-2 rounded cursor-pointer">edit</a>
        @endcan
        @can('delete',$product)
        <form method="POST" action="{{route('product.delete',$product->id)}}">
@@ -28,7 +28,7 @@
             @foreach ($recommendedProducts as $product)
                 <a href="{{route('product.show',$product->id)}}">
                     <div class="flex w-max m-2">
-                        <img src="/storage/products/{{$product->cover}}" alt="" width="200px">
+                        <img src="/storage/products/{{$product->cover}}" width="300px">
                         <div>
                           <p class="text-xl text-center">{{$product->name}}</p>
                           <p class="text-xl text-center">{{$product->price}} birr</p>  

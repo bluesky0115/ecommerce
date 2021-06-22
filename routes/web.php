@@ -54,8 +54,9 @@ Route::post('order',[OrderController::class,'order']);
 Route::post('order/complete',[OrderController::class,'destroy'])->name('order.complete');
 
 Route::get('cartitems',[CartController::class,'cartItems']);
-Route::post('cartitems/add');
+Route::post('cartitems/add',[CartController::class,'cartItems']);
 Route::get('/cart/product',[CartController::class,'productInCart']);
+
 Route::get('notifications',[UserController::class,'notifications']);
 Route::post('notification/category',[UserController::class,'notificationForm']);
 Route::post('notification/unread',[UserController::class,'unreadNotification']);
