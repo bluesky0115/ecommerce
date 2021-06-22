@@ -18,6 +18,9 @@ class CommentController extends Controller
     {
       $product=Product::find($request->productId);
       $comments=$product->comments;
+      foreach($comments as $comment){
+         $comment->user=User::find($comment->user_id); 
+      }
       $user=User::find($request->userId);
       return response()->json(['comments'=>$comments,'user'=>$user]);
     }
@@ -40,7 +43,10 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $comment=new Comment;
+      $comment->user_id=$request->userId;
+      $comment->body=$request->body;
+      $comment->save();
     }
 
     /**
@@ -72,9 +78,11 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request)
     {
-        //
+      $comment=Comment::find($request->commentId);
+      $comment->body=$request->body;
+      $comment->save();
     }
 
     /**
@@ -83,8 +91,9 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Request $request)
     {
-        //
+      $comment=Comment::find($request->commentId);
+      $comment->delete();
     }
 }

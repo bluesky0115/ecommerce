@@ -12,7 +12,7 @@
   @foreach ($categories as $category)
     <p><input type="checkbox" name="categories[]" value="{{$category->id}}">{{category->name}}</p>
   @endforeach
-  <input type="submit" value="create profile" class="">
+  <input type="submit" value="complete profile" class="bg-primary text-white">
  </form>    
  </div>   
 @endsection

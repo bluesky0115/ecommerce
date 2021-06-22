@@ -1,7 +1,6 @@
 <template>
   <div>
-   <div>
-     <button @click="reporting=true">report</button>
+     <button @click="reporting=true" class="text-xl bg-red-500 text-white px-2">report</button>
      <div v-if="reporting" class="bg-white fixed top-1/2 left-1/2 z-20">
        <img :src="'/storage/products/'+product.cover" class="w-48">
        <p>{{product.name}}</p>
@@ -13,8 +12,7 @@
          <input type="submit" value="report" class="">
        </form>
      </div>
-     <div v-if="reporting" @click="reporting=false" class="absolute z-10 -inset-full bg-black opacity-50"></div>
-   </div>   
+     <div v-if="reporting" @click="reporting=false" class="absolute z-10 -inset-full bg-black opacity-50"></div>   
   </div>  
 </template>
 <script>

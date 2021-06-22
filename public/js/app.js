@@ -2108,11 +2108,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['productId', 'userId'],
   data: function data() {
     return {
       body: '',
+      editedBody: '',
       user: {},
       comments: []
     };
@@ -2128,6 +2150,7 @@ __webpack_require__.r(__webpack_exports__);
     }).then(function (res) {
       _this.comments = res.data.comments;
       _this.user = res.data.user;
+      console.log(res.data.user);
     });
   },
   methods: {
@@ -2145,6 +2168,38 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.body = '';
       })["catch"](function (err) {});
+    },
+    editComment: function editComment(id) {
+      var _this3 = this;
+
+      axios.patch('/comment/update', {
+        body: this.editedBody,
+        commentId: id
+      }).then(function (res) {
+        var comment = _this3.comments.find(function (comment) {
+          return comment.id == id;
+        });
+
+        comment.body = _this3.editedBody;
+        _this3.editing = false;
+      })["catch"](function (res) {});
+    },
+    deleteComment: function deleteComment(id) {
+      var _this4 = this;
+
+      axios["delete"]('/comment/delete', {
+        params: {
+          commentId: id
+        }
+      }).then(function (res) {
+        var comment = _this4.comments.find(function (comment) {
+          return comment.id == id;
+        });
+
+        _this4.comments.pop(comment);
+
+        _this4.deleting = false;
+      })["catch"](function (res) {});
     }
   }
 });
@@ -2529,8 +2584,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
 //
 //
 //
@@ -39400,7 +39453,180 @@ var render = function() {
             _c("p", { staticClass: "text-lg" }, [_vm._v(_vm._s(comment.body))])
           ]
         )
-      })
+      }),
+      _vm._v(" "),
+      _vm.userId == _vm.comment.user.id
+        ? _c("p", { staticClass: "mx-2" }, [
+            _c(
+              "button",
+              {
+                staticClass: "rounded text-blue-500 text-lg px-2 mx-1",
+                on: {
+                  click: function($event) {
+                    _vm.editing = true
+                    _vm.editedId = _vm.comment.id
+                    _vm.editedBody = _vm.comment.body
+                  }
+                }
+              },
+              [_vm._v("edit")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "rounded text-red-500 text-lg px-2 mx-1",
+                on: {
+                  click: function($event) {
+                    _vm.deleting = true
+                    _vm.deletedId = _vm.comment.id
+                  }
+                }
+              },
+              [_vm._v("delete")]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.editing
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "fixed z-20 bottom-1/3 left-1/3 px-10 py-2 bg-gray-300 rounded-xl"
+            },
+            [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "absolute top-0 right-0 text-4xl px-3 text-red-500",
+                  on: {
+                    click: function($event) {
+                      _vm.editing = false
+                    }
+                  }
+                },
+                [_vm._v("x")]
+              ),
+              _vm._v(" "),
+              _c(
+                "p",
+                {
+                  staticClass: "text-2xl text-center mt-10 mb-2 text-gray-900"
+                },
+                [_vm._v("Edit your comment")]
+              ),
+              _vm._v(" "),
+              _vm.editing
+                ? _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.editComment(_vm.editedId)
+                        }
+                      }
+                    },
+                    [
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editedBody,
+                            expression: "editedBody"
+                          }
+                        ],
+                        staticClass:
+                          "text-xl m-auto p-2 w-full h-40 rounded-xl border-2",
+                        attrs: { name: "description" },
+                        domProps: { value: _vm.editedBody },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.editedBody = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass:
+                          "rounded bg-green-500 m-auto text-white text-2xl py-1 px-2",
+                        attrs: { type: "submit", value: "edit comment" }
+                      })
+                    ]
+                  )
+                : _vm._e()
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.deleting
+        ? _c("div", {
+            staticClass: "absolute -inset-full opacity-50 bg-black z-10",
+            on: {
+              click: function($event) {
+                _vm.deleting = false
+              }
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.deleting
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "fixed z-20 bottom-1/3 left-1/3 px-2 py-2 bg-white rounded-xl"
+            },
+            [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "absolute top-0 right-0 text-4xl px-3 text:gray-600 hover:text-red-500",
+                  on: {
+                    click: function($event) {
+                      _vm.deleting = false
+                    }
+                  }
+                },
+                [_vm._v("x")]
+              ),
+              _vm._v(" "),
+              _c(
+                "p",
+                {
+                  staticClass: "text-2xl text-center mt-10 mb-2 text-gray-900"
+                },
+                [_vm._v("are you sure to delete remember this is unchangable")]
+              ),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.deleteComment(_vm.deletedId)
+                    }
+                  }
+                },
+                [
+                  _c("input", {
+                    staticClass:
+                      "block rounded bg-red-500 mx-auto my-3 text-white text-2xl py-1 px-2",
+                    attrs: { type: "submit", value: "delete anyways" }
+                  })
+                ]
+              )
+            ]
+          )
+        : _vm._e()
     ],
     2
   )
@@ -39674,18 +39900,14 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _vm.notificationPopup
-      ? _c(
-          "div",
-          {
-            staticClass: "absolute z-10 -inset-full bg-black opacity-50",
-            on: {
-              click: function($event) {
-                _vm.notificationPopup = false
-              }
+      ? _c("div", {
+          staticClass: "absolute -inset-full opacity-50 bg-black z-10",
+          on: {
+            click: function($event) {
+              _vm.notificationPopup = false
             }
-          },
-          [_vm._v("something")]
-        )
+          }
+        })
       : _vm._e()
   ])
 }
@@ -39933,93 +40155,92 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", [
-      _c(
-        "button",
-        {
-          on: {
-            click: function($event) {
-              _vm.reporting = true
-            }
+    _c(
+      "button",
+      {
+        staticClass: "text-xl bg-red-500 text-white px-2",
+        on: {
+          click: function($event) {
+            _vm.reporting = true
           }
-        },
-        [_vm._v("report")]
-      ),
-      _vm._v(" "),
-      _vm.reporting
-        ? _c("div", { staticClass: "bg-white fixed top-1/2 left-1/2 z-20" }, [
-            _c("img", {
-              staticClass: "w-48",
-              attrs: { src: "/storage/products/" + _vm.product.cover }
-            }),
-            _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(_vm.product.name))]),
-            _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(_vm.product.price) + " birr")]),
-            _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(_vm.product.description))]),
-            _vm._v(" "),
-            _c(
-              "form",
-              {
+        }
+      },
+      [_vm._v("report")]
+    ),
+    _vm._v(" "),
+    _vm.reporting
+      ? _c("div", { staticClass: "bg-white fixed top-1/2 left-1/2 z-20" }, [
+          _c("img", {
+            staticClass: "w-48",
+            attrs: { src: "/storage/products/" + _vm.product.cover }
+          }),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(_vm.product.name))]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(_vm.product.price) + " birr")]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(_vm.product.description))]),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.report.apply(null, arguments)
+                }
+              }
+            },
+            [
+              _c(
+                "button",
+                {
+                  on: {
+                    click: function($event) {
+                      _vm.reporting = false
+                    }
+                  }
+                },
+                [_vm._v("x")]
+              ),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.reportText,
+                    expression: "reportText"
+                  }
+                ],
+                attrs: { max: "200", required: "" },
+                domProps: { value: _vm.reportText },
                 on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.report.apply(null, arguments)
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.reportText = $event.target.value
                   }
                 }
-              },
-              [
-                _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        _vm.reporting = false
-                      }
-                    }
-                  },
-                  [_vm._v("x")]
-                ),
-                _vm._v(" "),
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.reportText,
-                      expression: "reportText"
-                    }
-                  ],
-                  attrs: { max: "200", required: "" },
-                  domProps: { value: _vm.reportText },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.reportText = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("input", { attrs: { type: "submit", value: "report" } })
-              ]
-            )
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.reporting
-        ? _c("div", {
-            staticClass: "absolute z-10 -inset-full bg-black opacity-50",
-            on: {
-              click: function($event) {
-                _vm.reporting = false
-              }
+              }),
+              _vm._v(" "),
+              _c("input", { attrs: { type: "submit", value: "report" } })
+            ]
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.reporting
+      ? _c("div", {
+          staticClass: "absolute z-10 -inset-full bg-black opacity-50",
+          on: {
+            click: function($event) {
+              _vm.reporting = false
             }
-          })
-        : _vm._e()
-    ])
+          }
+        })
+      : _vm._e()
   ])
 }
 var staticRenderFns = []

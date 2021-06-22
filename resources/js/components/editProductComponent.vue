@@ -16,7 +16,7 @@
 </template>
 <script>
 export default {
-  props:['userId'],
+  props:['userId','productId'],
   data(){
     return{
       phoneNumber:'',

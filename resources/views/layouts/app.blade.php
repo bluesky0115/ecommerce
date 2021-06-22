@@ -43,11 +43,15 @@
                   <a href="{{route('order')}}" class="text-xl mx-2">order</a>
                   <a href="{{route('about')}}" class="text-xl mx-2">contact us</a>
                   <div>
-                    <cart-component user-id="{{Auth::user()->id}}">    
+                    @auth
+                    <cart-component user-id="{{Auth::user()->id}}">   
+                    @endauth    
                   </div>    
                    @auth
                    <div>
-                    <notifications-component user-id="{{Auth::user()->id}}"/>    
+                    @auth
+                    <notifications-component user-id="{{Auth::user()->id}}"/>   
+                    @endauth    
                    </div>  
                    @endauth 
                </ul>

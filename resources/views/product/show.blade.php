@@ -3,28 +3,25 @@
 <div class="block lg:flex xl:flex 2xl:flex">
   <div class="w-full lg:w-2/3 xl:w-2/3 2xl:w-2/3 p-5">
     <div>
-        <p class="text-xl mx-10">{{$product->name}}</p>
+        <p class="text-2xl mx-10">{{$product->name}} <strong>{{$product->price}} birr</strong></p>
         <img src="/storage/products/{{$product->cover}}" class="w-100 m-2">
-        <p class="text-xl mx-10">price {{$product->price}} birr</p>
-        <p class="text-xl mx-10"> {{$product->description}}</p>
-        <report-component user-id="{{Auth::user()->id}}" product-id="{{$product->id}}"/>
+        <p class="text-lg mx-10"> {{$product->description}}</p>
     </div>
-    {{-- <div>
-       @can('update', Product::class)
-       <form method="POST" action="{{route('product.update',$product->id)}}">
-        {{csrf_field}}
-        @method('update')
-        <input type="submit" value="edit">
-       </form> 
+    <div class="flex">
+      <div>
+        <report-component user-id="{{Auth::user()->id}}" product-id="{{$product->id}}"/>
+      </div>
+       @can('update',$product)
+        <button class="m-2 text-xl text-white bg-blue-500 px-2 rounded cursor-pointer">edit</button>
        @endcan
-       @can('delete', Product::class)
+       @can('delete',$product)
        <form method="POST" action="{{route('product.delete',$product->id)}}">
-        {{csrf_field}}
+        @csrf
         @method('delete')
-        <input type="submit" value="delete">
+        <input type="submit" value="delete" class="m-2 text-xl bg-red-500 text-white px-2 rounded cursor-pointer">
        </form> 
        @endcan 
-    </div> --}}
+    </div>
      <comment-component user-id="{{Auth::user()->id}}" product-id="{{$product->id}}"/>    
    </div>
         <div class="">

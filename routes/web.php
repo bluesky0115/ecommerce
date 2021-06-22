@@ -34,7 +34,7 @@ Route::prefix('product')->group(function () {
     Route::get('edit/{product}',[ProductController::class,'edit'])->name('product.edit');
     Route::patch('update',[ProductController::class,'update'])->name('product.update');
     Route::get('show/{product}',[ProductController::class,'show'])->name('product.show');
-    Route::delete('delete/{product}',[ProductController::class,'delete'])->name('product.delete');
+    Route::delete('delete/{product}',[ProductController::class,'destroy'])->name('product.delete');
     Route::get('search',[ProductController::class,'search'])->name('product.search');
     Route::get('data',[ProductController::class,'data']);
     Route::post('addtocart',[ProductController::class,'addToCart']);
@@ -69,4 +69,6 @@ Route::get('isAdmin',[UserController::class,'isAdmin']);
 Route::view('about','about')->name('about');
 
 Route::get('comments',[CommentController::class,'index']);
-Route::post('commnet/create',[CommentController::class,'store']);
+Route::post('commnet/store',[CommentController::class,'store']);
+Route::post('commnet/update',[CommentController::class,'update']);
+Route::post('commnet/delete',[CommentController::class,'delete']);
