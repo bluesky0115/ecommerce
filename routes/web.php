@@ -24,18 +24,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/me', function () {
   $user=User::find(1);
   $orderItems=Product::all();
   $order=new Order;
   foreach($orderItems as $orderItem){
     $product=Product::find($orderItem->id);
-    $quantity=$orderItem->quantity;
-    // $order->products->attach([$product=>[
-    //   'quantity'=>$product->quantity
-    //  ]]);
+    $product->quantity=$orderItem->quantity;
+    $order->products()->attach([$product->id=>[
+       'quantity'=>$product->quantity
+      ]]);
   }
-  $user->orders->attach($order); 
+  $order->user_id=$user->id;
+  $order->save();
+  $order->users()->attach($user->id);
 });
 
 Auth::routes();

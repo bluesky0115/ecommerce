@@ -39,13 +39,14 @@ class ProfileController extends Controller
     {
       $user=Auth::user();
       $profile=new Profile;
-      $cart=new Cart;
       $profile->phone_number=$request->phone_number;
       $profile->city=$request->city;
       $profile->street=$request->street;
       $profile->save();
       $user->profile=$profile;
-      $user->cart=$cart;
+      $cart=new Cart;
+      $cart->user()->associate($user)->save();
+      $cart->save();
       return redirect()->route('home')->with(['message'=>'profile saved']);
     }
 
