@@ -41,7 +41,9 @@ export default {
    mounted(){
      axios.get('/notifications',{params:{userId:this.userId}})
      .then(res=>{
-      this.notifications=res.data.notifications;
+      if(res.data.notifications){
+        this.notifications=res.data.notifications;
+      }
      })  
    },
    methods:{

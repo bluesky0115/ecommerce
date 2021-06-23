@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-  return view('welcome');
+   
 });
 
 Auth::routes();
@@ -76,6 +77,6 @@ Route::get('user/isAdmin',[UserController::class,'isAdmin']);
 Route::view('about','about')->name('about');
 
 Route::get('comments',[CommentController::class,'index']);
-Route::post('commnet/store',[CommentController::class,'store']);
-Route::post('commnet/update',[CommentController::class,'update']);
-Route::post('commnet/delete',[CommentController::class,'delete']);
+Route::post('comment/store',[CommentController::class,'store']);
+Route::patch('comment/update',[CommentController::class,'update']);
+Route::delete('comment/delete',[CommentController::class,'destroy']);

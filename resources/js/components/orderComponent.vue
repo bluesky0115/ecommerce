@@ -1,9 +1,11 @@
 <template>
   <div class="bg-white rounded-xl my-5 p-5 mx-auto w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
-   <p class="text-2xl text-center mb-3">items in your cart</p>
+   <p class="text-3xl text-center mb-3 border-bottom-2 border-gray-600">Items in your cart({{cartItems.length}})</p>
     <div class="flex">
-     <div v-for="cartItem in cartItems" :key="cartItem.id" class="w-1/2">
-     <input type="checkbox" v-model="orderItems" class="p-2">
+     <div v-for="cartItem in cartItems" :key="cartItem.id" class="">
+      <div>
+       <input type="checkbox" :value="cartItem" v-model="orderItems" class="p-2">
+      </div>
      <img :src="'/storage/products/'+cartItem.cover" class="w-40">
      <div class="my-auto">
       <p>
@@ -20,8 +22,9 @@
     </div>
     </div>   
     </div>
+    <p v-if="totalPrice" class="text-xl">total price {{totalPrice}}</p>
     <form @submit.prevent="order">
-     <input type="submit" value="order" class="bg-green-500 text-2xl text-white px-5 py-1 mt-5 rounded-md cursor-pointer">
+     <input type="submit" value="order" class="block m-auto bg-green-500 text-2xl text-white px-5 py-1 mt-5 rounded-md cursor-pointer">
    </form>
   </div> 
 </template>
@@ -33,7 +36,8 @@ export default {
  data(){
   return{
    cartItems:[],
-   orderItems:[]
+   orderItems:[],
+   totalPrice:null,
   }
  },
 
@@ -44,7 +48,6 @@ export default {
     this.cartItems.forEach(cartItem=>{
       cartItem.quantity=1;
     });
-    console.log(this.cartItems);
   })
  },
  methods:{

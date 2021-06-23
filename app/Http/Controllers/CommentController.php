@@ -44,9 +44,12 @@ class CommentController extends Controller
     public function store(Request $request)
     {
       $comment=new Comment;
+      $comment->product_id=$request->productId;
       $comment->user_id=$request->userId;
       $comment->body=$request->body;
       $comment->save();
+      $comment->user=User::find($request->userId);
+      return response()->json(['comment'=>$comment]);
     }
 
     /**

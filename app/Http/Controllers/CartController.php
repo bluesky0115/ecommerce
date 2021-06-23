@@ -38,7 +38,7 @@ class CartController extends Controller
       $user=User::find($request->userId);
       $product=Product::find($request->productId);
       $cart=$user->cart;
-      if(in_array($product,$cart->products)){
+      if(in_array($product,json_decode($cart->products))){
         $productInCart=true;
       }
       else{

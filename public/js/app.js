@@ -2130,14 +2130,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['productId', 'userId'],
   data: function data() {
     return {
       body: '',
+      editing: false,
+      deleting: false,
       editedBody: '',
       editedId: null,
-      deletedId: null
+      deletedId: null,
+      comment: {
+        id: null,
+        user: {},
+        body: ''
+      },
+      comments: [],
+      user: {}
     };
   },
   mounted: function mounted() {
@@ -2151,7 +2161,6 @@ __webpack_require__.r(__webpack_exports__);
     }).then(function (res) {
       _this.comments = res.data.comments;
       _this.user = res.data.user;
-      console.log(res.data.comments);
     });
   },
   methods: {
@@ -2168,7 +2177,7 @@ __webpack_require__.r(__webpack_exports__);
         _this2.comments.push(comment);
 
         _this2.body = '';
-      })["catch"](function (err) {});
+      });
     },
     editComment: function editComment(id) {
       var _this3 = this;
@@ -2193,11 +2202,13 @@ __webpack_require__.r(__webpack_exports__);
           commentId: id
         }
       }).then(function (res) {
-        var comment = _this4.comments.find(function (comment) {
+        var deletedComment = _this4.comments.find(function (comment) {
           return comment.id == id;
         });
 
-        _this4.comments.pop(comment);
+        _this4.comments.splice(_this4.comments.findIndex(function (comment) {
+          return comment.id == deletedComment.id;
+        }));
 
         _this4.deleting = false;
       })["catch"](function (res) {});
@@ -2363,7 +2374,9 @@ __webpack_require__.r(__webpack_exports__);
         userId: this.userId
       }
     }).then(function (res) {
-      _this.notifications = res.data.notifications;
+      if (res.data.notifications) {
+        _this.notifications = res.data.notifications;
+      }
     });
   },
   methods: {
@@ -2434,12 +2447,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['userId'],
   data: function data() {
     return {
       cartItems: [],
-      orderItems: []
+      orderItems: [],
+      totalPrice: null
     };
   },
   mounted: function mounted() {
@@ -2455,17 +2472,9 @@ __webpack_require__.r(__webpack_exports__);
       _this.cartItems.forEach(function (cartItem) {
         cartItem.quantity = 1;
       });
-
-      console.log(_this.cartItems);
     });
   },
   methods: {
-    changeQuantity: function changeQuantity(id, quantity) {
-      var cartItem = this.cartItems.find(function (item) {
-        return item.id == id;
-      });
-      cartItem.quantity = quantity;
-    },
     addOrderItem: function addOrderItem(cartItemId, quantity) {
       if (orderItems.find(function (item) {
         return item.id == cartItemId;
@@ -39411,7 +39420,7 @@ var render = function() {
           "div",
           {
             key: comment.id,
-            staticClass: "shadow-sm rounded bg-blue-100 m-4 p-3"
+            staticClass: "shadow-sm rounded bg-white m-4 p-3"
           },
           [
             _c("p", {}, [
@@ -39424,43 +39433,43 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("p", { staticClass: "text-lg" }, [_vm._v(_vm._s(comment.body))])
+            _c("p", { staticClass: "text-lg" }, [_vm._v(_vm._s(comment.body))]),
+            _vm._v(" "),
+            _vm.userId == comment.user.id
+              ? _c("p", { staticClass: "mx-2" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "rounded text-blue-500 text-lg px-2 mx-1",
+                      on: {
+                        click: function($event) {
+                          _vm.editing = true
+                          _vm.editedId = comment.id
+                          _vm.editedBody = comment.body
+                        }
+                      }
+                    },
+                    [_vm._v("edit")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "rounded text-red-500 text-lg px-2 mx-1",
+                      on: {
+                        click: function($event) {
+                          _vm.deleting = true
+                          _vm.deletedId = comment.id
+                        }
+                      }
+                    },
+                    [_vm._v("delete")]
+                  )
+                ])
+              : _vm._e()
           ]
         )
       }),
-      _vm._v(" "),
-      _vm.userId == _vm.comment.user.id
-        ? _c("p", { staticClass: "mx-2" }, [
-            _c(
-              "button",
-              {
-                staticClass: "rounded text-blue-500 text-lg px-2 mx-1",
-                on: {
-                  click: function($event) {
-                    _vm.editing = true
-                    _vm.editedId = _vm.comment.id
-                    _vm.editedBody = _vm.comment.body
-                  }
-                }
-              },
-              [_vm._v("edit")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "rounded text-red-500 text-lg px-2 mx-1",
-                on: {
-                  click: function($event) {
-                    _vm.deleting = true
-                    _vm.deletedId = _vm.comment.id
-                  }
-                }
-              },
-              [_vm._v("delete")]
-            )
-          ])
-        : _vm._e(),
       _vm._v(" "),
       _vm.editing
         ? _c(
@@ -39539,12 +39548,12 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.deleting
+      _vm.editing
         ? _c("div", {
             staticClass: "absolute -inset-full opacity-50 bg-black z-10",
             on: {
               click: function($event) {
-                _vm.deleting = false
+                _vm.editing = false
               }
             }
           })
@@ -39600,6 +39609,17 @@ var render = function() {
               )
             ]
           )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.deleting
+        ? _c("div", {
+            staticClass: "absolute -inset-full opacity-50 bg-black z-10",
+            on: {
+              click: function($event) {
+                _vm.deleting = false
+              }
+            }
+          })
         : _vm._e()
     ],
     2
@@ -39915,53 +39935,61 @@ var render = function() {
         "bg-white rounded-xl my-5 p-5 mx-auto w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4"
     },
     [
-      _c("p", { staticClass: "text-2xl text-center mb-3" }, [
-        _vm._v("items in your cart")
-      ]),
+      _c(
+        "p",
+        {
+          staticClass:
+            "text-3xl text-center mb-3 border-bottom-2 border-gray-600"
+        },
+        [_vm._v("Items in your cart(" + _vm._s(_vm.cartItems.length) + ")")]
+      ),
       _vm._v(" "),
       _c(
         "div",
         { staticClass: "flex" },
         _vm._l(_vm.cartItems, function(cartItem) {
-          return _c("div", { key: cartItem.id, staticClass: "flex" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.orderItems,
-                  expression: "orderItems"
-                }
-              ],
-              staticClass: "p-2",
-              attrs: { type: "checkbox" },
-              domProps: {
-                checked: Array.isArray(_vm.orderItems)
-                  ? _vm._i(_vm.orderItems, null) > -1
-                  : _vm.orderItems
-              },
-              on: {
-                change: function($event) {
-                  var $$a = _vm.orderItems,
-                    $$el = $event.target,
-                    $$c = $$el.checked ? true : false
-                  if (Array.isArray($$a)) {
-                    var $$v = null,
-                      $$i = _vm._i($$a, $$v)
-                    if ($$el.checked) {
-                      $$i < 0 && (_vm.orderItems = $$a.concat([$$v]))
+          return _c("div", { key: cartItem.id }, [
+            _c("div", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.orderItems,
+                    expression: "orderItems"
+                  }
+                ],
+                staticClass: "p-2",
+                attrs: { type: "checkbox" },
+                domProps: {
+                  value: cartItem,
+                  checked: Array.isArray(_vm.orderItems)
+                    ? _vm._i(_vm.orderItems, cartItem) > -1
+                    : _vm.orderItems
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.orderItems,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = cartItem,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.orderItems = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.orderItems = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
                     } else {
-                      $$i > -1 &&
-                        (_vm.orderItems = $$a
-                          .slice(0, $$i)
-                          .concat($$a.slice($$i + 1)))
+                      _vm.orderItems = $$c
                     }
-                  } else {
-                    _vm.orderItems = $$c
                   }
                 }
-              }
-            }),
+              })
+            ]),
             _vm._v(" "),
             _c("img", {
               staticClass: "w-40",
@@ -39985,31 +40013,23 @@ var render = function() {
                     ],
                     attrs: { required: "" },
                     on: {
-                      change: [
-                        function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            cartItem,
-                            "quantity",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        },
-                        function($event) {
-                          return _vm.changeQuantity(
-                            cartItem.id,
-                            cartItem.quantity
-                          )
-                        }
-                      ]
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          cartItem,
+                          "quantity",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
                     }
                   },
                   [
@@ -40029,10 +40049,7 @@ var render = function() {
               cartItem.quantity
                 ? _c("p", { staticClass: "text-xl" }, [
                     _vm._v(
-                      "amount " +
-                        _vm._s(cartItem.price) +
-                        "*" +
-                        _vm._s(cartItem.quantity)
+                      "amount " + _vm._s(cartItem.price * cartItem.quantity)
                     )
                   ])
                 : _vm._e()
@@ -40041,6 +40058,12 @@ var render = function() {
         }),
         0
       ),
+      _vm._v(" "),
+      _vm.totalPrice
+        ? _c("p", { staticClass: "text-xl" }, [
+            _vm._v("total price " + _vm._s(_vm.totalPrice))
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "form",
@@ -40055,7 +40078,7 @@ var render = function() {
         [
           _c("input", {
             staticClass:
-              "bg-green-500 text-2xl text-white px-5 py-1 mt-5 rounded-md cursor-pointer",
+              "block m-auto bg-green-500 text-2xl text-white px-5 py-1 mt-5 rounded-md cursor-pointer",
             attrs: { type: "submit", value: "order" }
           })
         ]
