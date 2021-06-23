@@ -1,31 +1,27 @@
 <template>
-  <div>
-   <form @submit.prevent="order">
-     <div v-for="cartItem in cartItems" :key="cartItem.id" class="flex">
+  <div class="bg-white rounded-xl my-5 p-5 mx-auto w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
+   <p class="text-2xl text-center mb-3">items in your cart</p>
     <div class="flex">
-     <input type="checkbox" value="cartItem.id" @change="addOrderItem(cartItem.id,cartItem.quantity)">
-    <img src="" alt="">
-    <div class="my-auto">
-     <p>
-      <span>quantity</span>
-      <select name="" id="" required v-model="cartItem.quantity">
-       <option value="1" selected>1</option>
-       <option value="2">2</option>
-       <option value="2">3</option>
-       <option value="2">4</option>
-       <option value="2">5</option>
-       <option value="2">6</option>
-       <option value="2">7</option>
-       <option value="2">8</option>
-       <option value="2">9</option>
-       <option value="2">10</option>
+     <div v-for="cartItem in cartItems" :key="cartItem.id" class="w-1/2">
+     <input type="checkbox" v-model="orderItems" class="p-2">
+     <img :src="'/storage/products/'+cartItem.cover" class="w-40">
+     <div class="my-auto">
+      <p>
+      <span class="text-xl">quantity</span>
+      <select required v-model="cartItem.quantity">
+       <option value="1" class="">1</option>
+       <option value="2" class="">2</option>
+       <option value="3" class="">3</option>
+       <option value="4" class="">4</option>
+       <option value="5" class="">5</option>
       </select>
       </p>
-      <p v-if="">amount {{cartItem.price*cartItem.quantity}}</p>
+      <p v-if="cartItem.quantity" class="text-xl">amount {{cartItem.price*cartItem.quantity}}</p>
     </div>
+    </div>   
     </div>
-   </div>
-   <input type="submit" value="order" class="">
+    <form @submit.prevent="order">
+     <input type="submit" value="order" class="bg-green-500 text-2xl text-white px-5 py-1 mt-5 rounded-md cursor-pointer">
    </form>
   </div> 
 </template>
@@ -42,15 +38,15 @@ export default {
  },
 
  mounted(){
-  axios.get('/cartItems',{params:{userId:this.userId}})
+  axios.get('/cartitems',{params:{userId:this.userId}})
   .then(res=>{
     this.cartItems=res.data.cartItems;
-  })
-  .catch(err=>{
-
+    this.cartItems.forEach(cartItem=>{
+      cartItem.quantity=1;
+    });
+    console.log(this.cartItems);
   })
  },
-
  methods:{
    addOrderItem(cartItemId,quantity){
     if(orderItems.find(item=>item.id==cartItemId)){
@@ -68,9 +64,6 @@ export default {
       for(id in orderItems.id){
         $cartItems.splice($cartItems.findIndex(item=>item.id==id),1);
       }
-     })
-     .catch(err=>{
-
      }); 
    }
  }  

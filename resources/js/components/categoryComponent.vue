@@ -1,7 +1,7 @@
 <template>
    <div>
      <p>category component</p>
-    <div v-for="product in products " :key="product.id">
+    <!-- <div v-for="product in products " :key="product.id">
      <img :src="product.imageSource" alt="" class="">
      <p>{{product.name}} {{product.price}} birr</p>
      <p>{{product.description}}</p>
@@ -10,7 +10,7 @@
        <a :href="'product/show'+product.id">details</a>
        <report-component user-id="userId" product-id="productId"></report-component>
      </div>
-    </div>
+    </div> -->
    </div>
 </template>
 <script>

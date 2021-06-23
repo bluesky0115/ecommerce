@@ -2434,10 +2434,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['userId'],
   data: function data() {
@@ -2449,15 +2445,27 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    axios.get('/cartItems', {
+    axios.get('/cartitems', {
       params: {
         userId: this.userId
       }
     }).then(function (res) {
       _this.cartItems = res.data.cartItems;
-    })["catch"](function (err) {});
+
+      _this.cartItems.forEach(function (cartItem) {
+        cartItem.quantity = 1;
+      });
+
+      console.log(_this.cartItems);
+    });
   },
   methods: {
+    changeQuantity: function changeQuantity(id, quantity) {
+      var cartItem = this.cartItems.find(function (item) {
+        return item.id == id;
+      });
+      cartItem.quantity = quantity;
+    },
     addOrderItem: function addOrderItem(cartItemId, quantity) {
       if (orderItems.find(function (item) {
         return item.id == cartItemId;
@@ -2483,7 +2491,7 @@ __webpack_require__.r(__webpack_exports__);
             return item.id == id;
           }), 1);
         }
-      })["catch"](function (err) {});
+      });
     }
   }
 });
@@ -2650,10 +2658,9 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_1__.default);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_1__.default({
-  base_url: '/products',
   mode: 'history',
   routes: [{
-    path: '/:category',
+    path: '/products/:category',
     name: 'category',
     component: function component() {
       return __webpack_require__(/*! ./components/categoryComponent */ "./resources/js/components/categoryComponent.vue");
@@ -39241,43 +39248,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("p", [_vm._v("category component")]),
-      _vm._v(" "),
-      _vm._l(_vm.products, function(product) {
-        return _c("div", { key: product.id }, [
-          _c("img", { attrs: { src: product.imageSource, alt: "" } }),
-          _vm._v(" "),
-          _c("p", [
-            _vm._v(_vm._s(product.name) + " " + _vm._s(product.price) + " birr")
-          ]),
-          _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(product.description))]),
-          _vm._v(" "),
-          _c(
-            "div",
-            [
-              _c("span", [_vm._v(_vm._s(product.totalComments) + " comments")]),
-              _vm._v(" "),
-              _c("a", { attrs: { href: "product/show" + product.id } }, [
-                _vm._v("details")
-              ]),
-              _vm._v(" "),
-              _c("report-component", {
-                attrs: { "user-id": "userId", "product-id": "productId" }
-              })
-            ],
-            1
-          )
-        ])
-      })
-    ],
-    2
-  )
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("p", [_vm._v("category component")])])
+  }
+]
 render._withStripped = true
 
 
@@ -39311,12 +39291,7 @@ var render = function() {
             key: category.id,
             staticClass:
               "text-gray-800 capitalize text-2xl my-1 mx-3 active:border-bottom-2 active:border-gray-600",
-            attrs: {
-              to: {
-                path: "/products/" + category.name,
-                params: { categoryId: category.id }
-              }
-            }
+            attrs: { to: "/products/" + category.name }
           },
           [_vm._v("\n     " + _vm._s(category.name) + "\n  ")]
         )
@@ -39933,50 +39908,85 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "form",
-      {
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.order.apply(null, arguments)
-          }
-        }
-      },
-      [
+  return _c(
+    "div",
+    {
+      staticClass:
+        "bg-white rounded-xl my-5 p-5 mx-auto w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4"
+    },
+    [
+      _c("p", { staticClass: "text-2xl text-center mb-3" }, [
+        _vm._v("items in your cart")
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "flex" },
         _vm._l(_vm.cartItems, function(cartItem) {
           return _c("div", { key: cartItem.id, staticClass: "flex" }, [
-            _c("div", { staticClass: "flex" }, [
-              _c("input", {
-                attrs: { type: "checkbox", value: "cartItem.id" },
-                on: {
-                  change: function($event) {
-                    return _vm.addOrderItem(cartItem.id, cartItem.quantity)
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.orderItems,
+                  expression: "orderItems"
+                }
+              ],
+              staticClass: "p-2",
+              attrs: { type: "checkbox" },
+              domProps: {
+                checked: Array.isArray(_vm.orderItems)
+                  ? _vm._i(_vm.orderItems, null) > -1
+                  : _vm.orderItems
+              },
+              on: {
+                change: function($event) {
+                  var $$a = _vm.orderItems,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && (_vm.orderItems = $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        (_vm.orderItems = $$a
+                          .slice(0, $$i)
+                          .concat($$a.slice($$i + 1)))
+                    }
+                  } else {
+                    _vm.orderItems = $$c
                   }
                 }
-              }),
-              _vm._v(" "),
-              _c("img", { attrs: { src: "", alt: "" } }),
-              _vm._v(" "),
-              _c("div", { staticClass: "my-auto" }, [
-                _c("p", [
-                  _c("span", [_vm._v("quantity")]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: cartItem.quantity,
-                          expression: "cartItem.quantity"
-                        }
-                      ],
-                      attrs: { name: "", id: "", required: "" },
-                      on: {
-                        change: function($event) {
+              }
+            }),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "w-40",
+              attrs: { src: "/storage/products/" + cartItem.cover }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "my-auto" }, [
+              _c("p", [
+                _c("span", { staticClass: "text-xl" }, [_vm._v("quantity")]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: cartItem.quantity,
+                        expression: "cartItem.quantity"
+                      }
+                    ],
+                    attrs: { required: "" },
+                    on: {
+                      change: [
+                        function($event) {
                           var $$selectedVal = Array.prototype.filter
                             .call($event.target.options, function(o) {
                               return o.selected
@@ -39992,48 +40002,66 @@ var render = function() {
                               ? $$selectedVal
                               : $$selectedVal[0]
                           )
+                        },
+                        function($event) {
+                          return _vm.changeQuantity(
+                            cartItem.id,
+                            cartItem.quantity
+                          )
                         }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "1", selected: "" } }, [
-                        _vm._v("1")
-                      ]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "2" } }, [_vm._v("3")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "2" } }, [_vm._v("4")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "2" } }, [_vm._v("5")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "2" } }, [_vm._v("6")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "2" } }, [_vm._v("7")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "2" } }, [_vm._v("8")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "2" } }, [_vm._v("9")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "2" } }, [_vm._v("10")])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("p", [
-                  _vm._v("amount " + _vm._s(cartItem.price * cartItem.quantity))
-                ])
-              ])
+                      ]
+                    }
+                  },
+                  [
+                    _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "4" } }, [_vm._v("4")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "5" } }, [_vm._v("5")])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              cartItem.quantity
+                ? _c("p", { staticClass: "text-xl" }, [
+                    _vm._v(
+                      "amount " +
+                        _vm._s(cartItem.price) +
+                        "*" +
+                        _vm._s(cartItem.quantity)
+                    )
+                  ])
+                : _vm._e()
             ])
           ])
         }),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "submit", value: "order" } })
-      ],
-      2
-    )
-  ])
+        0
+      ),
+      _vm._v(" "),
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.order.apply(null, arguments)
+            }
+          }
+        },
+        [
+          _c("input", {
+            staticClass:
+              "bg-green-500 text-2xl text-white px-5 py-1 mt-5 rounded-md cursor-pointer",
+            attrs: { type: "submit", value: "order" }
+          })
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
