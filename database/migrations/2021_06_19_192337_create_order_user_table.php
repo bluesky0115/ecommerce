@@ -16,7 +16,7 @@ class CreateOrderUserTable extends Migration
         Schema::create('order_user', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id');
-            $table->foreignId('userId');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

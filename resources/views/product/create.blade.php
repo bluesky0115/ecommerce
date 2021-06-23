@@ -32,7 +32,7 @@
        @endif
        <p class="text-xl my-2 mx-5">description</p>
        <textarea name="description" class="rounded-lg w-full h-40 p-2 text-xl border-2 border-gray-600 focus:border-blue-500"></textarea>
-       <input type="submit" value="sell product" class="cursor-pointer text-xl text-white py-1 px-3 rounded bg-blue-500">
+       <input type="submit" value="sell product" class="cursor-pointer text-xl text-white py-1 px-3 rounded bg-green-500">
     </form>    
    </div>   
 @endsection

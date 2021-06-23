@@ -6,7 +6,7 @@
   <div v-if="readyToDelete" class="absolute inset-0 z-20 flex justify-center items-center">
     <div class="w-1/3 rounded-xl bg-gray-200">
      <form @submit.prevent="deleteProduct">
-      <input type="submit" value="delete">
+      <input type="submit" value="delete" class="">
      </form>
     </div>
   </div>

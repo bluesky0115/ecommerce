@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Profile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -35,7 +37,16 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $user=Auth::user();
+      $profile=new Profile;
+      $cart=new Cart;
+      $profile->phone_number=$request->phone_number;
+      $profile->city=$request->city;
+      $profile->street=$request->street;
+      $profile->save();
+      $user->profile=$profile;
+      $user->cart=$cart;
+      return redirect()->route('home')->with(['message'=>'profile saved']);
     }
 
     /**

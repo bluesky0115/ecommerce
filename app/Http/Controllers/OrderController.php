@@ -22,11 +22,11 @@ class OrderController extends Controller
       foreach($orderItems as $orderItem){
         $product=Product::find($orderItem->id);
         $quantity=$orderItem->quantity;
-        $order->products=attach([$product=>[
+        $order->products->attach([$product=>[
           'quantity'=>$product->quantity
         ]]);
       }
-      $user->orders=attach($order);  
+      $user->orders->attach($order);  
     }
     public function orderForm()
     {

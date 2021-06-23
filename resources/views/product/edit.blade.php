@@ -36,7 +36,7 @@
      @endif
      <p class="text-xl">description</p>
      <textarea name="description" value="{{$product->description}}" class=""></textarea>
-     <input type="submit" value="edit product" class="bg-blue-500 text-white text-xl rounded px-2">
+     <input type="submit" value="edit product" class="bg-green-500 text-white text-xl rounded px-2">
   </form>    
  </div>   
 @endsection

@@ -2627,7 +2627,10 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get('/product/data', {
-      productId: this.productId
+      params: {
+        productId: this.productId,
+        userId: this.userId
+      }
     }).then(function (res) {
       _this.product = res.data.product;
     });
@@ -40219,15 +40222,32 @@ var render = function() {
     ),
     _vm._v(" "),
     _vm.reporting
-      ? _c("div", { staticClass: "bg-white fixed top-1/2 left-1/2 z-20" }, [
+      ? _c("div", { staticClass: "bg-white relative z-20 rounded-xl p-10" }, [
+          _c(
+            "button",
+            {
+              staticClass: "text-2xl absolute top-5 right-5 hover:text-red-500",
+              on: {
+                click: function($event) {
+                  _vm.reporting = false
+                }
+              }
+            },
+            [_vm._v("x")]
+          ),
+          _vm._v(" "),
           _c("img", {
             staticClass: "w-48",
             attrs: { src: "/storage/products/" + _vm.product.cover }
           }),
           _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(_vm.product.name))]),
+          _c("p", { staticClass: "text-xl" }, [
+            _vm._v(_vm._s(_vm.product.name))
+          ]),
           _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(_vm.product.price) + " birr")]),
+          _c("p", { staticClass: "text-xl" }, [
+            _vm._v(_vm._s(_vm.product.price) + " birr")
+          ]),
           _vm._v(" "),
           _c("p", [_vm._v(_vm._s(_vm.product.description))]),
           _vm._v(" "),
@@ -40242,18 +40262,6 @@ var render = function() {
               }
             },
             [
-              _c(
-                "button",
-                {
-                  on: {
-                    click: function($event) {
-                      _vm.reporting = false
-                    }
-                  }
-                },
-                [_vm._v("x")]
-              ),
-              _vm._v(" "),
               _c("textarea", {
                 directives: [
                   {
@@ -40263,6 +40271,8 @@ var render = function() {
                     expression: "reportText"
                   }
                 ],
+                staticClass:
+                  "block border-2 border-gray-400 rounded-lg w-full h-40",
                 attrs: { max: "200", required: "" },
                 domProps: { value: _vm.reportText },
                 on: {
@@ -40275,7 +40285,11 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("input", { attrs: { type: "submit", value: "report" } })
+              _c("input", {
+                staticClass:
+                  "m-2 bg-green-500 text-xl text-white px-3 py-1 rounded",
+                attrs: { type: "submit", value: "report" }
+              })
             ]
           )
         ])

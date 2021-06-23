@@ -21,7 +21,7 @@
         {{ __('Remember Me') }}
         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
     </p>
-    <button type="submit" class="bg-blue-500 text-xl text-white px-3 py-1 m-1 rounded">
+    <button type="submit" class="bg-green-500 text-xl text-white px-3 py-1 m-1 rounded">
         {{ __('Login') }}
     </button>
     @if (Route::has('password.request'))

@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-   
+  $user=User::find(1);
+  $orderItems=Product::all();
+  $order=new Order;
+  foreach($orderItems as $orderItem){
+    $product=Product::find($orderItem->id);
+    $quantity=$orderItem->quantity;
+    // $order->products->attach([$product=>[
+    //   'quantity'=>$product->quantity
+    //  ]]);
+  }
+  $user->orders->attach($order); 
 });
 
 Auth::routes();
@@ -46,6 +57,7 @@ Route::prefix('product')->group(function () {
 
 Route::prefix('profile')->group(function(){
   Route::get('create',[ProfileController::class,'create'])->name('profile.create');
+  Route::post('store',[ProfileController::class,'store'])->name('profile.store');
   Route::get('edit',[ProfileController::class,'eidt'])->name('profile.edit');
   Route::post('update',[ProfileController::class,'update'])->name('profile.update');
 });
@@ -70,8 +82,6 @@ Route::get('reports',[AdminController::class,'reports']);
 
 Route::get('categories',[CategoryController::class,'index']);
 
-Route::get('user/profile',[ProfileController::class,'create'])->name('profile.create');
-Route::post('user/profile/{id}',[ProfileController::class,'update'])->name('profile.create');
 Route::get('user/isAdmin',[UserController::class,'isAdmin']);
 
 Route::view('about','about')->name('about');
