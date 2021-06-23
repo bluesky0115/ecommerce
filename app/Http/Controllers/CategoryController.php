@@ -12,6 +12,17 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+
+        $this->middleware('auth');
+        
+    }
+    public function categoryProducts(Request $request)
+    {
+      $category=Category::find($request->categoryId);
+      $products=$category->products;
+      return response()->json(['products'=>$products]);  
+    }
     public function index()
     {
       $categories=Category::all();

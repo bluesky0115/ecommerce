@@ -14,6 +14,12 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+
+      $this->middleware('auth');
+    
+    }
+
     public function order(Request $request)
     {
       $user=User::find($request->userId);
@@ -21,12 +27,14 @@ class OrderController extends Controller
       $order=new Order;
       foreach($orderItems as $orderItem){
         $product=Product::find($orderItem->id);
-        $quantity=$orderItem->quantity;
-        $order->products->attach([$product=>[
+        $product->quantity=$orderItem->quantity;
+        $order->products()->attach([$product->id=>[
           'quantity'=>$product->quantity
         ]]);
       }
-      $user->orders->attach($order);  
+      $order->user_id=$user->id;
+      $order->save();
+      $order->users()->attach($user->id);  
     }
     public function orderForm()
     {

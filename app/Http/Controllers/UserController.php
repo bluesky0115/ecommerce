@@ -10,6 +10,12 @@ use stdClass;
 
 class UserController extends Controller
 {
+  public function __construct(){
+
+    $this->middleware('auth');
+    
+  }
+
   public function notifications(Request $request)
   {
     $user=User::find($request->userId);

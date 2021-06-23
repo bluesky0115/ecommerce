@@ -1981,15 +1981,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['categoryId'],
   data: function data() {
     return {
-      products: []
+      products: [],
+      categoryId: null
     };
   },
   mounted: function mounted() {
     var _this = this;
 
+    this.categoryId = $route.params.categoryId;
     axios.get('/category/product', {
       params: {
         categoryId: this.categoryId
@@ -2013,6 +2014,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -2666,17 +2671,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _components_categoryComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/categoryComponent */ "./resources/js/components/categoryComponent.vue");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_1__.default);
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_1__.default({
   mode: 'history',
   routes: [{
-    path: '/products/:category',
+    path: '/products/:categoryName',
     name: 'category',
-    component: function component() {
-      return __webpack_require__(/*! ./components/categoryComponent */ "./resources/js/components/categoryComponent.vue");
-    }
+    component: _components_categoryComponent__WEBPACK_IMPORTED_MODULE_2__.default
   }]
 }));
 
@@ -39260,16 +39265,43 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    [
+      _c("p", [_vm._v("id " + _vm._s(_vm.categoryId))]),
+      _vm._v(" "),
+      _vm._l(_vm.products, function(product) {
+        return _c("div", { key: product.id }, [
+          _c("img", { attrs: { src: product.imageSource, alt: "" } }),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(_vm._s(product.name) + " " + _vm._s(product.price) + " birr")
+          ]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(product.description))]),
+          _vm._v(" "),
+          _c(
+            "div",
+            [
+              _c("span", [_vm._v(_vm._s(product.totalComments) + " comments")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "product/show" + product.id } }, [
+                _vm._v("details")
+              ]),
+              _vm._v(" "),
+              _c("report-component", {
+                attrs: { "user-id": "userId", "product-id": "productId" }
+              })
+            ],
+            1
+          )
+        ])
+      })
+    ],
+    2
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("p", [_vm._v("category component")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -39292,25 +39324,51 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "flex" },
-      _vm._l(_vm.categories, function(category) {
-        return _c(
-          "router-link",
-          {
-            key: category.id,
-            staticClass:
-              "text-gray-800 capitalize text-2xl my-1 mx-3 active:border-bottom-2 active:border-gray-600",
-            attrs: { to: "/products/" + category.name }
-          },
-          [_vm._v("\n     " + _vm._s(category.name) + "\n  ")]
-        )
-      }),
-      1
-    )
-  ])
+  return _c(
+    "div",
+    [
+      _c(
+        "div",
+        { staticClass: "flex" },
+        [
+          _c(
+            "router-link",
+            {
+              staticClass:
+                "text-gray-800 capitalize text-2xl my-1 mx-3 active:border-bottom-2 active:border-gray-600",
+              attrs: { to: "/products/all" }
+            },
+            [_vm._v("\n    all\n  ")]
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.categories, function(category) {
+            return _c(
+              "router-link",
+              {
+                key: category.id,
+                staticClass:
+                  "text-gray-800 capitalize text-2xl my-1 mx-3 active:border-bottom-2 active:border-gray-600",
+                attrs: {
+                  to: {
+                    name: "category",
+                    params: {
+                      categoryName: category.name,
+                      categoryId: category.id
+                    }
+                  }
+                }
+              },
+              [_vm._v("\n     " + _vm._s(category.name) + "\n  ")]
+            )
+          })
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("router-view")
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
