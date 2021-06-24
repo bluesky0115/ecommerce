@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
@@ -15,7 +16,13 @@ class UserController extends Controller
     $this->middleware('auth');
     
   }
-
+  public function navigation(Request $request)
+  {
+   $user=User::find($request->userId);
+   $categories=Category::all();
+   $notifications=$user->unreadNotifications;
+   return response()->json(['user'=>$user,'categories'=>$categories,'notifications'=>$notifications]);
+  }
   public function notifications(Request $request)
   {
     $user=User::find($request->userId);

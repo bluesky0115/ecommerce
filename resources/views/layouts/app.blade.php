@@ -22,7 +22,7 @@
 </head>
 <body class="bg-gray-200">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-gray-700 shadow-sm flex text-white">
+        {{-- <nav class="navbar navbar-expand-md navbar-light bg-gray-700 shadow-sm flex text-white">
             <div class="flex">
                 <a class="text-xl text-white m-1" href="{{route('home')}}">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -99,8 +99,10 @@
                     </ul>
                 </div>
             </div>
-        </nav>
-
+        </nav> --}}
+       <div>
+        <navigation-component @auth user-id="{{Auth::user()->id}}"@endauth />  
+       </div>
         <main class=" py-1">
             @yield('content')
         </main>

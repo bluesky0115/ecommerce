@@ -7,10 +7,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Models\Category;
-use App\Models\Order;
-use App\Models\Product;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -49,7 +45,7 @@ Route::prefix('product')->group(function () {
 Route::prefix('profile')->group(function(){
   Route::get('create',[ProfileController::class,'create'])->name('profile.create');
   Route::post('store',[ProfileController::class,'store'])->name('profile.store');
-  Route::get('edit',[ProfileController::class,'eidt'])->name('profile.edit');
+  Route::get('edit',[ProfileController::class,'edit'])->name('profile.edit');
   Route::post('update',[ProfileController::class,'update'])->name('profile.update');
 });
 Route::get('products',[ProductController::class,'index']);
@@ -70,7 +66,7 @@ Route::post('notification/unread',[UserController::class,'unreadNotification']);
 Route::post('report',[UserController::class,'report']);
 Route::post('report/remove',[UserController::class,'removeReport'])->name('report.remove');
 Route::get('reports',[AdminController::class,'reports']);
-
+Route::get('/navigation',[UserController::class,'navigation']);
 Route::get('categories',[CategoryController::class,'index']);
 Route::get('category/product',[CategoryController::class,'categoryProducts']);
 Route::get('user/isAdmin',[UserController::class,'isAdmin']);

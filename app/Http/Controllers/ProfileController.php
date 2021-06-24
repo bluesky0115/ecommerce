@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -32,7 +33,7 @@ class ProfileController extends Controller
      */
     public function create()
     {
-      return view('profile');
+      return view('createProfile');
     }
 
     /**
@@ -53,6 +54,9 @@ class ProfileController extends Controller
       $cart=new Cart;
       $cart->user()->associate($user)->save();
       $cart->save();
+      foreach($request->catergories as $category){
+        $user->categories->attach($category);
+      }
       return redirect()->route('home')->with(['message'=>'profile saved']);
     }
 
@@ -73,9 +77,10 @@ class ProfileController extends Controller
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function edit(Profile $profile)
+    public function edit()
     {
-        //
+      $user=Auth::user();
+      return view('editProfile',['user'=>$user]);
     }
 
     /**

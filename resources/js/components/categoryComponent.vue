@@ -1,6 +1,5 @@
 <template>
    <div>
-     <p>id {{categoryId}}</p>
     <div v-for="product in products " :key="product.id">
      <img :src="product.imageSource" alt="" class="">
      <p>{{product.name}} {{product.price}} birr</p>
@@ -18,7 +17,7 @@ export default {
   data(){
     return{
       products:[],
-      categoryId:null,
+      categoryId:null
     }
   },
   mounted(){
@@ -26,6 +25,8 @@ export default {
     axios.get('/category/product',{params:{categoryId:this.categoryId}})
     .then(res=>{
       this.products=res.data.products;
+      console.log(this.categoryId);
+      console.log(this.products);
     })
   }
 }
