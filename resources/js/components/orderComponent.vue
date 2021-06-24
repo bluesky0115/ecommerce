@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white rounded-xl my-5 p-5 mx-auto w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
-   <p class="text-3xl text-center mb-3 border-bottom-2 border-gray-600">Items in your cart({{cartItems.length}})</p>
+   <p class="text-3xl text-center pb-2 border-b-2 border-gray-400">Items in your cart({{cartItems.length}})</p>
     <div class="flex">
      <div v-for="cartItem in cartItems" :key="cartItem.id" class="">
       <div>

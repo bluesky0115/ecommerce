@@ -55,7 +55,7 @@ class ProfileController extends Controller
       $cart->user()->associate($user)->save();
       $cart->save();
       foreach($request->catergories as $category){
-        $user->categories->attach($category);
+        $user->categories->sync([$category]);
       }
       return redirect()->route('home')->with(['message'=>'profile saved']);
     }

@@ -28,7 +28,7 @@
       <p class="text-2xl text-center mt-10 mb-2 text-gray-900">Edit your comment</p>
       <form v-if="editing" @submit.prevent="editComment(editedId)">
          <textarea name="description" v-model="editedBody" 
-         class="text-xl m-auto p-2 w-full h-40 rounded-xl border-2"></textarea>
+         class="text-xl m-auto p-2 w-full h-30 rounded-xl border-2 border-gray-500"></textarea>
          <input type="submit" value="edit comment" class="rounded bg-green-500 m-auto text-white text-2xl py-1 px-2"> 
       </form> 
      </div>  

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
   <div class="w-full md:w-2/3 lg:w-1/2 xl:w-1/2 bg-white my-5 mx-auto py-5 px-10 rounded-xl">
-    <p class="text-2xl m-2 font-semibold text-center">add product here</p>
+    <p class="text-2xl m-2">add product here</p>
      <form method="post" action="{{route('product.store')}}" enctype="multipart/form-data">
        {{ csrf_field() }}
        <input type="hidden" name="userId" value="{{Auth::user()->id}}">

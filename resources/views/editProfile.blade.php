@@ -11,7 +11,7 @@
     <p class="text-xl">street</p>
     <input type="text" name="street" required value="{{$user->profile->street}}" class="mx-auto w-3/4 h-10 rounded p-2 m-2 border-2 border-gray-600 focus:border-blue-500">
   <div class="mx-10">
-    <p class="text-xl">this website wants to notify you <br> in which product are you interested?</p>
+    <p class="text-xl">edit the categories you are interested to be notified</p>
   @foreach ($categories as $category)
     <p class="text-lg"><input type="checkbox" name="categories[]" value="{{$category->id}}">{{$category->name}}</p>
   @endforeach
