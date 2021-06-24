@@ -1,10 +1,8 @@
 @extends('layouts.app')
 @section('content')
-<div class="">
-  <p class="text-xl bg-green-50 text-center">{{session('message')}}</p>
-  @include('categorylink')
-  <div class="flex">
-    @forelse ($products as $product)
+@include('categorylink')
+<div class="flex p-5">
+  @forelse ($products as $product)
    <a href="{{route('product.show',$product->id)}}">
    <div class="m-2">
     <img src="/storage/products/{{$product->cover}}" class="w-48">
@@ -14,8 +12,7 @@
    </div>
    </a>   
   @empty
-   <p>no products are found</p>   
-  @endforelse
-  </div>
-</div>
+   <p>no products are found in {{$category->name}}</p>   
+  @endforelse  
+</div>   
 @endsection

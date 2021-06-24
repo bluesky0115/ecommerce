@@ -6,7 +6,7 @@
        {{ csrf_field() }}
        <input type="hidden" name="userId" value="{{Auth::user()->id}}">
        <p class="text-xl my-2 mx-5">product name</p>
-       <input type="text" name="name" placeholder="product name" required class="mx-auto w-3/4 h-10 rounded p-2 m-2 border-2 border-gray-600 focus:border-blue-500">
+       <input type="text" name="name" placeholder="product name" required class="mx-auto w-3/4 h-10 rounded p-2 m-2 border-2 border-gray-600">
        @if ($errors->has('name'))
         <p class="text-xl text-red-700 bg-red-200 w-max p-1">{{$errors->first('name')}}</p>
        @endif

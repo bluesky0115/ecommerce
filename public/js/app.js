@@ -2251,14 +2251,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['productId'],
   data: function data() {
     return {
-      deletedText: 'delete',
-      deleted: false,
-      readyToDelete: false,
-      product: {}
+      readyToDelete: false
     };
   },
   methods: {
@@ -2656,6 +2655,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -39507,7 +39507,7 @@ var render = function() {
                     }
                   ],
                   staticClass:
-                    "text-lg w-2/3 block h-40 m-2 p-2 rounded-lg border-2 border-gray-200",
+                    "text-lg w-2/3 block h-30 m-2 p-2 rounded-lg border-2 border-gray-500",
                   attrs: { name: "description", rows: "5", required: "" },
                   domProps: { value: _vm.body },
                   on: {
@@ -39522,7 +39522,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("input", {
                   staticClass:
-                    "rounded bg-green-500 text-white text-xl py-1 px-2",
+                    "cursor-pointer rounded bg-green-500 text-white text-xl py-1 px-2",
                   attrs: { type: "submit", value: "comment" }
                 })
               ]
@@ -39638,7 +39638,7 @@ var render = function() {
                           }
                         ],
                         staticClass:
-                          "text-xl m-auto p-2 w-full h-40 rounded-xl border-2",
+                          "text-xl m-auto p-2 w-full h-40 rounded-xl border-2 border-gray-500",
                         attrs: { name: "description" },
                         domProps: { value: _vm.editedBody },
                         on: {
@@ -39701,7 +39701,11 @@ var render = function() {
                 {
                   staticClass: "text-2xl text-center mt-10 mb-2 text-gray-900"
                 },
-                [_vm._v("are you sure to delete remember this is unchangable")]
+                [
+                  _vm._v(
+                    "are you sure to delete this comment remember this is unchangable"
+                  )
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -39784,14 +39788,14 @@ var render = function() {
     _c(
       "button",
       {
-        staticClass: "bg-red-600 text-xl text-gray-100 p-1 uppercase",
+        staticClass: "m-1 bg-red-600 text-xl text-white px-1 rounded",
         on: {
           click: function($event) {
             _vm.readyToDelete = true
           }
         }
       },
-      [_vm._v(_vm._s(_vm.deleteText) + "\n  ")]
+      [_vm._v("delete\n  ")]
     ),
     _vm._v(" "),
     _vm.readyToDelete
@@ -39803,6 +39807,14 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "w-1/3 rounded-xl bg-gray-200" }, [
+              _c("p", { staticClass: "text-xl text-center" }, [
+                _vm._v("ready to delete this product?")
+              ]),
+              _vm._v(" "),
+              _c("p", { staticClass: "text-xl text-center" }, [
+                _vm._v("remember this action is unchangeable")
+              ]),
+              _vm._v(" "),
               _c(
                 "form",
                 {
@@ -39813,7 +39825,13 @@ var render = function() {
                     }
                   }
                 },
-                [_c("input", { attrs: { type: "submit", value: "delete" } })]
+                [
+                  _c("input", {
+                    staticClass:
+                      "block mx-auto m-1 text-xl bg-red-500 text-white px-2 rounded cursor-pointer",
+                    attrs: { type: "submit", value: "delete" }
+                  })
+                ]
               )
             ])
           ]
@@ -39822,7 +39840,12 @@ var render = function() {
     _vm._v(" "),
     _vm.readyToDelete
       ? _c("div", {
-          staticClass: "absolute -inset-full opacity-50 bg-black z-10"
+          staticClass: "absolute -inset-full opacity-50 bg-black z-10",
+          on: {
+            click: function($event) {
+              _vm.readyToDelete = false
+            }
+          }
         })
       : _vm._e()
   ])
@@ -39856,7 +39879,7 @@ var render = function() {
         "div",
         { staticClass: "hidden md:flex lg:flex xl:flex 2xl:flex mx-3 p-1" },
         [
-          _c("a", { attrs: { href: "/home" } }, [
+          _c("a", { attrs: { href: "/" } }, [
             _c(
               "svg",
               {
@@ -40123,7 +40146,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("ul", [
       _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
-        _c("a", { attrs: { href: "/home" } }, [_vm._v("home")])
+        _c("a", { attrs: { href: "/" } }, [_vm._v("home")])
       ]),
       _vm._v(" "),
       _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
@@ -40562,7 +40585,7 @@ var render = function() {
     _c(
       "button",
       {
-        staticClass: "text-xl bg-red-500 text-white px-2",
+        staticClass: "text-xl bg-blue-500 text-white px-2 rounded m-1",
         on: {
           click: function($event) {
             _vm.reporting = true
@@ -40573,77 +40596,89 @@ var render = function() {
     ),
     _vm._v(" "),
     _vm.reporting
-      ? _c("div", { staticClass: "bg-white relative z-20 rounded-xl p-10" }, [
-          _c(
-            "button",
-            {
-              staticClass: "text-2xl absolute top-5 right-5 hover:text-red-500",
-              on: {
-                click: function($event) {
-                  _vm.reporting = false
-                }
-              }
-            },
-            [_vm._v("x")]
-          ),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "w-48",
-            attrs: { src: "/storage/products/" + _vm.product.cover }
-          }),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-xl" }, [
-            _vm._v(_vm._s(_vm.product.name))
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-xl" }, [
-            _vm._v(_vm._s(_vm.product.price) + " birr")
-          ]),
-          _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(_vm.product.description))]),
-          _vm._v(" "),
-          _c(
-            "form",
-            {
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.report.apply(null, arguments)
-                }
-              }
-            },
-            [
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.reportText,
-                    expression: "reportText"
-                  }
-                ],
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "absolute fixed top-30 left-30 bg-white z-20 rounded-xl py-5 px-10"
+          },
+          [
+            _c(
+              "button",
+              {
                 staticClass:
-                  "block border-2 border-gray-400 rounded-lg w-full h-40",
-                attrs: { max: "200", required: "" },
-                domProps: { value: _vm.reportText },
+                  "text-2xl absolute top-5 right-5 hover:text-red-500",
                 on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.reportText = $event.target.value
+                  click: function($event) {
+                    _vm.reporting = false
                   }
                 }
-              }),
-              _vm._v(" "),
-              _c("input", {
-                staticClass:
-                  "m-2 bg-green-500 text-xl text-white px-3 py-1 rounded",
-                attrs: { type: "submit", value: "report" }
-              })
-            ]
-          )
-        ])
+              },
+              [_vm._v("x")]
+            ),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "w-48",
+              attrs: { src: "/storage/products/" + _vm.product.cover }
+            }),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-xl" }, [
+              _vm._v(_vm._s(_vm.product.name))
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-xl" }, [
+              _vm._v(_vm._s(_vm.product.price) + " birr")
+            ]),
+            _vm._v(" "),
+            _c("p", [_vm._v(_vm._s(_vm.product.description))]),
+            _vm._v(" "),
+            _c("p", { staticClass: "text" }, [
+              _vm._v("report this product to adminstrators")
+            ]),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.report.apply(null, arguments)
+                  }
+                }
+              },
+              [
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.reportText,
+                      expression: "reportText"
+                    }
+                  ],
+                  staticClass:
+                    "block border-2 border-gray-400 rounded-lg w-80 h-40",
+                  attrs: { max: "200", required: "" },
+                  domProps: { value: _vm.reportText },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.reportText = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass:
+                    "m-2 bg-green-500 text-xl text-white px-3 py-1 rounded",
+                  attrs: { type: "submit", value: "report", required: "" }
+                })
+              ]
+            )
+          ]
+        )
       : _vm._e(),
     _vm._v(" "),
     _vm.reporting

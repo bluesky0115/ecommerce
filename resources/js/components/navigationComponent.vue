@@ -2,7 +2,7 @@
  <div class="flex justify-between bg-gray-800">
   <div class="flex">
     <div class="hidden md:flex lg:flex xl:flex 2xl:flex mx-3 p-1">
-     <a href="/home">
+     <a href="/">
       <svg xmlns="http://www.w3.org/2000/svg" class="text-white h-10 w-10 hover:bg-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
       </svg>   
@@ -53,7 +53,7 @@
      </div> 
      <div v-if="userDropdownMenu" class="fixed z-20 text-xl bg-gray-100 top-2 right-2">
       <ul>
-       <li class="hover:bg-blue-200 px-5 py-1"><a href="/home">home</a></li>
+       <li class="hover:bg-blue-200 px-5 py-1"><a href="/">home</a></li>
        <li class="hover:bg-blue-200 px-5 py-1"><a href="/profile/edit">my profile</a></li>
        <li class="hover:bg-blue-200 px-5 py-1"><a href="/product/create">add product</a></li>
        <li class="hover:bg-blue-200 px-5 py-1"><a href="/order">order</a></li>

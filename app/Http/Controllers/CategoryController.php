@@ -17,11 +17,11 @@ class CategoryController extends Controller
         $this->middleware('auth');
         
     }
-    public function categoryProducts(Request $request)
+    public function categoryProducts($id)
     {
-      $category=Category::find($request->categoryId);
+      $category=Category::find($id);
       $products=$category->products;
-      return response()->json(['products'=>$products]);  
+      return view('specificcategory',['products'=>$products,'category'=>$category]);  
     }
     public function index()
     {

@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,12 +23,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-  return view('welcome');
-});
+  $products=Product::latest()->take(100)->get();
+  return view('home',['products'=>$products]);
+})->name('home');
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('product')->group(function () {
     Route::get('create',[ProductController::class,'create'])->name('product.create');
@@ -49,6 +49,7 @@ Route::prefix('profile')->group(function(){
   Route::post('update',[ProfileController::class,'update'])->name('profile.update');
 });
 Route::get('products',[ProductController::class,'index']);
+Route::get('/products/{id}',[CategoryController::class,'categoryProducts'])->name('product.specificproduct');
 
 Route::get('orders',[OrderController::class,'index'])->name('orders');
 Route::get('order',[OrderController::class,'orderForm'])->name('order');
