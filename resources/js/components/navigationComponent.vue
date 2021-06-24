@@ -46,10 +46,14 @@
     </div>
    </div>
    <div class="mx-3"> 
-     <div class="my-auto hidden lg:inline xl:inline 2xl:inline">
-     <button @click="userDropdownMenu=true">
-      <span class="text-xl text-white">{{user.name}}</span>
-     </button>   
+     <div v-if="userId" class="my-auto hidden lg:inline xl:inline 2xl:inline">
+       <button @click="userDropdownMenu=true">
+        <span class="text-xl text-white">{{user.name}}</span>
+       </button>   
+     </div>
+     <div class="flex text-white text-xl">
+     <a href="/login" class="bg-blue-500 mx-2">sign in</a>
+     <a href="/register" class="bg-green-500 mx-2">sign up</a>  
      </div> 
      <div v-if="userDropdownMenu" class="fixed z-20 text-xl bg-gray-100 top-2 right-2">
       <ul>

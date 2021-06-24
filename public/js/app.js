@@ -1850,12 +1850,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['productId', 'userId'],
   data: function data() {
     return {
-      productInCart: false,
-      addText: 'add'
+      productInCart: false
     };
   },
   mounted: function mounted() {
@@ -1874,13 +1875,12 @@ __webpack_require__.r(__webpack_exports__);
     addToCart: function addToCart() {
       var _this2 = this;
 
-      if (!this.added) {
+      if (!productInCart) {
         axios.post('/product/addtocart', {
           productId: this.productId,
           userId: this.userId
         }).then(function (res) {
           _this2.addedToCart = true;
-          _this2.addText = 'added';
 
           _this2.$emit('productAddedToCart', _this2.productId);
         });
@@ -2414,13 +2414,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['userId'],
   data: function data() {
     return {
-      notifications: [{
-        id: 1,
-        name: 'first notification'
-      }, {
-        id: 2,
-        name: 'second notification'
-      }],
+      notifications: [],
       selectedCategories: [],
       notificationPopup: false
     };
@@ -2435,6 +2429,7 @@ __webpack_require__.r(__webpack_exports__);
     }).then(function (res) {
       if (res.data.notifications) {
         _this.notifications = res.data.notifications;
+        console.log(res.data.notifications);
       }
     });
   },
@@ -39180,21 +39175,36 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "form",
+    "button",
     {
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.addToCart.apply(null, arguments)
-        }
-      }
+      staticClass: "cursor-pointer bg-blue-500 rounded text-white",
+      on: { click: _vm.addTocart }
     },
     [
-      _c("input", {
-        staticClass: "cursor-pointer bg-blue-500 rounded text-white",
-        attrs: { type: "submit" },
-        domProps: { value: _vm.addText }
-      })
+      _c(
+        "svg",
+        {
+          staticClass: "h-10 w-10",
+          class: [_vm.productInCart ? "text-yellow-600" : "text-white"],
+          attrs: {
+            xmlns: "http://www.w3.org/2000/svg",
+            fill: "none",
+            viewBox: "0 0 24 24",
+            stroke: "currentColor"
+          }
+        },
+        [
+          _c("path", {
+            attrs: {
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+              "stroke-width": "2",
+              d:
+                "M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+            }
+          })
+        ]
+      )
     ]
   )
 }
@@ -39258,7 +39268,7 @@ var render = function() {
         ),
         _vm._v(" "),
         _vm.cartItems.length
-          ? _c("span", { staticClass: "text-3xl" }, [
+          ? _c("span", { staticClass: "text-3xl text-white" }, [
               _vm._v("(" + _vm._s(_vm.cartItems.length) + ")")
             ])
           : _vm._e()
@@ -40249,8 +40259,8 @@ var render = function() {
                   "li",
                   { key: notification.id, staticClass: "hover:bg-blue-200" },
                   [
-                    _c("a", { attrs: { href: notification.reference } }, [
-                      _vm._v(_vm._s(notification.name))
+                    _c("a", { attrs: { href: notification.data.href } }, [
+                      _vm._v(_vm._s(notification.data.data))
                     ]),
                     _vm._v(" "),
                     _c(

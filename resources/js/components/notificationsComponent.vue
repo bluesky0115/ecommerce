@@ -9,7 +9,7 @@
    <div v-if="notificationPopup" class="fixed bg-gray-100 z-20 text-xl m-2 rounded-md p-2">
     <ul>
      <li v-for="notification in notifications" :key="notification.id" class="hover:bg-blue-200">
-      <a :href="notification.reference">{{notification.name}}</a>
+      <a :href="notification.data.href">{{notification.data.data}}</a>
       <button @click="readNotification(notification.id)">x</button>    
      </li>    
     </ul> 
@@ -22,7 +22,7 @@ export default {
    props:['userId'],
    data(){
     return{
-      notifications:[{id:1,name:'first notification'},{id:2,name:'second notification'}],
+      notifications:[],
       selectedCategories:[],
       notificationPopup:false  
     }   
@@ -32,6 +32,7 @@ export default {
      .then(res=>{
       if(res.data.notifications){
         this.notifications=res.data.notifications;
+        console.log(res.data.notifications);
       }
      })  
    },

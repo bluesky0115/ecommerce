@@ -20,13 +20,14 @@ class UserController extends Controller
   {
    $user=User::find($request->userId);
    $categories=Category::all();
+   $user=User::first();
    $notifications=$user->unreadNotifications;
    return response()->json(['user'=>$user,'categories'=>$categories,'notifications'=>$notifications]);
   }
   public function notifications(Request $request)
   {
     $user=User::find($request->userId);
-    $notifications=$user->unreadNotifications;
+    $notifications=$user->notifications;
     return response()->json(['notfications'=>$notifications]);
   }
   public function report(Request $request)

@@ -56,13 +56,15 @@ class ProductController extends Controller
         $product->user_id=$request->userId;
         $product->description=$request->description;
         $product->category_id=$request->categoryId;
-        $product->category_id=$request->userId;
         $product->save();
         $product->cover=$product->id.'.'.$request->photo->extension();
         $product->save();
         $request->photo->storeAs('products',$product->cover,'public');
-        //$notifiedUsers=User::where('selectedCategories')->get();
-        //$notifiedUsers->notify(new NewProductNotification($product));
+        $category=Category::find($request->categoryId);
+        $notifiedUsers=$category->users;
+        foreach($notifiedUsers as $user){
+          $user->notify(new NewProductNotification($product));
+        }
         return redirect()->route('home'); 
     }
 
