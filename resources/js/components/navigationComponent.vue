@@ -1,5 +1,5 @@
 <template>
- <div class="flex justify-between bg-gray-800">
+ <div class="flex justify-between bg-gray-800 w-full">
   <div class="flex">
     <div class="hidden md:flex lg:flex xl:flex 2xl:flex mx-3 p-1">
      <a href="/">
@@ -9,7 +9,7 @@
      </a>  
     </div> 
     <div class="lg:mx-4 xl:mx-4 2xl:mx-4 p-1">
-      <form @submit.prevent="search" class="flex my-auto">
+      <form method="POST" action="/search" class="flex my-auto">
        <input type="text" name="searchQuery" required class="rounded border-2 border-gray-500 text-xl py-1 lg:mx-1 xl:mx-1 2xl:mx-1">
        <select name="category" id="" required class="my-auto text-xl bg-gray-800 text-white lg:mx-1 xl:mx-1 2xl:mx-1">
          <option value="all" selected>all</option>
@@ -47,13 +47,13 @@
    </div>
    <div class="mx-3"> 
      <div v-if="userId" class="my-auto hidden lg:inline xl:inline 2xl:inline">
-       <button @click="userDropdownMenu=true">
-        <span class="text-xl text-white">{{user.name}}</span>
+       <button @click="userDropdownMenu=true" class="my-auto">
+        <span class="text-xl text-white text-semibold">{{user.name}}</span>
        </button>   
      </div>
-     <div class="flex text-white text-xl">
-     <a href="/login" class="bg-blue-500 mx-2">sign in</a>
-     <a href="/register" class="bg-green-500 mx-2">sign up</a>  
+     <div v-else class="flex text-white text-xl w-full">
+     <a href="/login" class="bg-blue-500 mx-2 my-2 rounded px-2 py-1">sign in</a>
+     <a href="/register" class="bg-green-500 mx-2 my-2 rounded px-2 py-1">sign up</a>  
      </div> 
      <div v-if="userDropdownMenu" class="fixed z-20 text-xl bg-gray-100 top-2 right-2">
       <ul>
@@ -62,7 +62,11 @@
        <li class="hover:bg-blue-200 px-5 py-1"><a href="/product/create">add product</a></li>
        <li class="hover:bg-blue-200 px-5 py-1"><a href="/order">order</a></li>
        <li class="hover:bg-blue-200 px-5 py-1"><a href="/about">contact us</a></li>
-       <li class="hover:bg-blue-200 px-5 py-1"><a href="/logout">logout</a></li>  
+       <li class="hover:bg-blue-200 px-5 py-1">
+         <form method="POST" action="/logout">
+         <input type="submit" value="logout" class="bg-gray-100 hover:bg-blue-200 cursor-pointer">
+         </form>
+         </li>  
       </ul>
      </div>
      <div v-if="userDropdownMenu" @click="userDropdownMenu=false" class="absolute z-10 -inset-y-0 -inset-x-0 bg-black opacity-50"></div>

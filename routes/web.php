@@ -36,7 +36,7 @@ Route::prefix('product')->group(function () {
     Route::patch('update',[ProductController::class,'update'])->name('product.update');
     Route::get('show/{product}',[ProductController::class,'show'])->name('product.show');
     Route::delete('delete/{product}',[ProductController::class,'destroy'])->name('product.delete');
-    Route::get('search',[ProductController::class,'search'])->name('product.search');
+    Route::post('search',[ProductController::class,'search'])->name('product.search');
     Route::get('data',[ProductController::class,'data']);
     Route::post('addtocart',[ProductController::class,'addToCart']);
     Route::post('removefromcart',[ProductController::class,'removeFromCart']);
@@ -70,7 +70,9 @@ Route::get('reports',[AdminController::class,'reports']);
 Route::get('/navigation',[UserController::class,'navigation']);
 Route::get('categories',[CategoryController::class,'index']);
 Route::get('category/product',[CategoryController::class,'categoryProducts']);
+
 Route::get('user/isAdmin',[UserController::class,'isAdmin']);
+Route::post('user/logut',[UserController::class,'logout']);
 
 Route::view('about','about')->name('about');
 

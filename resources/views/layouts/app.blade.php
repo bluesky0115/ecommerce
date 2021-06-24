@@ -103,7 +103,7 @@
        <div>
         <navigation-component @auth user-id="{{Auth::user()->id}}"@endauth />  
        </div>
-        <main class=" py-1">
+        <main class="">
             @yield('content')
         </main>
     </div>

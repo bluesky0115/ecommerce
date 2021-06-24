@@ -124,16 +124,17 @@ class ProductController extends Controller
     }
     public function search(Request $request)
     {
-      $category_id=$request->category;
-      $searchQuery=$request->searchQuery; 
-      if($category_id=='all'){
-        $products=Product::where('name','like',"%${searchQuery}%")->get(); 
-      }
-      else{
-        $products=Product::where([['category_id',$category_id],['name','like',"%${searchQuery}%"]])->get();  
-      }
-      $categoryName=Category::find($category_id)->name ?? 'product';
-      return view('product.search',['products'=>$products,'searchQuery'=>$searchQuery,'categoryName'=>$categoryName]);
+      // $category_id=$request->category;
+      // $searchQuery=$request->searchQuery; 
+      // if($category_id=='all'){
+      //   $products=Product::where('name','like',"%${searchQuery}%")->get(); 
+      // }
+      // else{
+      //   $products=Product::where([['category_id',$category_id],['name','like',"%${searchQuery}%"]])->get();  
+      // }
+      // $categoryName=Category::find($category_id)->name ?? 'product';
+      // return view('product.search',['products'=>$products,'searchQuery'=>$searchQuery,'categoryName'=>$categoryName]);
+      return redirect()->route('product.create');
     }
     public function addToCart(Request $request)
     {

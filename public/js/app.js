@@ -2354,6 +2354,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['userId'],
   data: function data() {
@@ -39176,16 +39184,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "button",
-    {
-      staticClass: "cursor-pointer bg-blue-500 rounded text-white",
-      on: { click: _vm.addTocart }
-    },
+    { staticClass: "cursor-pointer rounded", on: { click: _vm.addTocart } },
     [
       _c(
         "svg",
         {
           staticClass: "h-10 w-10",
-          class: [_vm.productInCart ? "text-yellow-600" : "text-white"],
+          class: [_vm.productInCart ? "text-green-500" : "text-yellow-500"],
           attrs: {
             xmlns: "http://www.w3.org/2000/svg",
             fill: "none",
@@ -39517,7 +39522,7 @@ var render = function() {
                     }
                   ],
                   staticClass:
-                    "text-lg w-2/3 block h-30 m-2 p-2 rounded-lg border-2 border-gray-500",
+                    "text-lg w-2/3 block h-25 m-2 p-2 rounded-lg border-2 border-gray-500",
                   attrs: { name: "description", rows: "5", required: "" },
                   domProps: { value: _vm.body },
                   on: {
@@ -39883,7 +39888,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "flex justify-between bg-gray-800" }, [
+  return _c("div", { staticClass: "flex justify-between bg-gray-800 w-full" }, [
     _c("div", { staticClass: "flex" }, [
       _c(
         "div",
@@ -39922,12 +39927,7 @@ var render = function() {
           "form",
           {
             staticClass: "flex my-auto",
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.search.apply(null, arguments)
-              }
-            }
+            attrs: { method: "POST", action: "/search" }
           },
           [
             _c("input", {
@@ -40058,27 +40058,50 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "mx-3" }, [
-      _c(
-        "div",
-        { staticClass: "my-auto hidden lg:inline xl:inline 2xl:inline" },
-        [
-          _c(
-            "button",
-            {
-              on: {
-                click: function($event) {
-                  _vm.userDropdownMenu = true
-                }
-              }
-            },
+      _vm.userId
+        ? _c(
+            "div",
+            { staticClass: "my-auto hidden lg:inline xl:inline 2xl:inline" },
             [
-              _c("span", { staticClass: "text-xl text-white" }, [
-                _vm._v(_vm._s(_vm.user.name))
-              ])
+              _c(
+                "button",
+                {
+                  staticClass: "my-auto",
+                  on: {
+                    click: function($event) {
+                      _vm.userDropdownMenu = true
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "span",
+                    { staticClass: "text-xl text-white text-semibold" },
+                    [_vm._v(_vm._s(_vm.user.name))]
+                  )
+                ]
+              )
             ]
           )
-        ]
-      ),
+        : _c("div", { staticClass: "flex text-white text-xl w-full" }, [
+            _c(
+              "a",
+              {
+                staticClass: "bg-blue-500 mx-2 my-2 rounded px-2 py-1",
+                attrs: { href: "/login" }
+              },
+              [_vm._v("sign in")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "bg-green-500 mx-2 my-2 rounded px-2 py-1",
+                attrs: { href: "/register" }
+              },
+              [_vm._v("sign up")]
+            )
+          ]),
       _vm._v(" "),
       _vm.userDropdownMenu
         ? _c(
@@ -40176,7 +40199,12 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
-        _c("a", { attrs: { href: "/logout" } }, [_vm._v("logout")])
+        _c("form", { attrs: { method: "POST", action: "/logout" } }, [
+          _c("input", {
+            staticClass: "bg-gray-100 hover:bg-blue-200 cursor-pointer",
+            attrs: { type: "submit", value: "logout" }
+          })
+        ])
       ])
     ])
   }

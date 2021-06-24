@@ -22,17 +22,16 @@
    </div>
         <div class="m-2">
             @foreach ($recommendedProducts as $product)
+              <div class="flex w-max m-2">
                 <a href="{{route('product.show',$product->id)}}">
-                    <div class="flex w-max m-2">
-                        <img src="/storage/products/{{$product->cover}}" width="300px">
-                        <div class="mx-2">
-                          <p class="text-xl text-center">{{$product->name}}</p>
-                          <p class="text-xl text-center">{{$product->price}} birr</p>  
-                          <addtocart-component product-id="{{$product->id}}" user-id="{{Auth::user()->id}}"/>
-                          <a href="{{route('product.show',$product->id)}}">details</a>
-                    </div>   
+                  <img src="/storage/products/{{$product->cover}}" width="300px">
                 </a>
-                </div>
+                  <div class="mx-2">
+                    <p class="text-xl text-center">{{$product->name}}</p>
+                    <p class="text-xl text-center">{{$product->price}} birr</p>  
+                    <addtocart-component product-id="{{$product->id}}" user-id="{{Auth::user()->id}}"/>
+                  </div>   
+             </div>
             @endforeach  
        </div>
 </div>
