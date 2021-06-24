@@ -76,7 +76,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-      $recommendedProducts=Product::all();
+      $category=$product->category;
+      $recommendedProducts=$category->products()->latest()->take(20)->get();
       return view('product.show',['product'=>$product,'recommendedProducts'=>$recommendedProducts]);
     }
 

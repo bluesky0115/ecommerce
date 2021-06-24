@@ -10,7 +10,7 @@
     </div> 
     <div class="lg:mx-4 xl:mx-4 2xl:mx-4 p-1">
       <form method="POST" action="/search" class="flex my-auto">
-       <input type="text" name="searchQuery" required class="rounded border-2 border-gray-500 text-xl py-1 lg:mx-1 xl:mx-1 2xl:mx-1">
+       <input type="text" name="searchQuery" required placeholder="search product" class="rounded border-2 border-gray-500 text-xl py-1 lg:mx-1 xl:mx-1 2xl:mx-1">
        <select name="category" id="" required class="my-auto text-xl bg-gray-800 text-white lg:mx-1 xl:mx-1 2xl:mx-1">
          <option value="all" selected>all</option>
          <option v-for="category in categories" :value="category.id" :key="category.id">{{category.name}}</option>  

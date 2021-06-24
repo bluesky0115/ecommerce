@@ -2422,7 +2422,13 @@ __webpack_require__.r(__webpack_exports__);
   props: ['userId'],
   data: function data() {
     return {
-      notifications: [],
+      notifications: [{
+        id: 1,
+        data: 'first notification'
+      }, {
+        id: 2,
+        data: 'second notification'
+      }],
       selectedCategories: [],
       notificationPopup: false
     };
@@ -39522,7 +39528,7 @@ var render = function() {
                     }
                   ],
                   staticClass:
-                    "text-lg w-2/3 block h-25 m-2 p-2 rounded-lg border-2 border-gray-500",
+                    "text-lg w-2/3 block h-20 m-2 p-2 rounded-lg border-2 border-gray-500",
                   attrs: { name: "description", rows: "5", required: "" },
                   domProps: { value: _vm.body },
                   on: {
@@ -39933,7 +39939,12 @@ var render = function() {
             _c("input", {
               staticClass:
                 "rounded border-2 border-gray-500 text-xl py-1 lg:mx-1 xl:mx-1 2xl:mx-1",
-              attrs: { type: "text", name: "searchQuery", required: "" }
+              attrs: {
+                type: "text",
+                name: "searchQuery",
+                required: "",
+                placeholder: "search product"
+              }
             }),
             _vm._v(" "),
             _c(

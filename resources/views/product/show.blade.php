@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@include('categorylink')
 <div class="block lg:flex xl:flex 2xl:flex">
   <div class="w-full lg:w-2/3 xl:w-2/3 2xl:w-2/3 p-5">
     <div>
