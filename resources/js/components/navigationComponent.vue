@@ -9,9 +9,8 @@
      </a>  
     </div> 
     <div class="lg:mx-4 xl:mx-4 2xl:mx-4 p-1">
-      <form method="POST" action="/search" class="flex my-auto">
        <input type="text" name="searchQuery" required placeholder="search product" class="rounded border-2 border-gray-500 text-xl py-1 lg:mx-1 xl:mx-1 2xl:mx-1">
-       <select name="category" id="" required class="my-auto text-xl bg-gray-800 text-white lg:mx-1 xl:mx-1 2xl:mx-1">
+       <select v-model="category" required class="my-auto text-xl bg-gray-800 text-white lg:mx-1 xl:mx-1 2xl:mx-1">
          <option value="all" selected>all</option>
          <option v-for="category in categories" :value="category.id" :key="category.id">{{category.name}}</option>  
        </select>
@@ -19,8 +18,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
-       </button>
-      </form>  
+       </button> 
     </div>
     <div class="text-white text-xl mx-1 hidden lg:block xl:block 2xl:block">
      <ul class="flex list-style-none h-full">
@@ -63,10 +61,8 @@
        <li class="hover:bg-blue-200 px-5 py-1"><a href="/order">order</a></li>
        <li class="hover:bg-blue-200 px-5 py-1"><a href="/about">contact us</a></li>
        <li class="hover:bg-blue-200 px-5 py-1">
-         <form method="POST" action="/logout">
-         <input type="submit" value="logout" class="bg-gray-100 hover:bg-blue-200 cursor-pointer">
-         </form>
-         </li>  
+        <button @click="logout">logout</button>  
+       </li>  
       </ul>
      </div>
      <div v-if="userDropdownMenu" @click="userDropdownMenu=false" class="absolute z-10 -inset-y-0 -inset-x-0 bg-black opacity-50"></div>
@@ -79,6 +75,8 @@ export default {
    data(){
     return{
       user:{},
+      categoryId:'all',
+      searchQuery:'',
       categories:[],
       userDropdownMenu:false,
     }
@@ -91,7 +89,14 @@ export default {
     })
    },
    methods:{
-
+    search(){
+      document.getElementById('searchQuery').value=this.searchQuery;
+      document.getElementById('category').value=this.categoryId;
+      document.getElementById('search-form').submit();
+    },
+    logout(){
+      document.getElementById('logout-form').submit(); 
+    }
    }
 }
 </script>
