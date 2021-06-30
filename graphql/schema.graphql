@@ -1,0 +1,152 @@
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+type Query {
+    users: [User!]! @all
+    user(id: ID @eq): User @find
+    products: [Product!]! @all
+    product(id: ID @eq): Product @find
+    categories: [Category!]! @all
+    category(id: ID @eq): Category @find
+    orders: [Order!]! @all
+    order(id: ID @eq): Order @find
+    carts: [Cart!]! @all
+    cart(id: ID @eq): Cart @find
+    comments: [Comment!]! @all
+    comment(id: ID @eq): Comment @find
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Product {
+    id: ID!
+    name: String!
+    price: Int!
+    cover: String!
+    description: String
+    user:User! @belongsTo
+    category: Category! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Category {
+    id: ID!
+    name: String!
+    products: [Product]
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Order {
+    id: ID!
+    user: User! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Comment {
+    id: ID!
+    body: String!
+    product: Product! @belongsTo
+    user: User! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Cart {
+    id: ID!
+    user: User! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+type Mutation{
+
+    createProduct(
+      name: String! @rules(apply:["required","min:2","max:30"])
+      price: Int! !rules(apply:["required","min:0"])
+      cover: String! @rules(apply,["required","max:30"])
+      description: String! @rules(apply:["max:200"])  
+    ):Product @create
+
+    updateProduct(
+      name: String! @rules(apply:["required","min:2","max:30"])
+      price: Int! !rules(apply:["required","min:0"])
+      cover: String! @rules(apply,["required","max:30"])
+      description: String! @rules(apply:["max:200"])   
+    ):Product @update
+
+    deleteProduct(
+       id:ID! 
+    ):Product @delete
+
+    createCategory(
+      name: String! @rules(apply:["required","min:2","max:30"]) 
+    ):Category @create
+
+    updateCategory(
+      name: String! @rules(apply:["required","min:2","max:30"])
+    ):Category @update
+
+    deleteCategory(
+       id:ID! 
+    ):Category @delete
+
+    createOrder(
+    #   user: User @belongsTo
+    #   product:Product! @belongsTo  
+    user_id: ID!
+    product_id: ID!
+    ):Order @create
+
+    updateOrder(
+     #   user: User @belongsTo
+     #   product:Product! @belongsTo  
+     user_id: ID!
+     product_id: ID!
+    ):Order @update
+
+    deleteOrder(
+       id:ID! 
+    ):Order @delete
+
+    createCart(
+    #   user: User @belongsTo
+    user_id: ID!
+    ):Cart @create
+
+    updateCart(
+     #   user: User @belongsTo
+     user_id: ID!
+    ):Cart @update
+
+    deletecart(
+       id:ID! 
+    ):Order @delete
+
+    createComment(
+    #   user: User @belongsTo
+    #   product:Product! @belongsTo 
+    body: String! @rules(apply:["required","max:200"]) 
+    user_id: ID!
+    product_id: ID!
+    ):Comment @create
+
+    updateComment(
+     id: ID!
+    ):Comment @update
+
+    deleteComment(
+       id:ID! 
+    ):Comment @delete
+}

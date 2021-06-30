@@ -27,6 +27,9 @@ Route::get('/', function () {
   return view('home',['products'=>$products]);
 })->name('home');
 
+Route::get('/test',function(){
+
+});
 Auth::routes();
 
 Route::prefix('product')->group(function () {

@@ -12,7 +12,10 @@
         "laravel/cashier": "^13.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.3"
+        "laravel/ui": "^3.3",
+        "mll-lab/laravel-graphql-playground": "^2.5",
+        "nuwave/lighthouse": "^5.13",
+        "softonic/graphql-client": "^1.3"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
