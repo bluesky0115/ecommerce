@@ -23,32 +23,35 @@ class CartController extends Controller
     public function cartItems(Request $request)
     {
       $user=User::find($request->userId);
-      $cartItems=$user->cart->products;
+      $cart=$user->cart();
+      $cartItems=$cart->products();
       return response()->json(['cartItems'=>$cartItems]);
     }
     public function addToCart(Request $request)
     {
       $user=User::find($request->userId);
       $product=Product::find($request->productId);
-      if($user->cart){
-        $user->cart->syncWithoutDetaching($product);
-      }
-      else{
-        $cart=new Cart;
-        $cart->user=$user;
-        $user->cart->syncWithoutDetaching($product);
-      }  
+      $user->cart()->save($product);
     }
-    public function productInCart(Request $request)
+
+    public function removeFromCart(Request $request)
     {
       $user=User::find($request->userId);
       $product=Product::find($request->productId);
-      $cart=$user->cart;
-      if(in_array($product,json_decode($cart->products))){
-        $productInCart=true;
-      }
-      else{
-        $productInCart=false;
+      $user->cart()->delete($product);
+    }
+
+    public function productInCart(Request $request)
+    {
+      $user=User::find($request->userId);
+      $item=Product::find($request->productId);
+      $cart=$user->cart();
+      $products=$cart->products;
+      $productInCart=false;
+      foreach ($products as $product) {
+        if($product->id==$item->id){
+          $productInCart=true;
+        }
       }
       return response()->json(['productInCart'=>$productInCart]);  
     }

@@ -7,10 +7,11 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Cart;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,7 +29,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/test',function(){
-
+  dd(Cart::first()->products());
 });
 Auth::routes();
 
@@ -41,8 +42,6 @@ Route::prefix('product')->group(function () {
     Route::delete('delete/{product}',[ProductController::class,'destroy'])->name('product.delete');
     Route::get('search',[ProductController::class,'search'])->name('product.search');
     Route::get('data',[ProductController::class,'data']);
-    Route::post('addtocart',[ProductController::class,'addToCart']);
-    Route::post('removefromcart',[ProductController::class,'removeFromCart']);
 });
 
 Route::prefix('profile')->group(function(){
@@ -60,8 +59,9 @@ Route::post('order',[OrderController::class,'order']);
 Route::post('order/complete',[OrderController::class,'destroy'])->name('order.complete');
 
 Route::get('cartitems',[CartController::class,'cartItems']);
-Route::post('cartitems/add',[CartController::class,'cartItems']);
 Route::get('cart/product',[CartController::class,'productInCart']);
+Route::post('cart/addproduct',[CartController::class,'addToCart']);
+Route::post('cart/removeproduct',[CartController::class,'removeFromCart']);
 
 Route::get('notifications',[UserController::class,'notifications']);
 Route::post('notification/category',[UserController::class,'notificationForm']);

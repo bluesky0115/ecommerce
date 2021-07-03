@@ -4,7 +4,7 @@
 <div class="block lg:flex xl:flex 2xl:flex">
   <div class="w-full lg:w-2/3 xl:w-2/3 2xl:w-2/3 p-5">
     <div>
-        <img src="/storage/products/{{$product->cover}}" class="w-3/4">
+        <img src="/storage/products/{{$product->cover}}" class="w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
         <p class="text-2xl mx-10">{{$product->name}} <strong>{{$product->price}} birr</strong></p>
         <p class="text-lg mx-10"> {{$product->description}}</p>
     </div>
@@ -16,7 +16,7 @@
         <a href="{{route('product.edit',$product->id)}}" class="m-1 text-xl text-white bg-green-500 px-2 rounded cursor-pointer">edit</a>
        @endcan
        @can('delete',$product)
-       <deleteproduct-component productId="{{$product->id}}" /> 
+       <deleteproduct-component product-id="{{$product->id}}" /> 
        @endcan 
     </div>
      <comment-component user-id="{{Auth::user()->id}}" product-id="{{$product->id}}"/>    

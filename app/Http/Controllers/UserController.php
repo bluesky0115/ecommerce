@@ -14,22 +14,27 @@ class UserController extends Controller
 {
   public function __construct(){
 
-    $this->middleware('auth');
+    //$this->middleware('auth');
     
   }
   public function navigation(Request $request)
   {
-   $user=User::find($request->userId);
-   $categories=Category::all();
-   $user=User::first();
-   $notifications=$user->unreadNotifications;
-   return response()->json(['user'=>$user,'categories'=>$categories,'notifications'=>$notifications]);
+    $categories=Category::all(); 
+    if($request->userId){
+      $user=User::find($request->userId);
+      $notifications=$user->unreadNotifications;
+    }
+    else{
+      $user=null;
+      $notifications=[];
+    }
+    return response()->json(['user'=>$user,'categories'=>$categories,'notifications'=>$notifications]);
   }
   public function notifications(Request $request)
   {
     $user=User::find($request->userId);
     $notifications=$user->notifications;
-    return response()->json(['notfications'=>$notifications]);
+    return response()->json(['notifications'=>$notifications]);
   }
   public function report(Request $request)
   {

@@ -4,7 +4,7 @@
     <div class="flex">
      <div v-for="cartItem in cartItems" :key="cartItem.id" class="">
       <div>
-       <input type="checkbox" :value="cartItem" v-model="orderItems" class="p-2">
+       <input type="checkbox" :value="cartItem.id" v-model="orderItems" class="p-2">
       </div>
      <img :src="'/storage/products/'+cartItem.cover" class="w-40">
      <div class="my-auto">
@@ -23,7 +23,7 @@
     </div>   
     </div>
     <p v-if="totalPrice" class="text-xl">total price {{totalPrice}}</p>
-    <form @submit.prevent="order">
+    <form v-if="orderItems" @submit.prevent="order">
      <input type="submit" value="order" class="block m-auto bg-green-500 text-2xl text-white px-5 py-1 mt-5 rounded-md cursor-pointer">
    </form>
   </div> 

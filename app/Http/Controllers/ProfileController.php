@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -33,7 +34,8 @@ class ProfileController extends Controller
      */
     public function create()
     {
-      return view('createProfile');
+      $categories=Category::all();
+      return view('createProfile',['categories'=>$categories]);
     }
 
     /**
@@ -49,13 +51,16 @@ class ProfileController extends Controller
       $profile->phone_number=$request->phone_number;
       $profile->city=$request->city;
       $profile->street=$request->street;
+      $profile->user_id=$user->id;
       $profile->save();
-      $user->profile=$profile;
       $cart=new Cart;
-      $cart->user()->associate($user)->save();
+      $cart->user_id=$user->id;
       $cart->save();
-      foreach($request->catergories as $category){
-        $user->categories->sync([$category]);
+      if($request->has('categories')){
+        foreach($request->categories as $category){
+          $category=Category::find($category);
+          $user->categories()->attach([$category->id]);
+        }
       }
       return redirect()->route('home')->with(['message'=>'profile saved']);
     }
@@ -68,7 +73,7 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        //
+      
     }
 
     /**
@@ -80,7 +85,8 @@ class ProfileController extends Controller
     public function edit()
     {
       $user=Auth::user();
-      return view('editProfile',['user'=>$user]);
+      $categories=$user->categories;
+      return view('editProfile',['user'=>$user,'categories'=>$categories]);
     }
 
     /**

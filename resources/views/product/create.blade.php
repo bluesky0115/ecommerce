@@ -13,9 +13,11 @@
        <p class="text-xl my-2 mx-5">product category</p>
        <select name="categoryId" id="" required class="mx-2 text-xl px-3 py-1 rounded">
          <option value="category" selected disabled>category</option>
-         @foreach ($categories as $category)
+         @isset($categories)
+          @foreach ($categories as $category)
              <option value="{{$category->id}}">{{$category->name}}</option>
-         @endforeach
+          @endforeach
+         @endisset
        </select>
        @if ($errors->has('category'))
         <p class="text-xl text-red-700 bg-red-200 w-max p-1">{{$errors->first('category')}}</p>
@@ -32,7 +34,6 @@
        @endif
        <p class="text-xl my-2 mx-5">description</p>
        <textarea name="description" class="rounded-lg w-full h-40 p-2 text-xl border-2 border-gray-600 focus:border-blue-500"></textarea>
-       <input type="submit" value="sell product" class="cursor-pointer text-xl text-white py-1 px-3 rounded bg-green-500">
-    </form>    
+       <input type="submit" value="sell product" class="cursor-pointer text-2xl text-white py-2 px-5 rounded bg-green-500 my-2 mx-5">  </form>    
    </div>   
 @endsection

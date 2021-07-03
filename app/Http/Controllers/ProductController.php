@@ -19,7 +19,7 @@ class ProductController extends Controller
      */
     public function __construct(){
 
-      $this->middleware('auth');
+      $this->middleware('auth')->except(['search','index']);
       
     }
 
@@ -39,7 +39,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+      $categories=Category::all();
+      return view('product.create',['categories'=>$categories]);
     }
 
     /**
@@ -90,7 +91,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $this->authorize('update',$product);
-        return view('product.edit',['product'=>$product]);
+        $categories=Category::all();
+        return view('product.edit',['product'=>$product,'categories'=>$categories]);
     }
 
     /**
@@ -100,17 +102,20 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductFormRequest $request)
+    public function update(Request $request)
     {
-        $product=Product::findOrFail($request->id);
+      dd($request);
+        $product=Product::find($request->id);
         $product->name=$request->name;
         if($request->has('photo')){
-            Storage::delete('productCover/'.$product->cover);
+            Storage::delete('/storage/products/'.$product->cover);
             $product->cover=$product->id.'.'.$request->cover->extension();
-            $request->cover->storeAs('productCover',$product->cover,'public');
+            $request->cover->storeAs('products',$product->cover,'public');
         }
         $product->price=$request->price;
+        $product->category_id=$request->category;
         $product->save();
+        return redirect()->route('prouct.show',[$product->id])->with(['message'=>'product sucessfully upated']);
     }
 
     /**
@@ -123,41 +128,21 @@ class ProductController extends Controller
     {
       $product->delete();
     }
+    
     public function search(Request $request)
     {
-      // $category_id=$request->category;
-      // $searchQuery=$request->searchQuery; 
-      // if($category_id=='all'){
-      //   $products=Product::where('name','like',"%${searchQuery}%")->get(); 
-      // }
-      // else{
-      //   $products=Product::where([['category_id',$category_id],['name','like',"%${searchQuery}%"]])->get();  
-      // }
-      // $categoryName=Category::find($category_id)->name ?? 'product';
-      // return view('product.search',['products'=>$products,'searchQuery'=>$searchQuery,'categoryName'=>$categoryName]);
-      return redirect()->route('product.create');
-    }
-    public function addToCart(Request $request)
-    {
-      $user=User::find($request->userId);
-      $product=Product::find($request->productId);
-      $cart=$user->cart;
-      if($cart){
-        $cart->products()->attach($product);
+      $category_id=$request->category;
+      $searchQuery=$request->searchQuery; 
+      if($category_id=='all'){
+        $products=Product::where('name','like',"%${searchQuery}%")->get(); 
       }
       else{
-        $cart=new Cart;
-        $cart->user=$user;
-        $cart->products()->attach($product);
+        $products=Product::where([['category_id',$category_id],['name','like',"%${searchQuery}%"]])->get();  
       }
+      $categoryName=Category::find($category_id)->name ?? 'product';
+      return view('product.search',['products'=>$products,'searchQuery'=>$searchQuery,'categoryName'=>$categoryName]);
     }
-    public function removeFromCart(Request $request)
-    {
-      $user=User::find($request->userId);
-      $product=Product::find($request->productId);
-      $cart=$user->cart;
-      $cart->detach($product);
-    }
+
     public function data(Request $request)
     {
       $product=Product::find($request->productId);

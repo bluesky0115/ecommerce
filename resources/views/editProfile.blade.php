@@ -12,10 +12,12 @@
     <input type="text" name="street" required value="{{$user->profile->street}}" class="mx-auto w-3/4 h-10 rounded p-2 m-2 border-2 border-gray-600 focus:border-blue-500">
   <div class="mx-10">
     <p class="text-xl">edit the categories you are interested to be notified</p>
-  @foreach ($categories as $category)
-    <p class="text-lg"><input type="checkbox" name="categories[]" value="{{$category->id}}">{{$category->name}}</p>
-  @endforeach
-  <input type="submit" value="complete profile" class="bg-green-600 text-xl px-2 py-1 m-1 rounded text-white">
+    @isset($categories)
+      @foreach ($categories as $category)
+       <p class="text-lg"><input type="checkbox" name="categories[]" value="{{$category->id}}">{{$category->name}}</p>
+      @endforeach
+    @endisset
+  <input type="submit" value="complete profile" class="bg-green-600 text-xl px-5 py-1 m-4 rounded text-white">
   </div>
  </form>    
  </div>

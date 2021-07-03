@@ -1875,22 +1875,21 @@ __webpack_require__.r(__webpack_exports__);
     addToCart: function addToCart() {
       var _this2 = this;
 
-      if (!productInCart) {
-        axios.post('/product/addtocart', {
+      if (!this.productInCart) {
+        axios.post('/cart/addproduct', {
           productId: this.productId,
           userId: this.userId
         }).then(function (res) {
-          _this2.addedToCart = true;
+          _this2.productInCart = true;
 
           _this2.$emit('productAddedToCart', _this2.productId);
         });
       } else {
-        axios.post('/product/removefromcart', {
+        axios.post('/cart/removeproduct', {
           productId: this.productId,
           userId: this.userId
         }).then(function (res) {
-          _this2.addedToCart = false;
-          _this2.addText = 'add';
+          _this2.productInCart = false;
 
           _this2.$emit('productRemovedFromCart', _this2.productId);
         });
@@ -2359,14 +2358,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['userId'],
   data: function data() {
     return {
       user: {},
+      categoryId: 'all',
+      searchQuery: '',
       categories: [],
       userDropdownMenu: false
     };
@@ -2383,7 +2381,18 @@ __webpack_require__.r(__webpack_exports__);
       _this.categories = res.data.categories;
     });
   },
-  methods: {}
+  methods: {
+    search: function search() {
+      if (this.searchQuery) {
+        document.getElementById('searchQuery').value = this.searchQuery;
+        document.getElementById('category').value = this.categoryId;
+        document.getElementById('search-form').submit();
+      }
+    },
+    logout: function logout() {
+      document.getElementById('logout-form').submit();
+    }
+  }
 });
 
 /***/ }),
@@ -2422,13 +2431,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ['userId'],
   data: function data() {
     return {
-      notifications: [{
-        id: 1,
-        data: 'first notification'
-      }, {
-        id: 2,
-        data: 'second notification'
-      }],
+      notifications: [],
       selectedCategories: [],
       notificationPopup: false
     };
@@ -2441,25 +2444,12 @@ __webpack_require__.r(__webpack_exports__);
         userId: this.userId
       }
     }).then(function (res) {
-      if (res.data.notifications) {
-        _this.notifications = res.data.notifications;
-        console.log(res.data.notifications);
-      }
+      _this.notifications = res.data.notifications;
     });
   },
   methods: {
-    sendNotification: function sendNotification() {
-      var _this2 = this;
-
-      axios.post('/notification/category', {
-        userId: this.userId,
-        selectedCategories: this.selectedCategories
-      }).then(function (res) {
-        _this2.notificationPopup = false;
-      });
-    },
     unreadNotification: function unreadNotification(notificationId) {
-      var _this3 = this;
+      var _this2 = this;
 
       axios.post('/notification/unread', {
         notificationId: notificationId,
@@ -2469,8 +2459,8 @@ __webpack_require__.r(__webpack_exports__);
           return item.id == notificationId;
         });
 
-        _this3.notifications.splice(index, 1);
-      })["catch"](function (err) {});
+        _this2.notifications.splice(index, 1);
+      });
     }
   }
 });
@@ -39190,13 +39180,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "button",
-    { staticClass: "cursor-pointer rounded", on: { click: _vm.addTocart } },
+    { staticClass: "cursor-pointer rounded", on: { click: _vm.addToCart } },
     [
       _c(
         "svg",
         {
           staticClass: "h-10 w-10",
-          class: [_vm.productInCart ? "text-green-500" : "text-yellow-500"],
+          class: [_vm.productInCart ? "text-green-500" : "text-pink-500"],
           attrs: {
             xmlns: "http://www.w3.org/2000/svg",
             fill: "none",
@@ -39528,7 +39518,7 @@ var render = function() {
                     }
                   ],
                   staticClass:
-                    "text-lg w-2/3 block h-20 m-2 p-2 rounded-lg border-2 border-gray-500",
+                    "text-lg w-2/3 block h-30 m-2 p-2 rounded-lg border-2 border-gray-500",
                   attrs: { name: "description", rows: "5", required: "" },
                   domProps: { value: _vm.body },
                   on: {
@@ -39816,7 +39806,7 @@ var render = function() {
           }
         }
       },
-      [_vm._v("delete\n  ")]
+      [_vm._v("delete\r\n  ")]
     ),
     _vm._v(" "),
     _vm.readyToDelete
@@ -39894,7 +39884,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "flex justify-between bg-gray-800 w-full" }, [
+  return _c("div", { staticClass: "flex justify-between bg-blue-900 w-full" }, [
     _c("div", { staticClass: "flex" }, [
       _c(
         "div",
@@ -39929,77 +39919,111 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "lg:mx-4 xl:mx-4 2xl:mx-4 p-1" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.searchQuery,
+              expression: "searchQuery"
+            }
+          ],
+          staticClass:
+            "px-2 w-48 rounded border-2 border-gray-500 text-xl py-1 lg:mx-1 xl:mx-1 2xl:mx-1",
+          attrs: { type: "text", required: "", placeholder: "search product" },
+          domProps: { value: _vm.searchQuery },
+          on: {
+            keyup: function($event) {
+              if (
+                !$event.type.indexOf("key") &&
+                _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+              ) {
+                return null
+              }
+              return _vm.search.apply(null, arguments)
+            },
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.searchQuery = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
         _c(
-          "form",
+          "select",
           {
-            staticClass: "flex my-auto",
-            attrs: { method: "POST", action: "/search" }
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.categoryId,
+                expression: "categoryId"
+              }
+            ],
+            staticClass:
+              "my-auto text-xl bg-blue-900 text-white lg:mx-1 xl:mx-1 2xl:mx-1",
+            attrs: { required: "" },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.categoryId = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
           },
           [
-            _c("input", {
-              staticClass:
-                "rounded border-2 border-gray-500 text-xl py-1 lg:mx-1 xl:mx-1 2xl:mx-1",
-              attrs: {
-                type: "text",
-                name: "searchQuery",
-                required: "",
-                placeholder: "search product"
-              }
-            }),
+            _c("option", { attrs: { value: "all" } }, [_vm._v("all")]),
             _vm._v(" "),
+            _vm._l(_vm.categories, function(category) {
+              return _c(
+                "option",
+                { key: category.id, domProps: { value: category.id } },
+                [_vm._v(_vm._s(category.name))]
+              )
+            })
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "text-xl text-white bg-blue-900 lg:mx-1 xl:mx-1 2xl:mx-1 hover:bg-green-500",
+            attrs: { type: "submit" },
+            on: { click: _vm.search }
+          },
+          [
             _c(
-              "select",
+              "svg",
               {
-                staticClass:
-                  "my-auto text-xl bg-gray-800 text-white lg:mx-1 xl:mx-1 2xl:mx-1",
-                attrs: { name: "category", id: "", required: "" }
+                staticClass: "h-8 w-8",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  fill: "none",
+                  viewBox: "0 0 24 24",
+                  stroke: "currentColor"
+                }
               },
               [
-                _c("option", { attrs: { value: "all", selected: "" } }, [
-                  _vm._v("all")
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.categories, function(category) {
-                  return _c(
-                    "option",
-                    { key: category.id, domProps: { value: category.id } },
-                    [_vm._v(_vm._s(category.name))]
-                  )
+                _c("path", {
+                  attrs: {
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "2",
+                    d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  }
                 })
-              ],
-              2
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass:
-                  "text-xl text-white bg-gray-800 lg:mx-1 xl:mx-1 2xl:mx-1 hover:bg-green-500",
-                attrs: { type: "submit" }
-              },
-              [
-                _c(
-                  "svg",
-                  {
-                    staticClass: "h-6 w-6",
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      fill: "none",
-                      viewBox: "0 0 24 24",
-                      stroke: "currentColor"
-                    }
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        "stroke-linecap": "round",
-                        "stroke-linejoin": "round",
-                        "stroke-width": "2",
-                        d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      }
-                    })
-                  ]
-                )
               ]
             )
           ]
@@ -40008,23 +40032,29 @@ var render = function() {
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "hidden md:flex lg:flex xl:flex 2xl:flex mx-2" },
-        [
-          _c(
+      _vm.userId
+        ? _c(
             "div",
-            [_c("cart-component", { attrs: { userId: _vm.userId } })],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            [_c("notifications-component", { attrs: { userId: _vm.userId } })],
-            1
+            { staticClass: "hidden md:flex lg:flex xl:flex 2xl:flex mx-2" },
+            [
+              _c(
+                "div",
+                [_c("cart-component", { attrs: { userId: _vm.userId } })],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                [
+                  _c("notifications-component", {
+                    attrs: { userId: _vm.userId }
+                  })
+                ],
+                1
+              )
+            ]
           )
-        ]
-      ),
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "div",
@@ -40118,7 +40148,27 @@ var render = function() {
         ? _c(
             "div",
             { staticClass: "fixed z-20 text-xl bg-gray-100 top-2 right-2" },
-            [_vm._m(1)]
+            [
+              _c("ul", [
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _vm._m(4),
+                _vm._v(" "),
+                _vm._m(5),
+                _vm._v(" "),
+                _vm._m(6),
+                _vm._v(" "),
+                _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
+                  _c("button", { on: { click: _vm.logout } }, [
+                    _vm._v("logout")
+                  ])
+                ])
+              ])
+            ]
           )
         : _vm._e(),
       _vm._v(" "),
@@ -40188,35 +40238,48 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", [
-      _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
-        _c("a", { attrs: { href: "/" } }, [_vm._v("home")])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
-        _c("a", { attrs: { href: "/profile/edit" } }, [_vm._v("my profile")])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
-        _c("a", { attrs: { href: "/product/create" } }, [_vm._v("add product")])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
-        _c("a", { attrs: { href: "/order" } }, [_vm._v("order")])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
-        _c("a", { attrs: { href: "/about" } }, [_vm._v("contact us")])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
-        _c("form", { attrs: { method: "POST", action: "/logout" } }, [
-          _c("input", {
-            staticClass: "bg-gray-100 hover:bg-blue-200 cursor-pointer",
-            attrs: { type: "submit", value: "logout" }
-          })
-        ])
-      ])
+    return _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
+      _c("a", { attrs: { href: "/" } }, [_vm._v("home")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
+      _c("a", { attrs: { href: "/profile/edit" } }, [_vm._v("my profile")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
+      _c("a", { attrs: { href: "/user/products" } }, [_vm._v("my products")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
+      _c("a", { attrs: { href: "/product/create" } }, [_vm._v("add product")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
+      _c("a", { attrs: { href: "/order" } }, [_vm._v("order")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "hover:bg-blue-200 px-5 py-1" }, [
+      _c("a", { attrs: { href: "/about" } }, [_vm._v("contact us")])
     ])
   }
 ]
@@ -40324,7 +40387,8 @@ var render = function() {
     _vm._v(" "),
     _vm.notificationPopup
       ? _c("div", {
-          staticClass: "absolute -inset-full opacity-50 bg-black z-10",
+          staticClass:
+            "absolute -inset-x-0 -inset-y-full opacity-50 bg-black z-10",
           on: {
             click: function($event) {
               _vm.notificationPopup = false
@@ -40388,9 +40452,9 @@ var render = function() {
                 staticClass: "p-2",
                 attrs: { type: "checkbox" },
                 domProps: {
-                  value: cartItem,
+                  value: cartItem.id,
                   checked: Array.isArray(_vm.orderItems)
-                    ? _vm._i(_vm.orderItems, cartItem) > -1
+                    ? _vm._i(_vm.orderItems, cartItem.id) > -1
                     : _vm.orderItems
                 },
                 on: {
@@ -40399,7 +40463,7 @@ var render = function() {
                       $$el = $event.target,
                       $$c = $$el.checked ? true : false
                     if (Array.isArray($$a)) {
-                      var $$v = cartItem,
+                      var $$v = cartItem.id,
                         $$i = _vm._i($$a, $$v)
                       if ($$el.checked) {
                         $$i < 0 && (_vm.orderItems = $$a.concat([$$v]))
@@ -40491,24 +40555,26 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _c(
-        "form",
-        {
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.order.apply(null, arguments)
-            }
-          }
-        },
-        [
-          _c("input", {
-            staticClass:
-              "block m-auto bg-green-500 text-2xl text-white px-5 py-1 mt-5 rounded-md cursor-pointer",
-            attrs: { type: "submit", value: "order" }
-          })
-        ]
-      )
+      _vm.orderItems
+        ? _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.order.apply(null, arguments)
+                }
+              }
+            },
+            [
+              _c("input", {
+                staticClass:
+                  "block m-auto bg-green-500 text-2xl text-white px-5 py-1 mt-5 rounded-md cursor-pointer",
+                attrs: { type: "submit", value: "order" }
+              })
+            ]
+          )
+        : _vm._e()
     ]
   )
 }
@@ -40634,7 +40700,7 @@ var render = function() {
     _c(
       "button",
       {
-        staticClass: "text-xl bg-blue-500 text-white px-2 rounded m-1",
+        staticClass: "text-xl bg-blue-500 text-white px-3 py-1 rounded m-1",
         on: {
           click: function($event) {
             _vm.reporting = true
@@ -40649,14 +40715,14 @@ var render = function() {
           "div",
           {
             staticClass:
-              "absolute fixed top-30 left-30 bg-white z-20 rounded-xl py-5 px-10"
+              "absolute top-1/4 left-1/3 bg-white z-20 rounded-xl py-5 px-10"
           },
           [
             _c(
               "button",
               {
                 staticClass:
-                  "text-2xl absolute top-5 right-5 hover:text-red-500",
+                  "text-3xl absolute top-5 right-5 hover:text-red-500",
                 on: {
                   click: function($event) {
                     _vm.reporting = false
@@ -40667,11 +40733,11 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("img", {
-              staticClass: "w-48",
+              staticClass: "w-60",
               attrs: { src: "/storage/products/" + _vm.product.cover }
             }),
             _vm._v(" "),
-            _c("p", { staticClass: "text-xl" }, [
+            _c("p", { staticClass: "text-2xl" }, [
               _vm._v(_vm._s(_vm.product.name))
             ]),
             _vm._v(" "),
@@ -40681,7 +40747,7 @@ var render = function() {
             _vm._v(" "),
             _c("p", [_vm._v(_vm._s(_vm.product.description))]),
             _vm._v(" "),
-            _c("p", { staticClass: "text" }, [
+            _c("p", { staticClass: "text-2xl text-bold" }, [
               _vm._v("report this product to adminstrators")
             ]),
             _vm._v(" "),
@@ -40706,7 +40772,7 @@ var render = function() {
                     }
                   ],
                   staticClass:
-                    "block border-2 border-gray-400 rounded-lg w-80 h-40",
+                    "m-3 text-xl block border-2 border-gray-400 rounded-lg w-96 h-40 p-2",
                   attrs: { max: "200", required: "" },
                   domProps: { value: _vm.reportText },
                   on: {
@@ -40721,7 +40787,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("input", {
                   staticClass:
-                    "m-2 bg-green-500 text-xl text-white px-3 py-1 rounded",
+                    "cusor-pointer m-2 bg-blue-500 text-xl text-white px-3 py-1 rounded",
                   attrs: { type: "submit", value: "report", required: "" }
                 })
               ]
@@ -40732,7 +40798,8 @@ var render = function() {
     _vm._v(" "),
     _vm.reporting
       ? _c("div", {
-          staticClass: "absolute z-10 -inset-full bg-black opacity-50",
+          staticClass:
+            "fixed z-10 -inset-x-0 -inset-y-full bg-black opacity-50",
           on: {
             click: function($event) {
               _vm.reporting = false

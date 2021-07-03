@@ -22,7 +22,7 @@
 </head>
 <body class="bg-gray-200">
     <div id="app">
-        {{-- <nav class="navbar navbar-expand-md navbar-light bg-gray-700 shadow-sm flex text-white">
+        <!-- <nav class="navbar navbar-expand-md navbar-light bg-gray-700 shadow-sm flex text-white">
             <div class="flex">
                 <a class="text-xl text-white m-1" href="{{route('home')}}">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -50,12 +50,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="flex collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-    
-
-                    <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -90,7 +85,7 @@
                     </ul>
                 </div>
             </div>
-        </nav> --}}
+        </nav> --}} -->
        <div>
          <form id="search-form" action="{{route('product.search')}}" class="hidden">
           <input type="text" id="searchQuery" name="searchQuery" required class="text-gray-700 h-4/5 my-auto w-1/2 rounded border-2 border-gray-500 text-xl py-1 px-3 mx-1">
