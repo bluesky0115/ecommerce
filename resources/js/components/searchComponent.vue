@@ -28,6 +28,12 @@ export default {
 			products:[]
 		}
 	},
+	mounted(){
+   axios.get('/products')
+	 .then(res=>{
+		 this.products.res.data.products;
+	 })
+	},
 	computed:{
    similarProucts(){
 		return this.proucts.name.match(this.searchQuery);

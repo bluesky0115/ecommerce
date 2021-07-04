@@ -19,7 +19,7 @@ class ProductController extends Controller
      */
     public function __construct(){
 
-      $this->middleware('auth')->except(['search','index']);
+      $this->middleware('auth')->except(['search','index','show']);
       
     }
 

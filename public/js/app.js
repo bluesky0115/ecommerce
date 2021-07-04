@@ -2507,7 +2507,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['userId'],
   data: function data() {
@@ -2529,34 +2528,43 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.cartItems.forEach(function (cartItem) {
         cartItem.quantity = 1;
+        cartItem.selected = false;
       });
     });
   },
   methods: {
     addOrderItem: function addOrderItem(cartItemId, quantity) {
-      if (orderItems.find(function (item) {
-        return item.id == cartItemId;
-      })) {
-        orderItems.splice(function (item) {
-          return item.id = cartItemId;
-        }, 1);
+      itemInOrder = this.orderItems.find(cartItemId);
+
+      if (itemInOrder) {
+        var index = this.orderItems.findIndex(function (id) {
+          return id == cartItemId;
+        });
+        this.orderItems.splice(index, 1);
       } else {
-        var orderItem = cartItems.find(function (item) {
+        var orderItem;
+        orderItem.id = cartItemId;
+        orerItem.quantity = quantity;
+        this.orderItems.push(OrderItem);
+        var cartItem = this.cartItems.find(function (item) {
           return item.id == cartItemId;
         });
-        orderItem.quantity = quantity;
-        orderitems.push(orderItem);
+        cartItem.selected = true;
       }
     },
     order: function order() {
+      var _this2 = this;
+
       axios.post('/order', {
         userId: this.userId,
-        cartItems: this.orderItems
+        orderItems: this.orderItems
       }).then(function (res) {
-        for (id in orderItems.id) {
-          $cartItems.splice($cartItems.findIndex(function (item) {
+        for (id in orderItems) {
+          var index = _this2.cartItems.findIndex(function (item) {
             return item.id == id;
-          }), 1);
+          });
+
+          _this2.cartItems.splice(index, 1);
         }
       });
     }
@@ -39884,7 +39892,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "flex justify-between bg-blue-900 w-full" }, [
+  return _c("div", { staticClass: "flex justify-between bg-gray-700 w-full" }, [
     _c("div", { staticClass: "flex" }, [
       _c(
         "div",
@@ -39929,7 +39937,7 @@ var render = function() {
             }
           ],
           staticClass:
-            "px-2 w-48 rounded border-2 border-gray-500 text-xl py-1 lg:mx-1 xl:mx-1 2xl:mx-1",
+            "px-4 w-48 rounded border-2 border-gray-500 text-xl py-1 lg:mx-1 xl:mx-1 2xl:mx-1",
           attrs: { type: "text", required: "", placeholder: "search product" },
           domProps: { value: _vm.searchQuery },
           on: {
@@ -39963,7 +39971,7 @@ var render = function() {
               }
             ],
             staticClass:
-              "my-auto text-xl bg-blue-900 text-white lg:mx-1 xl:mx-1 2xl:mx-1",
+              "my-auto text-xl bg-gray-700 text-white lg:mx-1 xl:mx-1 2xl:mx-1",
             attrs: { required: "" },
             on: {
               change: function($event) {
@@ -39999,7 +40007,7 @@ var render = function() {
           "button",
           {
             staticClass:
-              "text-xl text-white bg-blue-900 lg:mx-1 xl:mx-1 2xl:mx-1 hover:bg-green-500",
+              "text-xl text-white bg-gray-700 lg:mx-1 xl:mx-1 2xl:mx-1 hover:bg-green-500",
             attrs: { type: "submit" },
             on: { click: _vm.search }
           },
@@ -40309,7 +40317,7 @@ var render = function() {
     _c(
       "button",
       {
-        staticClass: "flex hover:bg-green-500",
+        staticClass: "mx-3 flex hover:bg-green-500",
         on: {
           click: function($event) {
             _vm.notificationPopup = true
@@ -40425,7 +40433,7 @@ var render = function() {
     "div",
     {
       staticClass:
-        "bg-white rounded-xl my-5 p-5 mx-auto w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4"
+        "bg-white rounded-xl my-5 p-5 mx-2 lg:mx-auto xl:mx-auto 2xl:mx-auto w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4"
     },
     [
       _c(
@@ -40438,112 +40446,84 @@ var render = function() {
         "div",
         { staticClass: "flex" },
         _vm._l(_vm.cartItems, function(cartItem) {
-          return _c("div", { key: cartItem.id }, [
-            _c("div", [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.orderItems,
-                    expression: "orderItems"
-                  }
-                ],
-                staticClass: "p-2",
-                attrs: { type: "checkbox" },
-                domProps: {
-                  value: cartItem.id,
-                  checked: Array.isArray(_vm.orderItems)
-                    ? _vm._i(_vm.orderItems, cartItem.id) > -1
-                    : _vm.orderItems
-                },
+          return _c("div", { key: cartItem.id, staticClass: "m-1 p-1" }, [
+            _c(
+              "div",
+              {
+                staticClass: "p-2 border-5",
+                class: cartItem.selected ? "border-green-500" : "border-white",
                 on: {
-                  change: function($event) {
-                    var $$a = _vm.orderItems,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = cartItem.id,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 && (_vm.orderItems = $$a.concat([$$v]))
-                      } else {
-                        $$i > -1 &&
-                          (_vm.orderItems = $$a
-                            .slice(0, $$i)
-                            .concat($$a.slice($$i + 1)))
-                      }
-                    } else {
-                      _vm.orderItems = $$c
-                    }
+                  click: function($event) {
+                    return _vm.addOrderItem(cartItem.id, cartItem.quantity)
                   }
                 }
-              })
-            ]),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "w-40",
-              attrs: { src: "/storage/products/" + cartItem.cover }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "my-auto" }, [
-              _c("p", [
-                _c("span", { staticClass: "text-xl" }, [_vm._v("quantity")]),
+              },
+              [
+                _c("img", {
+                  staticClass: "w-40",
+                  attrs: { src: "/storage/products/" + cartItem.cover }
+                }),
                 _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
+                _c("div", { staticClass: "my-auto" }, [
+                  _c("p", [
+                    _c("span", { staticClass: "text-xl" }, [
+                      _vm._v("quantity")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: cartItem.quantity,
-                        expression: "cartItem.quantity"
-                      }
-                    ],
-                    attrs: { required: "" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          cartItem,
-                          "quantity",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
-                    }
-                  },
-                  [
-                    _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "4" } }, [_vm._v("4")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "5" } }, [_vm._v("5")])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              cartItem.quantity
-                ? _c("p", { staticClass: "text-xl" }, [
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: cartItem.quantity,
+                            expression: "cartItem.quantity"
+                          }
+                        ],
+                        attrs: { required: "" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              cartItem,
+                              "quantity",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "4" } }, [_vm._v("4")]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "5" } }, [_vm._v("5")])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "text-xl" }, [
                     _vm._v(
                       "amount " + _vm._s(cartItem.price * cartItem.quantity)
                     )
                   ])
-                : _vm._e()
-            ])
+                ])
+              ]
+            )
           ])
         }),
         0
@@ -40555,7 +40535,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.orderItems
+      _vm.orderItems.length
         ? _c(
             "form",
             {

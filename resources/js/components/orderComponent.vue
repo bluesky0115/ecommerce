@@ -1,12 +1,10 @@
 <template>
-  <div class="bg-white rounded-xl my-5 p-5 mx-auto w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
+  <div class="bg-white rounded-xl my-5 p-5 mx-2 lg:mx-auto xl:mx-auto 2xl:mx-auto w-full lg:w-3/4 xl:w-3/4 2xl:w-3/4">
    <p class="text-3xl text-center pb-2 border-b-2 border-gray-400">Items in your cart({{cartItems.length}})</p>
     <div class="flex">
-     <div v-for="cartItem in cartItems" :key="cartItem.id" class="">
-      <div>
-       <input type="checkbox" :value="cartItem.id" v-model="orderItems" class="p-2">
-      </div>
-     <img :src="'/storage/products/'+cartItem.cover" class="w-40">
+     <div v-for="cartItem in cartItems" :key="cartItem.id" class="m-1 p-1">
+     <div @click="addOrderItem(cartItem.id,cartItem.quantity)" class="p-2 border-5" :class="cartItem.selected? 'border-green-500': 'border-white'">
+       <img :src="'/storage/products/'+cartItem.cover" class="w-40">
      <div class="my-auto">
       <p>
       <span class="text-xl">quantity</span>
@@ -18,12 +16,13 @@
        <option value="5" class="">5</option>
       </select>
       </p>
-      <p v-if="cartItem.quantity" class="text-xl">amount {{cartItem.price*cartItem.quantity}}</p>
+      <p class="text-xl">amount {{cartItem.price*cartItem.quantity}}</p>
+    </div>
     </div>
     </div>   
     </div>
     <p v-if="totalPrice" class="text-xl">total price {{totalPrice}}</p>
-    <form v-if="orderItems" @submit.prevent="order">
+    <form v-if="orderItems.length" @submit.prevent="order">
      <input type="submit" value="order" class="block m-auto bg-green-500 text-2xl text-white px-5 py-1 mt-5 rounded-md cursor-pointer">
    </form>
   </div> 
@@ -47,25 +46,32 @@ export default {
     this.cartItems=res.data.cartItems;
     this.cartItems.forEach(cartItem=>{
       cartItem.quantity=1;
+      cartItem.selected=false;
     });
   })
  },
  methods:{
    addOrderItem(cartItemId,quantity){
-    if(orderItems.find(item=>item.id==cartItemId)){
-      orderItems.splice(item=>item.id=cartItemId,1); 
+    itemInOrder=this.orderItems.find(cartItemId); 
+    if(itemInOrder){
+      let index=this.orderItems.findIndex(id=>id==cartItemId)
+      this.orderItems.splice(index,1);
     }
     else{
-      let orderItem=cartItems.find(item=>item.id==cartItemId);
-      orderItem.quantity=quantity;
-      orderitems.push(orderItem);
+      let orderItem;
+      orderItem.id=cartItemId;
+      orerItem.quantity=quantity;
+      this.orderItems.push(OrderItem);
+      let cartItem=this.cartItems.find(item=>item.id==cartItemId);
+      cartItem.selected=true;
     }
    },
    order(){
-     axios.post('/order',{userId:this.userId,cartItems:this.orderItems})
+     axios.post('/order',{userId:this.userId,orderItems:this.orderItems})
      .then(res=>{
-      for(id in orderItems.id){
-        $cartItems.splice($cartItems.findIndex(item=>item.id==id),1);
+      for(id in orderItems){
+        let index=this.cartItems.findIndex(item=>item.id==id)
+        this.cartItems.splice(index,1);
       }
      }); 
    }

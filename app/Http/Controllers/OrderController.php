@@ -35,6 +35,7 @@ class OrderController extends Controller
       $order->user_id=$user->id;
       $order->save();
       $order->users()->attach($user->id);  
+      return redirect()->back()->with(['message'=>'orer successfull']);
     }
     public function orderForm()
     {

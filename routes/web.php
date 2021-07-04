@@ -29,7 +29,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/test',function(){
-  dd(Cart::first()->products());
+  
 });
 Auth::routes();
 
