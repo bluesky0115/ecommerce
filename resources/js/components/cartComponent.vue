@@ -9,7 +9,13 @@
    <div v-if="cartPopup" class="fixed z-20 bg-white text-gray-700">
     <ul>
     <li v-for="cartItem in cartItems" :key="cartItem.id" class="hover:bg-gray-200 px-5">
-      <a :href="'/product/show/'+cartItem.id">{{cartItem.name}}</a>
+      <a :href="'/product/show/'+cartItem.id">
+       <div class="m-2 p-2">
+         <img :src="'/storage/products/'+cartItem.id" class="w-48">
+         <p>{{cartItem.name}}</p>
+         <p>{{cartItem.description}}</p>
+       </div>
+      </a>
     </li>
     </ul>    
    </div>

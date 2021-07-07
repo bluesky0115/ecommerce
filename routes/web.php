@@ -30,7 +30,18 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/test',function(){
-
+  $client = \Softonic\GraphQL\ClientBuilder::build('http://127.0.0.1:8000/graphql');
+  $query="query allProducts{
+          products{
+            name
+            description
+            cover
+            price
+          }
+          }";
+  $variables=[];
+  $response=$client->query($query,$variables); 
+  dd($response);
 });
 Auth::routes();
 

@@ -25,6 +25,17 @@ class ProductController extends Controller
 
     public function index()
     {
+      // $client = \Softonic\GraphQL\ClientBuilder::build('https://127.0.0.1/graphql');
+      // $query="query allProducts{
+      //         products{
+      //           name
+      //           description
+      //           cover
+      //           price
+      //         }
+      //         }";
+      // $variables=[];
+      // $response=$client->query($query,$variables);        
       $products=Product::all();
       foreach($products as $product){
         $product->totalComments=$product->comments->count();

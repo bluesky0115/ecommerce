@@ -74,15 +74,15 @@ type Mutation{
 
     createProduct(
       name: String! @rules(apply:["required","min:2","max:30"])
-      price: Int! !rules(apply:["required","min:0"])
-      cover: String! @rules(apply,["required","max:30"])
+      price: Int! @rules(apply:["required","min:0"])
+      cover: String! @rules(apply:["required","max:30"])
       description: String! @rules(apply:["max:200"])  
     ):Product @create
 
     updateProduct(
       name: String! @rules(apply:["required","min:2","max:30"])
-      price: Int! !rules(apply:["required","min:0"])
-      cover: String! @rules(apply,["required","max:30"])
+      price: Int! @rules(apply:["required","min:0"])
+      cover: String! @rules(apply:["required","max:30"])
       description: String! @rules(apply:["max:200"])   
     ):Product @update
 

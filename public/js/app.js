@@ -1929,6 +1929,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['userId'],
   data: function data() {
@@ -2507,6 +2513,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['userId'],
   data: function data() {
@@ -2534,16 +2542,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addOrderItem: function addOrderItem(cartItemId, quantity) {
-      itemInOrder = this.orderItems.find(cartItemId);
+      var orderItem = this.cartItems.find(function (item) {
+        return item.id == cartItemId;
+      });
 
-      if (itemInOrder) {
-        var index = this.orderItems.findIndex(function (id) {
-          return id == cartItemId;
+      if (orderItem) {
+        var index = this.orderItems.findIndex(function (item) {
+          return item.id == cartItemId;
         });
         this.orderItems.splice(index, 1);
       } else {
-        var orderItem;
-        orderItem.id = cartItemId;
+        var _orderItem;
+
+        _orderItem.id = cartItemId;
         orerItem.quantity = quantity;
         this.orderItems.push(OrderItem);
         var cartItem = this.cartItems.find(function (item) {
@@ -39294,7 +39305,16 @@ var render = function() {
                 { key: cartItem.id, staticClass: "hover:bg-gray-200 px-5" },
                 [
                   _c("a", { attrs: { href: "/product/show/" + cartItem.id } }, [
-                    _vm._v(_vm._s(cartItem.name))
+                    _c("div", { staticClass: "m-2 p-2" }, [
+                      _c("img", {
+                        staticClass: "w-48",
+                        attrs: { src: "/storage/products/" + cartItem.id }
+                      }),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(cartItem.name))]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(cartItem.description))])
+                    ])
                   ])
                 ]
               )
@@ -39894,37 +39914,33 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex justify-between bg-gray-700 w-full" }, [
     _c("div", { staticClass: "flex" }, [
-      _c(
-        "div",
-        { staticClass: "hidden md:flex lg:flex xl:flex 2xl:flex mx-3 p-1" },
-        [
-          _c("a", { attrs: { href: "/" } }, [
-            _c(
-              "svg",
-              {
-                staticClass: "text-white h-10 w-10 hover:bg-green-500",
+      _c("div", { staticClass: "flex mx-3 p-1" }, [
+        _c("a", { attrs: { href: "/" } }, [
+          _c(
+            "svg",
+            {
+              staticClass: "text-white h-10 w-10 hover:bg-green-500",
+              attrs: {
+                xmlns: "http://www.w3.org/2000/svg",
+                fill: "none",
+                viewBox: "0 0 24 24",
+                stroke: "currentColor"
+              }
+            },
+            [
+              _c("path", {
                 attrs: {
-                  xmlns: "http://www.w3.org/2000/svg",
-                  fill: "none",
-                  viewBox: "0 0 24 24",
-                  stroke: "currentColor"
+                  "stroke-linecap": "round",
+                  "stroke-linejoin": "round",
+                  "stroke-width": "2",
+                  d:
+                    "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
                 }
-              },
-              [
-                _c("path", {
-                  attrs: {
-                    "stroke-linecap": "round",
-                    "stroke-linejoin": "round",
-                    "stroke-width": "2",
-                    d:
-                      "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                  }
-                })
-              ]
-            )
-          ])
-        ]
-      ),
+              })
+            ]
+          )
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "lg:mx-4 xl:mx-4 2xl:mx-4 p-1" }, [
         _c("input", {
@@ -40446,85 +40462,111 @@ var render = function() {
         "div",
         { staticClass: "flex" },
         _vm._l(_vm.cartItems, function(cartItem) {
-          return _c("div", { key: cartItem.id, staticClass: "m-1 p-1" }, [
-            _c(
-              "div",
-              {
-                staticClass: "p-2 border-5",
-                class: cartItem.selected ? "border-green-500" : "border-white",
-                on: {
-                  click: function($event) {
-                    return _vm.addOrderItem(cartItem.id, cartItem.quantity)
-                  }
-                }
-              },
-              [
-                _c("img", {
-                  staticClass: "w-40",
-                  attrs: { src: "/storage/products/" + cartItem.cover }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "my-auto" }, [
-                  _c("p", [
-                    _c("span", { staticClass: "text-xl" }, [
-                      _vm._v("quantity")
+          return _c(
+            "div",
+            {
+              key: cartItem.id,
+              staticClass: "m-1 p-1 block lg:flex xl:flex 2xl:flex"
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "p-2 border-5 border-gray-300 flex",
+                  class: cartItem.selected
+                    ? "border-green-500"
+                    : "border-blue-500"
+                },
+                [
+                  _c("img", {
+                    staticClass: "w-48",
+                    attrs: { src: "/storage/products/" + cartItem.cover }
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "my-auto mx-3" }, [
+                    _c("input", {
+                      staticClass:
+                        "border-2 form-checkbox text-green-500 h-10 w-10",
+                      attrs: { type: "checkbox" },
+                      on: {
+                        click: function($event) {
+                          return _vm.addOrderItem(
+                            cartItem.id,
+                            cartItem.quantity
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("p", [
+                      _c("span", { staticClass: "text-xl" }, [
+                        _vm._v("quantity")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: cartItem.quantity,
+                              expression: "cartItem.quantity"
+                            }
+                          ],
+                          attrs: { required: "" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                cartItem,
+                                "quantity",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "1" } }, [
+                            _vm._v("1")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "2" } }, [
+                            _vm._v("2")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "3" } }, [
+                            _vm._v("3")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "4" } }, [
+                            _vm._v("4")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "5" } }, [_vm._v("5")])
+                        ]
+                      )
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: cartItem.quantity,
-                            expression: "cartItem.quantity"
-                          }
-                        ],
-                        attrs: { required: "" },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              cartItem,
-                              "quantity",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "4" } }, [_vm._v("4")]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "5" } }, [_vm._v("5")])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "text-xl" }, [
-                    _vm._v(
-                      "amount " + _vm._s(cartItem.price * cartItem.quantity)
-                    )
+                    _c("p", { staticClass: "text-xl" }, [
+                      _vm._v(
+                        "amount " + _vm._s(cartItem.price * cartItem.quantity)
+                      )
+                    ])
                   ])
-                ])
-              ]
-            )
-          ])
+                ]
+              )
+            ]
+          )
         }),
         0
       ),
