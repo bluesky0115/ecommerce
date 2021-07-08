@@ -11,6 +11,9 @@
     @auth
     <div class="flex">
       <div>
+        <checkout-component user-id="{{Auth::user()->id}}"/>
+      </div>
+      <div>
         <report-component user-id="{{Auth::user()->id}}" product-id="{{$product->id}}"/>
       </div>
        @can('update',$product)

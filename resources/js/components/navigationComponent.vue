@@ -1,5 +1,5 @@
 <template>
- <div class="flex justify-between bg-gray-700 w-full">
+ <div class="flex justify-between bg-gray-800 w-full">
   <div class="flex">
     <div class="flex mx-3 p-1">
      <a href="/">
