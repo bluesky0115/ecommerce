@@ -39628,7 +39628,7 @@ var render = function() {
                     _c("div", { staticClass: "m-2 p-2" }, [
                       _c("img", {
                         staticClass: "w-48",
-                        attrs: { src: "/storage/products/" + cartItem.id }
+                        attrs: { src: "/storage/products/" + cartItem.cover }
                       }),
                       _vm._v(" "),
                       _c("p", [_vm._v(_vm._s(cartItem.name))]),
@@ -39823,12 +39823,15 @@ var render = function() {
     _vm.checkoutModal
       ? _c(
           "div",
-          { staticClass: "fixed z-20 top-1/5 left-1/4 bg-white " },
+          {
+            staticClass:
+              "absolute z-20 top-200 left-200 p-10 rounded-xl bg-white "
+          },
           [
             _c(
               "button",
               {
-                staticClass: "text-white text-xl bg-purple-500 p-3 m-0",
+                staticClass: "text-white text-xl bg-pink-700 p-3",
                 on: {
                   click: function($event) {
                     _vm.component = _vm.cbeComponent
@@ -39841,7 +39844,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "text-white text-xl bg-blue-700 p-3 m-0",
+                staticClass: "text-white text-xl bg-blue-700 p-3 -mx-1",
                 on: {
                   click: function($event) {
                     _vm.coponent = _vm.amoleComponent
@@ -40307,7 +40310,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "flex justify-between bg-gray-700 w-full" }, [
+  return _c("div", { staticClass: "flex justify-between bg-gray-800 w-full" }, [
     _c("div", { staticClass: "flex" }, [
       _c("div", { staticClass: "flex mx-3 p-1" }, [
         _c("a", { attrs: { href: "/" } }, [

@@ -1,13 +1,7 @@
 <template>
   <div>
   <div class="flex">
-    <router-link :to="{name:'category',params:{categoryName:'all',categoryId:'0'}}" class="text-gray-800 capitalize text-2xl my-1 mx-3 active:border-bottom-2 active:border-gray-600">
-      all
-    </router-link>
-    <router-link v-for="category in categories" :to="{name:'category',params:{categoryName:category.name,categoryId:category.id}}" :key="category.id" 
-    class="text-green-600 capitalize text-2xl my-1 mx-3 active:border-bottom-2 active:border-gray-600">
-       {{category.name}}
-    </router-link>
+    <a v-for="category in categories" :key="category.id" :href="k"></a>
   </div>
   <router-view></router-view>
   </div>
