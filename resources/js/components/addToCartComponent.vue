@@ -6,6 +6,7 @@
   </button> 
 </template>
 <script>
+ import { bus } from 'app';
  export default{
     props:['productId','userId'],
     data(){
@@ -25,7 +26,7 @@
            axios.post('/cart/addproduct',{productId:this.productId,userId:this.userId})
           .then(res=>{
             this.productInCart=true;
-            this.$emit('productAddedToCart',this.productId);
+            bus.$emit('productAddedToCart',this.productId);
           }); 
           }
           else{

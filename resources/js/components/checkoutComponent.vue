@@ -5,7 +5,9 @@
     <button @click="component=cbeComponent" class="text-white text-xl bg-pink-700 p-3">cbe birr</button>
     <button @click="coponent=amoleComponent" class="text-white text-xl bg-blue-700 p-3 -mx-1">amole</button>
     <button @click="component=hellocash" class="text-white text-xl bg-yellow-600 p-3 m-0">hello cash</button>
-    <component :is="component" keep-alive/>
+    <keep-alive>
+      <component :is="component"/>
+    </keep-alive>  
    </div> 
     <div v-if="checkoutModal" @click="checkoutModal=false" 
      class="absolute -inset-x-0 -inset-y-full z-10 bg-black opacity-50"></div>  
@@ -17,9 +19,9 @@ import amole from './payment/amoleComponent.vue'
 import hellocash from './payment/hellocashComponent.vue'
 export default {
   components:{
-    cbebirr,
-    amole,
-    hellocash,
+    "cbebirr":cbebirr,
+    "amole":amole,
+    "hellocash":hellocash,
   },
   props:['userId'],
   data(){

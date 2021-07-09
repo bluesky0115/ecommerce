@@ -23,10 +23,13 @@
   </div> 
 </template>
 <script>
+import { bus } from 'app';
+import removeFromCartVue from './removeFromCart.vue';
 export default {
   props:['userId'],
   data(){
    return{
+    cartId:'',
     cartItems:[],
     cartPopup:false
    }
@@ -37,8 +40,26 @@ export default {
       this.cartItems=res.data.cartItems;
     })
   },
+  created(){
+   bus.$on('productAddedToCart',id=>{
+     addToCart(id);
+   });
+   bus.$on('productRemovedFromCart',id=>{
+     removeFromCart(id);
+   });
+  },
   methods:{
-
+   addToCart(id){
+     axios.get('/product/data',{params:{productId:id}})
+     .then(res=>{
+     let product=res.data.product;
+     this.cartItems.push(product);
+     })
+   },
+   removeFromCart(id){
+    let product=this.cartItems.find(item=>item.id==id);
+    this.cartItems.splice(product);
+   }
   } 
 }
 </script>

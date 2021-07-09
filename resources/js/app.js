@@ -42,6 +42,7 @@ Vue.component('report-component', require('./components/reportComponent.vue').de
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+export const bus=new Vue();
 
 const app = new Vue({
     el: '#app',
