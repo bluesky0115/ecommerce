@@ -11,9 +11,14 @@
        <p>{{$product->name}}</p>
        <p>{{$product->price}} birr</p>
      </a>
-     @auth 
-      <addtocart-component product-id="{{$product->id}}" user-id="{{Auth::user()->id}}"/>
-     @endauth 
+    <div class="flex">
+      @auth 
+       <addtocart-component product-id="{{$product->id}}" user-id="{{Auth::user()->id}}"/>  
+      @endauth
+      <seeproduct-component />
+      <addtolike-component />
+      <>
+    </div> 
    </div>   
   @empty
    <p class="text-3xl my-3 mx-10">no products are found</p>   

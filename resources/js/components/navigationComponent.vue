@@ -1,5 +1,5 @@
 <template>
- <div class="flex justify-between bg-gray-800 w-full">
+ <div class="flex justify-between bg-blue-500 w-full py-2">
   <div class="flex">
     <div class="flex mx-3 p-1">
      <a href="/">
@@ -9,7 +9,7 @@
      </a>  
     </div> 
     <div class="lg:mx-4 xl:mx-4 2xl:mx-4 p-1">
-       <input type="text" @keyup.enter="search" v-model="searchQuery" required placeholder="search product" class="px-4 w-48 rounded border-2 border-gray-500 text-xl py-1 lg:mx-1 xl:mx-1 2xl:mx-1">
+       <input type="text" @keyup.enter="search" v-model="searchQuery" required placeholder="I'm shopping for..." class="px-4 w-48 rounded border-2 border-gray-500 text-xl py-1 lg:mx-1 xl:mx-1 2xl:mx-1">
        <select v-model="categoryId" required class="my-auto text-xl bg-gray-800 text-white lg:mx-1 xl:mx-1 2xl:mx-1">
          <option value="all">all</option>
          <option v-for="category in categories" :value="category.id" :key="category.id">{{category.name}}</option>  
