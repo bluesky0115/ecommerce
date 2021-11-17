@@ -2442,6 +2442,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['userId'],
   data: function data() {
@@ -39837,7 +39843,7 @@ var render = function () {
           "span",
           {
             staticClass:
-              "absolute -bottom-1 -right-2 w-6 h-6 font-semibold text-white rounded-full bg-green-900 text-white",
+              "absolute -bottom-1 -right-2 w-6 h-6 font-semibold text-white rounded-full bg-green-800 text-white",
           },
           [_vm._v("0")]
         ),
@@ -40826,13 +40832,67 @@ var render = function () {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "py-2 my-auto flex justify-between" }, [
-          _vm._m(6),
+          _c(
+            "div",
+            {
+              staticClass: "flex bg-green-800",
+              staticStyle: { "background-color": "#4dba87" },
+            },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "text-white w-12",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    fill: "none",
+                    viewBox: "0 0 24 24",
+                    stroke: "currentColor",
+                  },
+                },
+                [
+                  _c("path", {
+                    attrs: {
+                      "stroke-linecap": "round",
+                      "stroke-linejoin": "round",
+                      "stroke-width": "2",
+                      d: "M4 6h16M4 12h16M4 18h16",
+                    },
+                  }),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  staticClass: "my-auto text-xl text-white",
+                  staticStyle: { "background-color": "#4dba87" },
+                },
+                [
+                  _c(
+                    "option",
+                    { staticClass: "my-auto", attrs: { value: "" } },
+                    [_vm._v("Shop by Category")]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.categories, function (category) {
+                    return _c(
+                      "option",
+                      { key: category.id, domProps: { value: category.id } },
+                      [_vm._v(_vm._s(category.name))]
+                    )
+                  }),
+                ],
+                2
+              ),
+            ]
+          ),
           _vm._v(" "),
-          _vm._m(7),
+          _vm._m(6),
           _vm._v(" "),
           _c("div", { staticClass: "text-xl" }, [
             _c("ul", { staticClass: "flex" }, [
-              _vm._m(8),
+              _vm._m(7),
               _vm._v(" "),
               _c("li", [
                 _c("button", { staticClass: "flex" }, [
@@ -40922,16 +40982,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("button", { staticClass: "text-xl font-medium" }, [
-        _vm._v("Shop by category"),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "text-xl" }, [
       _c("ul", { staticClass: "flex" }, [
         _c("li", { staticClass: "mx-3" }, [
@@ -40984,7 +41034,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", [
+    return _c("li", { staticClass: "mx-3" }, [
       _c("button", [_vm._v("\n          Become a Seller\n        ")]),
     ])
   },
@@ -41050,7 +41100,7 @@ var render = function () {
           "span",
           {
             staticClass:
-              "absolute -bottom-1 -right-2 w-6 h-6 font-semibold text-white rounded-full bg-green-900 text-white",
+              "absolute -bottom-1 -right-2 w-6 h-6 font-semibold text-white rounded-full bg-green-800 text-white",
           },
           [_vm._v("0")]
         ),
@@ -41685,7 +41735,7 @@ var render = function () {
         "span",
         {
           staticClass:
-            "absolute -bottom-1 -right-2 w-6 h-6 font-semibold text-white rounded-full bg-green-900 text-white",
+            "absolute -bottom-1 -right-2 w-6 h-6 font-semibold text-white rounded-full bg-green-800 text-white",
         },
         [_vm._v("0")]
       ),

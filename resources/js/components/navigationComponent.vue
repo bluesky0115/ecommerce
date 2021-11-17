@@ -69,8 +69,14 @@
     </div> 
    </div>
    <div class="py-2 my-auto flex justify-between">
-    <div>
-      <button class="text-xl font-medium">Shop by category</button>
+    <div style="background-color:#4dba87;" class="flex bg-green-800">
+      <svg xmlns="http://www.w3.org/2000/svg" class="text-white w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <select style="background-color:#4dba87;" class="my-auto text-xl text-white">
+        <option value="" class="my-auto">Shop by Category</option>
+        <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
+      </select>
     </div>
     <div class="text-xl">
       <ul class="flex">
@@ -82,7 +88,7 @@
     </div>
     <div class="text-xl">
      <ul class="flex">
-       <li>
+       <li class="mx-3">
          <button>
            Become a Seller
          </button>
