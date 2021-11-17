@@ -2189,6 +2189,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['productId', 'userId'],
   data: function data() {
@@ -40119,56 +40125,61 @@ var render = function () {
         _vm._v("Reviews(" + _vm._s(_vm.comments.length) + " total reviews)"),
       ]),
       _vm._v(" "),
-      _vm.userId
-        ? _c("div", [
-            _c("p", { staticClass: "text-xl" }, [
-              _vm._v("comment as " + _vm._s(_vm.user.name)),
-            ]),
+      _c("div", [
+        _c(
+          "form",
+          {
+            attrs: { action: "" },
+            on: {
+              submit: function ($event) {
+                $event.preventDefault()
+                return _vm.addComment.apply(null, arguments)
+              },
+            },
+          },
+          [
+            _c("input", {
+              staticClass: "p-2 w-full my-2 rounded-md ",
+              attrs: { type: "text", placeholder: "Name" },
+            }),
             _vm._v(" "),
-            _c(
-              "form",
-              {
-                attrs: { action: "" },
-                on: {
-                  submit: function ($event) {
-                    $event.preventDefault()
-                    return _vm.addComment.apply(null, arguments)
-                  },
+            _c("input", {
+              staticClass: "p-2 w-full my-2 rounded-md",
+              attrs: { type: "email", placeholder: "Email" },
+            }),
+            _vm._v(" "),
+            _vm._m(0),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.body,
+                  expression: "body",
+                },
+              ],
+              staticClass: "my-2 text-lg w-full block h-30 p-2 rounded-lg",
+              attrs: { name: "description", rows: "5", required: "" },
+              domProps: { value: _vm.body },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.body = $event.target.value
                 },
               },
-              [
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.body,
-                      expression: "body",
-                    },
-                  ],
-                  staticClass:
-                    "text-lg w-2/3 block h-30 m-2 p-2 rounded-lg border-2 border-gray-500",
-                  attrs: { name: "description", rows: "5", required: "" },
-                  domProps: { value: _vm.body },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.body = $event.target.value
-                    },
-                  },
-                }),
-                _vm._v(" "),
-                _c("input", {
-                  staticClass:
-                    "cursor-pointer rounded bg-green-500 text-white text-xl py-1 px-2",
-                  attrs: { type: "submit", value: "comment" },
-                }),
-              ]
-            ),
-          ])
-        : _c("div", [_vm._m(0)]),
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass:
+                "my-2 cursor-pointer rounded-lg bg-second text-white text-xl py-1 px-4",
+              attrs: { type: "submit", value: "submit" },
+            }),
+          ]
+        ),
+      ]),
       _vm._v(" "),
       _vm._l(_vm.comments, function (comment) {
         return _c(
@@ -40389,16 +40400,30 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "text-xl" }, [
-      _vm._v("sign in to comment "),
-      _c(
-        "a",
-        {
-          staticClass: "no-underline text-xl text-second my-1",
-          attrs: { href: "/login" },
-        },
-        [_vm._v("sign in")]
-      ),
+    return _c("p", { staticClass: "text-3xl" }, [
+      _c("span", { staticClass: "text-gray-100 border-2 border-first" }, [
+        _vm._v("★"),
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "text-gray-100 border-2 border-first" }, [
+        _vm._v("★"),
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "text-gray-100 border-2 border-first" }, [
+        _vm._v("★"),
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "text-gray-100 border-2 border-first" }, [
+        _vm._v("★"),
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "text-gray-100 border-2 border-first" }, [
+        _vm._v("★"),
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "text-gray-700 text-xl my-auto" }, [
+        _vm._v("(2 reviews)"),
+      ]),
     ])
   },
 ]

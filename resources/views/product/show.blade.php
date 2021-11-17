@@ -19,11 +19,31 @@
              </p>
             <p class="text-lg my-2"> {{$product->description}}</p>
           </div>
-          <div>
-            <p class="text-2xl text-gray-700">unit price ${{$product->price}}</p>
+          <div class="py-2 border-b-2 border-gray-400 flex justify-between my-2">
+            <p class="my-auto text-2xl text-gray-700">unit price ${{$product->price}}</p>
+            <div class="my-auto">
+            <p class="text-lg">Quantity</p>
+            <button>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6" />
+              </svg>
+            </button>
+            <span class="text-xl">1</span>
+            <button>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
+              </svg>
+            </button>
+            </div>
+            <div class="flex flex-col">
+              <button class="px-3 py-1 my-1 bg-white text-first border-2 border-first text-xl">Buy it Now</button>
+              <button class="px-3 py-1 my-1 text-white bg-first text-xl">Visit Store</button>
+            </div>
           </div>
-          <div>
-
+          <div class="py-2 border-b-2 border-gray-400 flex justify-center">
+            <button class="px-3 py-1 bg-white text-first border-2 border-first text-xl">Make Offer</button>
+            <button class="px-3 py-1 bg-white mx-2 text-first border-2 border-first text-xl">Call Now</button>
+            <button class="px-3 py-1 bg-white text-first border-2 border-first text-xl">Chat Now</button>
           </div>
           <div>
             <comment-component @auth user-id="{{Auth::user()->id}}" @endauth product-id="{{$product->id}}"/>    
@@ -31,7 +51,7 @@
         </div>
     </div>
    </div>
-    <div class="m-2">
+    <div class="mt-2">
       <h1 class="text-2xl pb-2 border-b-2 border-gray-400">Recommended for you</h1>
         @foreach ($recommendedProducts as $product)
           <div class="flex w-max my-2">

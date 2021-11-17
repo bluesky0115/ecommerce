@@ -14,6 +14,7 @@ color: #43db80;
 .bg-second{
   background-color: #4dba87;
 }
-.text-gold{
-  color: #ffd700;
+.border-first{
+  --tw-border-opacity: 1;
+  border-color: #43db80;
 }

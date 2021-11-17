@@ -1,16 +1,22 @@
 <template>
  <div>
   <p class="text-2xl my-2 text-gray-700">Reviews({{comments.length}} total reviews)</p>
-  <div v-if="userId">
-    <p class="text-xl">comment as {{user.name}}</p>
+  <div>
    <form action="" @submit.prevent="addComment">
+     <input type="text" class="p-2 w-full my-2 rounded-md " placeholder="Name">
+     <input type="email" class="p-2 w-full my-2 rounded-md" placeholder="Email">
+     <p class="text-3xl">
+      <span class="text-gray-100 border-2 border-first">★</span>
+      <span class="text-gray-100 border-2 border-first">★</span>
+      <span class="text-gray-100 border-2 border-first">★</span>
+      <span class="text-gray-100 border-2 border-first">★</span>
+      <span class="text-gray-100 border-2 border-first">★</span>
+      <span class="text-gray-700 text-xl my-auto">(2 reviews)</span>
+     </p>
     <textarea name="description" rows="5" required
-        class="text-lg w-full block h-30 p-2 rounded-lg border-2 border-gray-500" v-model="body"></textarea>
-    <input type="submit" value="comment" class="cursor-pointer rounded bg-green-500 text-white text-xl py-1 px-2">
+        class="my-2 text-lg w-full block h-30 p-2 rounded-lg" v-model="body"></textarea>
+    <input type="submit" value="submit" class="my-2 cursor-pointer rounded-lg bg-second text-white text-xl py-1 px-4">
    </form> 
-  </div>
-  <div v-else>
-   <p class="text-xl">sign in to comment <a href="/login" class="no-underline text-xl text-second my-1">sign in</a></p>
   </div>
   <div v-for="comment in comments" :key="comment.id" class="shadow-sm rounded bg-white m-4 p-3">
     <p class="">
