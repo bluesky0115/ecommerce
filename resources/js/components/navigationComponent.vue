@@ -1,5 +1,5 @@
 <template>
- <div class="flex justify-evenly w-full py-1" style="background-color:#43db80;">
+ <div class="flex justify-evenly bg-first w-full py-1">
   <div class="">
    <svg xmlns="http://www.w3.org/2000/svg" class="text-white h-32 w-32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -14,7 +14,7 @@
           <option v-for="category in categories" :key="category.id" value="">{{category.name}}</option>
         </select>
        <input type="text" v-model="searchQuery" required class="w-96 py-2.5 px-3 text-lg lg:text-xl xl:text-xl 2xl:text-xl outline-none focus:border-b-2 border-tiruhakim" placeholder="I'am shopping for...">
-       <button type="submit" style="background-color:#4dba87;" class="capitalize rounded-r-3xl lg:rounded-r-3xl xl:rounded-r-3xl 2xl:rounded-r-3xl text-xl lg:text-3xl xl:text-2xl 2xl:text-2xl py-2.5 px-5 my-auto">
+       <button type="submit" class="bg-second capitalize rounded-r-3xl lg:rounded-r-3xl xl:rounded-r-3xl 2xl:rounded-r-3xl text-xl lg:text-3xl xl:text-2xl 2xl:text-2xl py-2.5 px-5 my-auto">
          <svg xmlns="http://www.w3.org/2000/svg" class="text-white h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
@@ -50,7 +50,7 @@
      </div>
      <div v-else class="flex text-white text-2xl w-full my-auto">
      <a href="/login" class="mx-2 rounded px-2 py-1 my-auto">sign in</a>
-     <a href="/register" class="bg-green-900 mx-2  rounded-3xl px-5 py-2 my-auto">sign up</a>  
+     <a href="/register" class="bg-green-700 mx-2  rounded-3xl px-5 py-1.5 my-auto">sign up</a>  
      </div> 
      <div v-if="userDropdownMenu" class="fixed z-20 text-xl bg-gray-100 top-2 right-2">
       <ul>
@@ -69,17 +69,17 @@
     </div> 
    </div>
    <div class="py-2 my-auto flex justify-between">
-    <div style="background-color:#4dba87;" class="flex bg-green-800">
+    <div class="bg-green-600 flex rounded-sm">
       <svg xmlns="http://www.w3.org/2000/svg" class="text-white w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
-      <select style="background-color:#4dba87;" class="my-auto text-xl text-white">
+      <select class="bg-green-600 my-auto text-xl text-white">
         <option value="" class="my-auto">Shop by Category</option>
         <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
       </select>
     </div>
-    <div class="text-xl">
-      <ul class="flex">
+    <div class="text-lg my-auto">
+      <ul class="flex my-auto">
        <li class="mx-3"><a class="mx-auto text-black no-underline" href="/">Home</a></li>
        <li class="mx-3"><a class="mx-auto text-black no-underline" href="/">News</a></li>
        <li class="mx-3"><a class="mx-auto text-black no-underline" href="/">Vendors</a></li>

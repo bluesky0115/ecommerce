@@ -32085,6 +32085,26 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.text-first{
+  color: #43db80;
+}
+
+.text-second{
+  color: #4dba87;
+}
+
+.bg-first{
+  background-color: #43db80;
+}
+
+.bg-second{
+  background-color: #4dba87;
+}
+
+.text-gold{
+  color: #ffd700;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

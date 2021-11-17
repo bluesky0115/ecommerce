@@ -39843,7 +39843,7 @@ var render = function () {
           "span",
           {
             staticClass:
-              "absolute -bottom-1 -right-2 w-6 h-6 font-semibold text-white rounded-full bg-green-800 text-white",
+              "absolute -bottom-1 -right-2 w-6 h-6 font-semibold text-white rounded-full bg-green-700 text-white",
           },
           [_vm._v("0")]
         ),
@@ -40115,13 +40115,13 @@ var render = function () {
   return _c(
     "div",
     [
-      _c("p", { staticClass: "text-2xl mx-3" }, [
-        _vm._v(_vm._s(_vm.comments.length) + " comments"),
+      _c("p", { staticClass: "text-2xl my-2 text-gray-700" }, [
+        _vm._v("Reviews(" + _vm._s(_vm.comments.length) + " total reviews)"),
       ]),
       _vm._v(" "),
       _vm.userId
         ? _c("div", [
-            _c("p", { staticClass: "text-xl mx-3" }, [
+            _c("p", { staticClass: "text-xl" }, [
               _vm._v("comment as " + _vm._s(_vm.user.name)),
             ]),
             _vm._v(" "),
@@ -40394,7 +40394,7 @@ var staticRenderFns = [
       _c(
         "a",
         {
-          staticClass: "no-underline text-xl text-blue-500 m-1",
+          staticClass: "no-underline text-xl text-second my-1",
           attrs: { href: "/login" },
         },
         [_vm._v("sign in")]
@@ -40515,10 +40515,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass: "flex justify-evenly w-full py-1",
-      staticStyle: { "background-color": "#43db80" },
-    },
+    { staticClass: "flex justify-evenly bg-first w-full py-1" },
     [
       _c("div", {}, [
         _c(
@@ -40619,8 +40616,7 @@ var render = function () {
                     "button",
                     {
                       staticClass:
-                        "capitalize rounded-r-3xl lg:rounded-r-3xl xl:rounded-r-3xl 2xl:rounded-r-3xl text-xl lg:text-3xl xl:text-2xl 2xl:text-2xl py-2.5 px-5 my-auto",
-                      staticStyle: { "background-color": "#4dba87" },
+                        "bg-second capitalize rounded-r-3xl lg:rounded-r-3xl xl:rounded-r-3xl 2xl:rounded-r-3xl text-xl lg:text-3xl xl:text-2xl 2xl:text-2xl py-2.5 px-5 my-auto",
                       attrs: { type: "submit" },
                     },
                     [
@@ -40773,7 +40769,7 @@ var render = function () {
                         "a",
                         {
                           staticClass:
-                            "bg-green-900 mx-2  rounded-3xl px-5 py-2 my-auto",
+                            "bg-green-700 mx-2  rounded-3xl px-5 py-1.5 my-auto",
                           attrs: { href: "/register" },
                         },
                         [_vm._v("sign up")]
@@ -40832,61 +40828,49 @@ var render = function () {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "py-2 my-auto flex justify-between" }, [
-          _c(
-            "div",
-            {
-              staticClass: "flex bg-green-800",
-              staticStyle: { "background-color": "#4dba87" },
-            },
-            [
-              _c(
-                "svg",
-                {
-                  staticClass: "text-white w-12",
+          _c("div", { staticClass: "bg-green-600 flex rounded-sm" }, [
+            _c(
+              "svg",
+              {
+                staticClass: "text-white w-12",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  fill: "none",
+                  viewBox: "0 0 24 24",
+                  stroke: "currentColor",
+                },
+              },
+              [
+                _c("path", {
                   attrs: {
-                    xmlns: "http://www.w3.org/2000/svg",
-                    fill: "none",
-                    viewBox: "0 0 24 24",
-                    stroke: "currentColor",
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    "stroke-width": "2",
+                    d: "M4 6h16M4 12h16M4 18h16",
                   },
-                },
-                [
-                  _c("path", {
-                    attrs: {
-                      "stroke-linecap": "round",
-                      "stroke-linejoin": "round",
-                      "stroke-width": "2",
-                      d: "M4 6h16M4 12h16M4 18h16",
-                    },
-                  }),
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  staticClass: "my-auto text-xl text-white",
-                  staticStyle: { "background-color": "#4dba87" },
-                },
-                [
-                  _c(
+                }),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "select",
+              { staticClass: "bg-green-600 my-auto text-xl text-white" },
+              [
+                _c("option", { staticClass: "my-auto", attrs: { value: "" } }, [
+                  _vm._v("Shop by Category"),
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.categories, function (category) {
+                  return _c(
                     "option",
-                    { staticClass: "my-auto", attrs: { value: "" } },
-                    [_vm._v("Shop by Category")]
-                  ),
-                  _vm._v(" "),
-                  _vm._l(_vm.categories, function (category) {
-                    return _c(
-                      "option",
-                      { key: category.id, domProps: { value: category.id } },
-                      [_vm._v(_vm._s(category.name))]
-                    )
-                  }),
-                ],
-                2
-              ),
-            ]
-          ),
+                    { key: category.id, domProps: { value: category.id } },
+                    [_vm._v(_vm._s(category.name))]
+                  )
+                }),
+              ],
+              2
+            ),
+          ]),
           _vm._v(" "),
           _vm._m(6),
           _vm._v(" "),
@@ -40982,8 +40966,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-xl" }, [
-      _c("ul", { staticClass: "flex" }, [
+    return _c("div", { staticClass: "text-lg my-auto" }, [
+      _c("ul", { staticClass: "flex my-auto" }, [
         _c("li", { staticClass: "mx-3" }, [
           _c(
             "a",
@@ -41100,7 +41084,7 @@ var render = function () {
           "span",
           {
             staticClass:
-              "absolute -bottom-1 -right-2 w-6 h-6 font-semibold text-white rounded-full bg-green-800 text-white",
+              "absolute -bottom-1 -right-2 w-6 h-6 font-semibold text-white rounded-full bg-green-700 text-white",
           },
           [_vm._v("0")]
         ),
@@ -41735,7 +41719,7 @@ var render = function () {
         "span",
         {
           staticClass:
-            "absolute -bottom-1 -right-2 w-6 h-6 font-semibold text-white rounded-full bg-green-800 text-white",
+            "absolute -bottom-1 -right-2 w-6 h-6 font-semibold text-white rounded-full bg-green-700 text-white",
         },
         [_vm._v("0")]
       ),
