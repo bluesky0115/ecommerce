@@ -1,5 +1,5 @@
 <template>
- <div class="flex justify-between bg-blue-500 w-full py-2">
+ <div class="flex justify-between bg-green-500 w-full py-2">
   <div class="flex">
     <div class="flex mx-3 p-1">
      <a href="/">
@@ -8,19 +8,21 @@
       </svg>   
      </a>  
     </div> 
-    <div class="lg:mx-4 xl:mx-4 2xl:mx-4 p-1">
-       <input type="text" @keyup.enter="search" v-model="searchQuery" required placeholder="I'm shopping for..." class="px-4 w-48 rounded border-2 border-gray-500 text-xl py-1 lg:mx-1 xl:mx-1 2xl:mx-1">
-       <select v-model="categoryId" required class="my-auto text-xl bg-gray-800 text-white lg:mx-1 xl:mx-1 2xl:mx-1">
-         <option value="all">all</option>
-         <option v-for="category in categories" :value="category.id" :key="category.id">{{category.name}}</option>  
-       </select>
-       <button @click="search" class="h-full text-xl text-white bg-gray-800 lg:mx-1 xl:mx-1 2xl:mx-1 hover:bg-green-500">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <div class="rounded-4xl my-auto py-auto mx-3">
+      <form @submit.prevent="search" class="flex">
+        <select class="text-green-500">
+          <option value="">category</option>
+          <option v-for="category in categories" :key="category.id" value="">{{category.name}}</option>
+        </select>
+       <input type="text" v-model="searchQuery" required class="w-96 py-2.5 px-3 text-lg lg:text-xl xl:text-xl 2xl:text-xl outline-none focus:border-b-2 border-tiruhakim" placeholder="search channels,videos...">
+       <button type="submit" class="capitalize bg-green-700 rounded-r-3xl lg:rounded-r-3xl xl:rounded-r-3xl 2xl:rounded-r-3xl text-xl lg:text-3xl xl:text-2xl 2xl:text-2xl py-2.5 px-4 my-auto" >
+         <svg xmlns="http://www.w3.org/2000/svg" class="text-white h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
-       </button> 
+       </button>   
+      </form>
     </div>
-    <div class="text-white text-xl mx-1 hidden lg:block xl:block 2xl:block">
+    <div class="my-auto text-white text-xl mx-1 hidden lg:block xl:block 2xl:block">
      <ul class="flex list-style-none h-full">
       <li class="my-auto mx-2 hover:bg-green-500 h-full p-1"><a href="/product/create" class="my-auto">add</a></li>
       <li class=" my-auto mx-2 hover:bg-green-500 h-full p-1"><a href="/order" class="my-auto">order</a></li>

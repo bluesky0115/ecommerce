@@ -15,7 +15,7 @@
         "axios": "^0.21",
         "bootstrap": "^4.6.0",
         "jquery": "^3.6",
-        "laravel-mix": "^6.0.25",
+        "laravel-mix": "^6.0.39",
         "lodash": "^4.17.19",
         "popper.js": "^1.16.1",
         "postcss": "^8.1.14",
@@ -24,9 +24,12 @@
         "sass-loader": "^11.0.1",
         "tailwindcss": "^2.2.2",
         "vue": "^2.6.12",
-        "vue-loader": "^15.9.7",
+        "vue-loader": "^15.9.8",
         "vue-router": "^3.5.1",
         "vue-template-compiler": "^2.6.12",
         "vuex": "^3.6.2"
+    },
+    "dependencies": {
+        "webpack": "^5.64.1"
     }
 }

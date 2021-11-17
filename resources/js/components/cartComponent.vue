@@ -23,7 +23,7 @@
   </div> 
 </template>
 <script>
-import { bus } from 'app';
+//import { bus } from 'app';
 import removeFromCartVue from './removeFromCart.vue';
 export default {
   props:['userId'],
