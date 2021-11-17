@@ -36,6 +36,7 @@ Vue.component('order-component', require('./components/orderComponent.vue').defa
 Vue.component('orders-component', require('./components/ordersComponent.vue').default);
 Vue.component('products-component', require('./components/productsComponent.vue').default);
 Vue.component('report-component', require('./components/reportComponent.vue').default);
+Vue.component('saved-component', require('./components/saved.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

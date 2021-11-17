@@ -11,7 +11,7 @@
     <div class="rounded-4xl my-auto py-auto mx-3">
       <form @submit.prevent="search" class="flex">
         <select class="text-gray-700 px-2 text-xl border-r-2 border-gray-400">
-          <option value="">category</option>
+          <option value="">Filter</option>
           <option v-for="category in categories" :key="category.id" value="">{{category.name}}</option>
         </select>
        <input type="text" v-model="searchQuery" required class="w-96 py-2.5 px-3 text-lg lg:text-xl xl:text-xl 2xl:text-xl outline-none focus:border-b-2 border-tiruhakim" placeholder="I'am shopping for...">
@@ -29,13 +29,16 @@
       <li class="my-auto mx-2 hover:bg-green-500 h-full p-1"><a href="/about" class="my-auto">contact us</a></li>   
      </ul>   
     </div>
-    <div v-if="userId" class="hidden md:flex lg:flex xl:flex 2xl:flex mx-2">
+    <div class="my-auto hidden md:flex lg:flex xl:flex 2xl:flex mx-2">
       <div>
-       <cart-component :userId="userId"/>   
+       <saved-component :userId="userId"/>   
       </div>
       <div>
        <notifications-component :userId="userId"/>   
-      </div>   
+      </div> 
+      <div>
+        <cart-component :userId="userId"/>   
+      </div>  
     </div>
     <div class="block right-0 lg:hidden xl:hidden 2xl:hidden">
       <button @click="userDropdownMenu=true">
@@ -45,15 +48,15 @@
     </button>
     </div>
    </div>
-   <div class="mx-3"> 
+   <div class="my-auto mx-3"> 
      <div v-if="userId" class="my-auto hidden lg:inline xl:inline 2xl:inline">
        <button @click="userDropdownMenu=true" class="my-auto">
         <span class="text-xl text-white text-semibold">{{user.name}}</span>
        </button>   
      </div>
-     <div v-else class="flex text-white text-xl w-full">
-     <a href="/login" class="bg-blue-500 mx-2 my-2 rounded px-2 py-1">sign in</a>
-     <a href="/register" class="bg-green-500 mx-2 my-2 rounded px-2 py-1">sign up</a>  
+     <div v-else class="flex text-white text-xl w-full my-auto">
+     <a href="/login" class="mx-2 my-2 rounded px-2 py-1">sign in</a>
+     <a href="/register" class="bg-green-800 mx-2 my-2 rounded-2xl px-4 py-2">sign up</a>  
      </div> 
      <div v-if="userDropdownMenu" class="fixed z-20 text-xl bg-gray-100 top-2 right-2">
       <ul>
