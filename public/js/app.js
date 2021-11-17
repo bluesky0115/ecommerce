@@ -1845,7 +1845,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-Object(function webpackMissingModule() { var e = new Error("Cannot find module 'app'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 //
 //
 //
@@ -1853,7 +1852,6 @@ Object(function webpackMissingModule() { var e = new Error("Cannot find module '
 //
 //
 //
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['productId', 'userId'],
   data: function data() {
@@ -1883,7 +1881,7 @@ Object(function webpackMissingModule() { var e = new Error("Cannot find module '
           userId: this.userId
         }).then(function (res) {
           _this2.productInCart = true;
-          Object(function webpackMissingModule() { var e = new Error("Cannot find module 'app'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())('productAddedToCart', _this2.productId);
+          bus.$emit('productAddedToCart', _this2.productId);
         });
       } else {
         axios.post('/cart/removeproduct', {
@@ -1912,8 +1910,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-Object(function webpackMissingModule() { var e = new Error("Cannot find module 'app'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-/* harmony import */ var _removeFromCart_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./removeFromCart.vue */ "./resources/js/components/removeFromCart.vue");
+/* harmony import */ var _removeFromCart_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./removeFromCart.vue */ "./resources/js/components/removeFromCart.vue");
 //
 //
 //
@@ -1938,7 +1935,6 @@ Object(function webpackMissingModule() { var e = new Error("Cannot find module '
 //
 //
 //
-
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['userId'],
@@ -1961,10 +1957,10 @@ Object(function webpackMissingModule() { var e = new Error("Cannot find module '
     });
   },
   created: function created() {
-    Object(function webpackMissingModule() { var e = new Error("Cannot find module 'app'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())('productAddedToCart', function (id) {
+    bus.$on('productAddedToCart', function (id) {
       addToCart(id);
     });
-    Object(function webpackMissingModule() { var e = new Error("Cannot find module 'app'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())('productRemovedFromCart', function (id) {
+    bus.$on('productRemovedFromCart', function (id) {
       removeFromCart(id);
     });
   },
@@ -39732,7 +39728,7 @@ var render = function () {
         _c(
           "svg",
           {
-            staticClass: "text-white h-10 w-10",
+            staticClass: "text-blue-500 h-10 w-10",
             attrs: {
               xmlns: "http://www.w3.org/2000/svg",
               fill: "none",
@@ -40425,7 +40421,7 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "flex justify-between bg-green-500 w-full py-2" },
+    { staticClass: "flex justify-between bg-green-500 w-full py-1" },
     [
       _c("div", { staticClass: "flex" }, [
         _c("div", { staticClass: "flex mx-3 p-1" }, [
@@ -40470,7 +40466,10 @@ var render = function () {
             [
               _c(
                 "select",
-                { staticClass: "text-green-500" },
+                {
+                  staticClass:
+                    "text-gray-700 px-2 text-xl border-r-1 border-gray-400",
+                },
                 [
                   _c("option", { attrs: { value: "" } }, [_vm._v("category")]),
                   _vm._v(" "),
@@ -40499,7 +40498,7 @@ var render = function () {
                 attrs: {
                   type: "text",
                   required: "",
-                  placeholder: "search channels,videos...",
+                  placeholder: "I'am shopping for...",
                 },
                 domProps: { value: _vm.searchQuery },
                 on: {
@@ -40516,7 +40515,7 @@ var render = function () {
                 "button",
                 {
                   staticClass:
-                    "capitalize bg-green-700 rounded-r-3xl lg:rounded-r-3xl xl:rounded-r-3xl 2xl:rounded-r-3xl text-xl lg:text-3xl xl:text-2xl 2xl:text-2xl py-2.5 px-4 my-auto",
+                    "capitalize bg-green-700 rounded-r-3xl lg:rounded-r-3xl xl:rounded-r-3xl 2xl:rounded-r-3xl text-xl lg:text-3xl xl:text-2xl 2xl:text-2xl py-2.5 px-5 my-auto",
                   attrs: { type: "submit" },
                 },
                 [
@@ -40714,7 +40713,7 @@ var staticRenderFns = [
       "div",
       {
         staticClass:
-          "text-white text-xl mx-1 hidden lg:block xl:block 2xl:block",
+          "text-xl my-auto text-white text-xl mx-1 hidden lg:block xl:block 2xl:block",
       },
       [
         _c("ul", { staticClass: "flex list-style-none h-full" }, [
@@ -40839,7 +40838,7 @@ var render = function () {
         _c(
           "svg",
           {
-            staticClass: "text-white h-10 w-10",
+            staticClass: "text-blue-500 h-10 w-10",
             attrs: {
               xmlns: "http://www.w3.org/2000/svg",
               fill: "none",

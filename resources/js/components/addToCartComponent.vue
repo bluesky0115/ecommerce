@@ -6,7 +6,6 @@
   </button> 
 </template>
 <script>
- import { bus } from 'app';
  export default{
     props:['productId','userId'],
     data(){

@@ -1,5 +1,5 @@
 <template>
- <div class="flex justify-between bg-green-500 w-full py-2">
+ <div class="flex justify-between bg-green-500 w-full py-1">
   <div class="flex">
     <div class="flex mx-3 p-1">
      <a href="/">
@@ -10,19 +10,19 @@
     </div> 
     <div class="rounded-4xl my-auto py-auto mx-3">
       <form @submit.prevent="search" class="flex">
-        <select class="text-green-500">
+        <select class="text-gray-700 px-2 text-xl border-r-2 border-gray-400">
           <option value="">category</option>
           <option v-for="category in categories" :key="category.id" value="">{{category.name}}</option>
         </select>
-       <input type="text" v-model="searchQuery" required class="w-96 py-2.5 px-3 text-lg lg:text-xl xl:text-xl 2xl:text-xl outline-none focus:border-b-2 border-tiruhakim" placeholder="search channels,videos...">
-       <button type="submit" class="capitalize bg-green-700 rounded-r-3xl lg:rounded-r-3xl xl:rounded-r-3xl 2xl:rounded-r-3xl text-xl lg:text-3xl xl:text-2xl 2xl:text-2xl py-2.5 px-4 my-auto" >
+       <input type="text" v-model="searchQuery" required class="w-96 py-2.5 px-3 text-lg lg:text-xl xl:text-xl 2xl:text-xl outline-none focus:border-b-2 border-tiruhakim" placeholder="I'am shopping for...">
+       <button type="submit" class="capitalize bg-green-700 rounded-r-3xl lg:rounded-r-3xl xl:rounded-r-3xl 2xl:rounded-r-3xl text-xl lg:text-3xl xl:text-2xl 2xl:text-2xl py-2.5 px-5 my-auto" >
          <svg xmlns="http://www.w3.org/2000/svg" class="text-white h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
        </button>   
       </form>
     </div>
-    <div class="my-auto text-white text-xl mx-1 hidden lg:block xl:block 2xl:block">
+    <div class="text-xl my-auto text-white text-xl mx-1 hidden lg:block xl:block 2xl:block">
      <ul class="flex list-style-none h-full">
       <li class="my-auto mx-2 hover:bg-green-500 h-full p-1"><a href="/product/create" class="my-auto">add</a></li>
       <li class=" my-auto mx-2 hover:bg-green-500 h-full p-1"><a href="/order" class="my-auto">order</a></li>
