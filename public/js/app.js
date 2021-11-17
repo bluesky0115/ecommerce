@@ -2437,6 +2437,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['userId'],
   data: function data() {
@@ -40504,7 +40509,10 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "flex justify-evenly bg-green-500 w-full py-1" },
+    {
+      staticClass: "flex justify-evenly w-full py-1",
+      staticStyle: { "background-color": "#43db80" },
+    },
     [
       _c("div", {}, [
         _c(
@@ -40536,7 +40544,7 @@ var render = function () {
           "div",
           {
             staticClass:
-              "flex justify-between py-2 border-b-2 border-green-700",
+              "flex justify-between py-2 border-b-2 border-green-600",
           },
           [
             _c("div", { staticClass: "rounded-4xl my-auto py-auto mr-5" }, [
@@ -40605,7 +40613,8 @@ var render = function () {
                     "button",
                     {
                       staticClass:
-                        "capitalize bg-green-700 rounded-r-3xl lg:rounded-r-3xl xl:rounded-r-3xl 2xl:rounded-r-3xl text-xl lg:text-3xl xl:text-2xl 2xl:text-2xl py-2.5 px-5 my-auto",
+                        "capitalize rounded-r-3xl lg:rounded-r-3xl xl:rounded-r-3xl 2xl:rounded-r-3xl text-xl lg:text-3xl xl:text-2xl 2xl:text-2xl py-2.5 px-5 my-auto",
+                      staticStyle: { "background-color": "#4dba87" },
                       attrs: { type: "submit" },
                     },
                     [
@@ -40637,7 +40646,7 @@ var render = function () {
               ),
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "my-auto flex mx-10" }, [
+            _c("div", { staticClass: "my-auto flex mx-14" }, [
               _c(
                 "div",
                 [_c("saved-component", { attrs: { userId: _vm.userId } })],
@@ -40712,19 +40721,14 @@ var render = function () {
                         },
                       },
                       [
-                        _c(
-                          "span",
-                          {
-                            staticClass:
-                              "text-green-900 text-lg font-semibold capitalize",
-                          },
-                          [_vm._v(_vm._s(_vm.user.name))]
-                        ),
+                        _c("span", { staticClass: "text-xl capitalize" }, [
+                          _vm._v(_vm._s(_vm.user.name)),
+                        ]),
                         _vm._v(" "),
                         _c(
                           "svg",
                           {
-                            staticClass: "h-8 w-8",
+                            staticClass: "h-8",
                             attrs: {
                               xmlns: "http://www.w3.org/2000/svg",
                               fill: "none",
@@ -40828,6 +40832,8 @@ var render = function () {
           _vm._v(" "),
           _c("div", { staticClass: "text-xl" }, [
             _c("ul", { staticClass: "flex" }, [
+              _vm._m(8),
+              _vm._v(" "),
               _c("li", [
                 _c("button", { staticClass: "flex" }, [
                   _c(
@@ -40917,7 +40923,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("button", { staticClass: "text-xl font-semibold" }, [
+      _c("button", { staticClass: "text-xl font-medium" }, [
         _vm._v("Shop by category"),
       ]),
     ])
@@ -40974,6 +40980,14 @@ var staticRenderFns = [
       ]),
     ])
   },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("button", [_vm._v("\n          Become a Seller\n        ")]),
+    ])
+  },
 ]
 render._withStripped = true
 
@@ -41001,7 +41015,7 @@ var render = function () {
     _c(
       "button",
       {
-        staticClass: "relative mx-7 flex",
+        staticClass: "relative mx-8 flex",
         on: {
           click: function ($event) {
             _vm.notificationPopup = true
