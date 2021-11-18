@@ -80,10 +80,10 @@
     </div>
     <div class="text-lg my-auto">
       <ul class="flex my-auto">
-       <li class="mx-3"><a class="mx-auto text-black no-underline" href="/">Home</a></li>
-       <li class="mx-3"><a class="mx-auto text-black no-underline" href="/">News</a></li>
-       <li class="mx-3"><a class="mx-auto text-black no-underline" href="/">Vendors</a></li>
-       <li class="mx-3 "><a class="mx-auto text-black no-underline" href="/">Suppliers</a></li>
+       <li class="mx-4"><a class="mx-auto text-black no-underline" href="/">Home</a></li>
+       <li class="mx-4"><a class="mx-auto text-black no-underline" href="/">News</a></li>
+       <li class="mx-4"><a class="mx-auto text-black no-underline" href="/">Vendors</a></li>
+       <li class="mx-4 "><a class="mx-auto text-black no-underline" href="/">Suppliers</a></li>
       </ul>
     </div>
     <div class="text-xl">

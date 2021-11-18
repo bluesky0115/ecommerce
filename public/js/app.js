@@ -2194,7 +2194,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['productId', 'userId'],
   data: function data() {
@@ -39851,7 +39850,7 @@ var render = function () {
             staticClass:
               "absolute -bottom-1 -right-2 w-6 h-6 font-semibold text-white rounded-full bg-green-700 text-white",
           },
-          [_vm._v("0")]
+          [_vm._v("2")]
         ),
       ]
     ),
@@ -40401,29 +40400,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "text-3xl" }, [
-      _c("span", { staticClass: "text-gray-100 border-2 border-first" }, [
-        _vm._v("★"),
-      ]),
+      _c("span", { staticClass: "text-gray-300" }, [_vm._v("★")]),
       _vm._v(" "),
-      _c("span", { staticClass: "text-gray-100 border-2 border-first" }, [
-        _vm._v("★"),
-      ]),
+      _c("span", { staticClass: "text-gray-300" }, [_vm._v("★")]),
       _vm._v(" "),
-      _c("span", { staticClass: "text-gray-100 border-2 border-first" }, [
-        _vm._v("★"),
-      ]),
+      _c("span", { staticClass: "text-gray-300" }, [_vm._v("★")]),
       _vm._v(" "),
-      _c("span", { staticClass: "text-gray-100 border-2 border-first" }, [
-        _vm._v("★"),
-      ]),
+      _c("span", { staticClass: "text-gray-300" }, [_vm._v("★")]),
       _vm._v(" "),
-      _c("span", { staticClass: "text-gray-100 border-2 border-first" }, [
-        _vm._v("★"),
-      ]),
-      _vm._v(" "),
-      _c("span", { staticClass: "text-gray-700 text-xl my-auto" }, [
-        _vm._v("(2 reviews)"),
-      ]),
+      _c("span", { staticClass: "text-gray-300" }, [_vm._v("★")]),
     ])
   },
 ]
@@ -40993,7 +40978,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "text-lg my-auto" }, [
       _c("ul", { staticClass: "flex my-auto" }, [
-        _c("li", { staticClass: "mx-3" }, [
+        _c("li", { staticClass: "mx-4" }, [
           _c(
             "a",
             {
@@ -41004,7 +40989,7 @@ var staticRenderFns = [
           ),
         ]),
         _vm._v(" "),
-        _c("li", { staticClass: "mx-3" }, [
+        _c("li", { staticClass: "mx-4" }, [
           _c(
             "a",
             {
@@ -41015,7 +41000,7 @@ var staticRenderFns = [
           ),
         ]),
         _vm._v(" "),
-        _c("li", { staticClass: "mx-3" }, [
+        _c("li", { staticClass: "mx-4" }, [
           _c(
             "a",
             {
@@ -41026,7 +41011,7 @@ var staticRenderFns = [
           ),
         ]),
         _vm._v(" "),
-        _c("li", { staticClass: "mx-3 " }, [
+        _c("li", { staticClass: "mx-4 " }, [
           _c(
             "a",
             {
@@ -41111,7 +41096,7 @@ var render = function () {
             staticClass:
               "absolute -bottom-1 -right-2 w-6 h-6 font-semibold text-white rounded-full bg-green-700 text-white",
           },
-          [_vm._v("0")]
+          [_vm._v("1")]
         ),
       ]
     ),

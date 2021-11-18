@@ -28,7 +28,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6" />
               </svg>
             </button>
-            <span class="text-xl">1</span>
+            <span class="text-xl mx-1">1</span>
             <button>
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
@@ -56,7 +56,7 @@
         @foreach ($recommendedProducts as $product)
           <div class="flex w-max my-2">
             <a href="{{route('product.show',$product->id)}}">
-              <img src="/storage/products/{{$product->cover}}" class="w-40">
+              <img src="/storage/products/{{$product->cover}}" class="w-40 h-40">
               <div class="flex mx-1">
                 <button class="mx-1.5">
                   <svg xmlns="http://www.w3.org/2000/svg" class="text-first h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -83,7 +83,7 @@
             </a>
               <div class="mx-2">
                 <p class="text-lg">{{$product->name}}</p>
-                <p class="text-lg">unit price ${{$product->price}}</p>  
+                <p class="text-lg">${{$product->price}}</p>  
               </div>   
           </div>
         @endforeach  

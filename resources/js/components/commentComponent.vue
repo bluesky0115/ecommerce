@@ -6,12 +6,11 @@
      <input type="text" class="p-2 w-full my-2 rounded-md " placeholder="Name">
      <input type="email" class="p-2 w-full my-2 rounded-md" placeholder="Email">
      <p class="text-3xl">
-      <span class="text-gray-100 border-2 border-first">★</span>
-      <span class="text-gray-100 border-2 border-first">★</span>
-      <span class="text-gray-100 border-2 border-first">★</span>
-      <span class="text-gray-100 border-2 border-first">★</span>
-      <span class="text-gray-100 border-2 border-first">★</span>
-      <span class="text-gray-700 text-xl my-auto">(2 reviews)</span>
+      <span class="text-gray-300">★</span>
+      <span class="text-gray-300">★</span>
+      <span class="text-gray-300">★</span>
+      <span class="text-gray-300">★</span>
+      <span class="text-gray-300">★</span>
      </p>
     <textarea name="description" rows="5" required
         class="my-2 text-lg w-full block h-30 p-2 rounded-lg" v-model="body"></textarea>
