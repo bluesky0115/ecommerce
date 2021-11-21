@@ -40121,7 +40121,7 @@ var render = function () {
     "div",
     [
       _c("p", { staticClass: "text-2xl my-2 text-gray-700" }, [
-        _vm._v("Reviews(" + _vm._s(_vm.comments.length) + " total reviews)"),
+        _vm._v("Reviews(2 total reviews)"),
       ]),
       _vm._v(" "),
       _c("div", [
