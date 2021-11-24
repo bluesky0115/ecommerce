@@ -54,6 +54,7 @@ Route::prefix('product')->group(function () {
     Route::delete('delete/{product}',[ProductController::class,'destroy'])->name('product.delete');
     Route::get('search',[ProductController::class,'search'])->name('product.search');
     Route::get('data',[ProductController::class,'data']);
+    Route::get('savedproducts',[ProductController::class,'savedProducts']);
 });
 
 Route::prefix('profile')->group(function(){
