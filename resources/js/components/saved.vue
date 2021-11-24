@@ -10,13 +10,21 @@
 </template>
 <script>
 export default {
+props:{
+ userId{
+  required:true
+ }
+ }
   data(){
    return{ 
     products:[]
    }
   },
   mounted(){
-
+   axios.get('/product/savedProducts',{params:{userId:this.userId}})
+   .then(res=>{
+     this.products=res.data.products;
+   });
   },
   methods:{
     
