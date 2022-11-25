@@ -17,31 +17,9 @@ class OrderController extends Controller
     public function __construct(){
 
       $this->middleware('auth');
-    
+
     }
 
-    public function order(Request $request)
-    {
-      $user=User::find($request->userId);
-      $orderItems=$request->orderItems;
-      $order=new Order;
-      foreach($orderItems as $orderItem){
-        $product=Product::find($orderItem->id);
-        $product->quantity=$orderItem->quantity;
-        $order->products()->attach([$product->id=>[
-          'quantity'=>$product->quantity
-        ]]);
-      }
-      $order->user_id=$user->id;
-      $order->save();
-      $order->users()->attach($user->id);  
-      return redirect()->back()->with(['message'=>'orer successfull']);
-    }
-    public function orderForm()
-    {
-      //$items=;
-      return view('order',);
-    }
     public function index()
     {
      $orders=Order::latest()->get();
@@ -55,7 +33,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        return view('order',);
     }
 
     /**
@@ -66,7 +44,20 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $user=User::find($request->userId);
+      $orderItems=$request->orderItems;
+      $order=new Order;
+      foreach($orderItems as $orderItem){
+        $product=Product::find($orderItem->id);
+        $product->quantity=$orderItem->quantity;
+        $order->products()->attach([$product->id=>[
+          'quantity'=>$product->quantity
+        ]]);
+      }
+      $order->user_id=$user->id;
+      $order->save();
+      $order->users()->attach($user->id);
+      return redirect()->back()->with(['message'=>'order successfull']);
     }
 
     /**

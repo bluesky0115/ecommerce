@@ -49,12 +49,13 @@ Route::prefix('profile')->group(function(){
   Route::get('edit',[ProfileController::class,'edit'])->name('profile.edit');
   Route::post('update',[ProfileController::class,'update'])->name('profile.update');
 });
+
 Route::get('products',[ProductController::class,'index']);
 Route::get('/products/{id}',[CategoryController::class,'categoryProducts'])->name('product.specificproduct');
 
 Route::get('orders',[OrderController::class,'index'])->name('orders');
-Route::get('order',[OrderController::class,'orderForm'])->name('order');
-Route::post('order',[OrderController::class,'order']);
+Route::get('order',[OrderController::class,'create'])->name('order');
+Route::post('order',[OrderController::class,'store']);
 Route::post('order/complete',[OrderController::class,'destroy'])->name('order.complete');
 
 Route::get('cartitems',[CartController::class,'cartItems']);
