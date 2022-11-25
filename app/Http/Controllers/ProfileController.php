@@ -35,7 +35,7 @@ class ProfileController extends Controller
     public function create()
     {
       $categories=Category::all();
-      return view('createProfile',['categories'=>$categories]);
+      return view('profile.create',['categories'=>$categories]);
     }
 
     /**
@@ -73,7 +73,7 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-      
+
     }
 
     /**
@@ -86,7 +86,7 @@ class ProfileController extends Controller
     {
       $user=Auth::user();
       $categories=$user->categories;
-      return view('editProfile',['user'=>$user,'categories'=>$categories]);
+      return view('profile.edit',['user'=>$user,'categories'=>$categories]);
     }
 
     /**
@@ -98,7 +98,14 @@ class ProfileController extends Controller
      */
     public function update(Request $request, Profile $profile)
     {
-        //
+        $data=[
+          'phone_number'=>$request->phone_number,
+          'city'=>$request->city,
+          'street'=>$request->street,
+          'categories'=>$request->categories
+        ];
+        $profile->update($data);
+        return redirect()->route('/home');
     }
 
     /**
