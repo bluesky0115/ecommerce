@@ -20,22 +20,11 @@ class ProductController extends Controller
     public function __construct(){
 
       $this->middleware('auth')->except(['search','index','show']);
-      
+
     }
 
     public function index()
     {
-      // $client = \Softonic\GraphQL\ClientBuilder::build('https://127.0.0.1/graphql');
-      // $query="query allProducts{
-      //         products{
-      //           name
-      //           description
-      //           cover
-      //           price
-      //         }
-      //         }";
-      // $variables=[];
-      // $response=$client->query($query,$variables);        
       $products=Product::all();
       foreach($products as $product){
         $product->totalComments=$product->comments->count();
@@ -77,7 +66,7 @@ class ProductController extends Controller
         foreach($notifiedUsers as $user){
           $user->notify(new NewProductNotification($product));
         }
-        return redirect()->route('home'); 
+        return redirect()->route('home');
     }
 
     /**
@@ -115,7 +104,6 @@ class ProductController extends Controller
      */
     public function update(Request $request)
     {
-      dd($request);
         $product=Product::find($request->id);
         $product->name=$request->name;
         if($request->has('photo')){
@@ -139,16 +127,16 @@ class ProductController extends Controller
     {
       $product->delete();
     }
-    
+
     public function search(Request $request)
     {
       $category_id=$request->category;
-      $searchQuery=$request->searchQuery; 
+      $searchQuery=$request->searchQuery;
       if($category_id=='all'){
-        $products=Product::where('name','like',"%${searchQuery}%")->get(); 
+        $products=Product::where('name','like',"%${searchQuery}%")->get();
       }
       else{
-        $products=Product::where([['category_id',$category_id],['name','like',"%${searchQuery}%"]])->get();  
+        $products=Product::where([['category_id',$category_id],['name','like',"%${searchQuery}%"]])->get();
       }
       $categoryName=Category::find($category_id)->name ?? 'product';
       return view('product.search',['products'=>$products,'searchQuery'=>$searchQuery,'categoryName'=>$categoryName]);
@@ -157,12 +145,12 @@ class ProductController extends Controller
     public function data(Request $request)
     {
       $product=Product::find($request->productId);
-      return response()->json(['product'=>$product]); 
+      return response()->json(['product'=>$product]);
     }
     public function savedProducts(Request $request)
     {
       $user=User::where('id',$request->userId);
-      $products=$user->products->where('type','saved')->get();  
-      return response()->json(['products'=>$products]);  
+      $products=$user->products->where('type','saved')->get();
+      return response()->json(['products'=>$products]);
     }
 }
