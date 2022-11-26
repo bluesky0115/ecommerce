@@ -19,7 +19,7 @@ class CommentController extends Controller
       $product=Product::find($request->productId);
       $comments=$product->comments;
       foreach($comments as $comment){
-        $comment->user=User::find($comment->user_id); 
+        $comment->user=User::find($comment->user_id);
       }
       $user=User::find($request->userId);
       return response()->json(['comments'=>$comments,'user'=>$user]);

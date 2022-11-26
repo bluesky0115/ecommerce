@@ -18,7 +18,7 @@ class CartTest extends TestCase
      */
     public function test_only_authenticated_users_have_previliges_related_to_cart()
     {
-        $response = $this->get('/profile/*')->whereIn('*',['create','store','edit','update']);
+        $response = $this->get('/profile/{any}')->whereIn('any',['create','store','edit','update']);
         $response->assertRedirect('/login');
     }
 
