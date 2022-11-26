@@ -15,14 +15,16 @@ class CategoryController extends Controller
     public function __construct(){
 
         $this->middleware('auth');
-        
+
     }
+
     public function categoryProducts($id)
     {
       $category=Category::find($id);
       $products=$category->products;
-      return view('specificcategory',['products'=>$products,'category'=>$category]);  
+      return view('category.specific',['products'=>$products,'category'=>$category]);
     }
+
     public function index()
     {
       $categories=Category::all();
