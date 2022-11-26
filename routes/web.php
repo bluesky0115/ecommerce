@@ -65,7 +65,7 @@ Route::post('cart/removeproduct',[CartController::class,'removeFromCart']);
 
 Route::get('notifications',[UserController::class,'notifications']);
 Route::post('notification/category',[UserController::class,'notificationForm']);
-Route::post('notification/unread',[UserController::class,'unreadNotification']);
+Route::post('notification/read',[UserController::class,'readNotification']);
 
 Route::post('report',[UserController::class,'report']);
 Route::post('report/remove',[UserController::class,'removeReport'])->name('report.remove');
@@ -73,9 +73,6 @@ Route::get('reports',[AdminController::class,'reports']);
 Route::get('/navigation',[UserController::class,'navigation']);
 Route::get('categories',[CategoryController::class,'index']);
 Route::get('category/product',[CategoryController::class,'categoryProducts']);
-
-Route::get('user/isAdmin',[UserController::class,'isAdmin']);
-Route::post('user/logut',[UserController::class,'logout']);
 
 Route::view('about','about')->name('about');
 

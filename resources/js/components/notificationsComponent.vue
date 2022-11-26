@@ -10,12 +10,12 @@
     <ul>
      <li v-for="notification in notifications" :key="notification.id" class="hover:bg-blue-200">
       <a :href="notification.data.href">{{notification.data.data}}</a>
-      <button @click="readNotification(notification.id)">x</button>    
-     </li>    
-    </ul> 
+      <button @click="readNotification(notification.id)">x</button>
+     </li>
+    </ul>
    </div>
-<div v-if="notificationPopup" @click="notificationPopup=false" class="absolute -inset-x-0 -inset-y-full opacity-50 bg-black z-10"></div> 
-  </div>  
+<div v-if="notificationPopup" @click="notificationPopup=false" class="absolute -inset-x-0 -inset-y-full opacity-50 bg-black z-10"></div>
+  </div>
 </template>
 <script>
 export default {
@@ -24,23 +24,23 @@ export default {
     return{
       notifications:[],
       selectedCategories:[],
-      notificationPopup:false  
-    }   
+      notificationPopup:false
+    }
    },
    mounted(){
      axios.get('/notifications',{params:{userId:this.userId}})
      .then(res=>{
         this.notifications=res.data.notifications;
-     })  
+     })
    },
    methods:{
-     unreadNotification(notificationId){
-       axios.post('/notification/unread',{notificationId:notificationId,userId:this.userId})
+     readNotification(notificationId){
+       axios.post('/notification/read',{notificationId:notificationId,userId:this.userId})
        .then(res=>{
           let index=notifications.findindex(item=> item.id==notificationId)
-          this.notifications.splice(index,1); 
-       }); 
-     }  
-   } 
+          this.notifications.splice(index,1);
+       });
+     }
+   }
 }
 </script>

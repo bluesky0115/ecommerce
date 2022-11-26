@@ -24,7 +24,7 @@ class ProductTest extends TestCase
         $products=Product::factory(10)->create();
         $response = $this->getJson('/products');
         $response->assertOk()
-                 ->assertJson([
+                 ->assertJsonStructure([
                     'products'=>$products
                  ]);
     }

@@ -28,7 +28,7 @@ class CartTest extends TestCase
         $this->actingAs($user);
         $cart=Cart::factory()->create(['user_id'=>$user->id]);
         $response=$this->get('/cartitems');
-        $response->assertJson('cartItems');
+        $response->assertJsonStructure('cartItems');
     }
 
     public function test_authenticated_user_can_add_product_to_cart()
