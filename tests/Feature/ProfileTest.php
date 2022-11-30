@@ -16,6 +16,8 @@ class ProfileTest extends TestCase
      *
      * @return void
      */
+    use RefreshDatabase;
+    
     public function test_only_authenticated_users_have_previliges_related_to_profile()
     {
         $response = $this->get('/profile/*')->whereIn('*',['create','store','edit','update']);

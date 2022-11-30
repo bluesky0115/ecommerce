@@ -13,6 +13,8 @@ class CommentTest extends TestCase
      *
      * @return void
      */
+    use RefreshDatabase;
+
     public function test_only_authenticated_users_have_previliges_to_add_update_and_delete_cart()
     {
         $response = $this->get('/comment/{any}')->whereIn('any',['store','update','update']);

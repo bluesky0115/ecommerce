@@ -13,6 +13,7 @@ class ApplicationTest extends TestCase
      *
      * @return void
      */
+    use RefreshDatabase;
 
     public function test_products_are_available_on_home_page()
     {

@@ -147,6 +147,7 @@ class ProductController extends Controller
       $product=Product::find($request->productId);
       return response()->json(['product'=>$product]);
     }
+    
     public function savedProducts(Request $request)
     {
       $user=User::where('id',$request->userId);

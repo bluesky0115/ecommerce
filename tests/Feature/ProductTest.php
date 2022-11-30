@@ -19,7 +19,9 @@ class ProductTest extends TestCase
      *
      * @return void
      */
-    public function test_list_of_products_returned()
+    use RefreshDatabase;
+
+    public function test_list_of_products_can_be_returned()
     {
         $products=Product::factory(10)->create();
         $response = $this->getJson('/products');
@@ -128,5 +130,41 @@ class ProductTest extends TestCase
         $response->assertSessionHasNoErrors();
         $this->assertDatabaseCount('products',0);
         $this->assertDatabaseMissing('products',['id'=>$product->id]);
+    }
+
+    public function test_product_can_be_searched()
+    {
+       $searchQuery='shoes';
+       $data=[
+        'categoryId'=>1,
+        'searchQuery'=>$searchQuery
+       ];
+       $products=Product::factory(5)->create(['name'=>$searchQuery]);
+       $response=$this->post('/product/search',$data);
+       $response->assertViewIs('product.search')
+                ->assertViewHasAll([
+                    'products'=>$products,
+                    'searchQuery'=>$searchQuery
+                ]);
+    }
+
+    public function test_product_data_can_be_returned()
+    {
+      $product=Product::factory()->create();
+      $response=$this->get('/product/data',['productId'=>$product->d]);
+      $response->assertExactJson([
+        'product'=>$product
+      ]);
+    }
+
+    public function test_authenticated_user_can_see_saved_products()
+    {
+        $user=User::factory()->create();
+        $this->actingAs($user);
+        $products=Product::factory(5)->create(['user_id'=>$user->id,'type'=>'saved']);
+        $response=$this->get('/product/savedProducts',['userId'=>$user->id]);
+        $response->assertExactJson([
+            'products'=>$products
+        ]);
     }
 }

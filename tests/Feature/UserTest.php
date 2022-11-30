@@ -13,6 +13,8 @@ class UserTest extends TestCase
      *
      * @return void
      */
+    use RefreshDatabase;
+    
     public function test_user_and_categories_data_are_available_on_navigation()
     {
         $user=User::factory()->create(['id'=>1]);
@@ -58,10 +60,5 @@ class UserTest extends TestCase
                  ->assertJsonStructure([
                     'message'=>'report was succesfull'
                  ]);
-    }
-
-    public function test_()
-    {
-        
     }
 }

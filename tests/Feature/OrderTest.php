@@ -16,6 +16,8 @@ class OrderTest extends TestCase
      *
      * @return void
      */
+    use RefreshDatabase;
+    
     public function test_unauthenticated_user_can_not_make_order()
     {
         $response = $this->get('/order');

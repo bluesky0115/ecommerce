@@ -13,6 +13,8 @@ class CategoryTest extends TestCase
      *
      * @return void
      */
+    use RefreshDatabase;
+    
     public function test_products_of_a_specific_category_can_be_returned()
     {
         $user=User::factory()->create(['id'=>1]);
