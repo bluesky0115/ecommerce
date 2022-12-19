@@ -1,21 +1,16 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production"
+        "dev": "vite",
+        "build": "vite build"
     },
     "devDependencies": {
         "@stripe/stripe-js": "^1.15.0",
-        "@tailwindcss/custom-forms": "^0.2.1",
+        "@vitejs/plugin-vue": "^4.0.0",
         "axios": "^0.21",
         "bootstrap": "^4.6.0",
         "jquery": "^3.6",
-        "laravel-mix": "^6.0.39",
+        "laravel-vite-plugin": "^0.7.2",
         "lodash": "^4.17.19",
         "popper.js": "^1.16.1",
         "postcss": "^8.1.14",
@@ -23,11 +18,11 @@
         "sass": "^1.32.11",
         "sass-loader": "^11.0.1",
         "tailwindcss": "^2.2.2",
-        "vue": "^2.6.12",
+        "vite": "^4.0.2",
+        "vue": "^3.2.25",
         "vue-loader": "^15.9.8",
         "vue-router": "^3.5.1",
-        "vue-template-compiler": "^2.6.12",
-        "vuex": "^3.6.2"
+        "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
         "webpack": "^5.64.1"

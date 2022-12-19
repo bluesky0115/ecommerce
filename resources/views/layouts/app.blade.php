@@ -9,16 +9,13 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="icon" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Ficons-for-free.com%2Fcart%2Becommerce%2Bshop%2Bicon-1320166083122274571%2F&psig=AOvVaw2_4410cN2jnrmeFPNRJIFi&ust=1624431066987000&source=images&cd=vfe&ved=0CAcQjRxqFwoTCKCJ47zTqvECFQAAAAAdAAAAABAE">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-200">
     <div id="app">
@@ -29,22 +26,22 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
                 </a>
-                 
+
                   <a href="{{route('product.create')}}" class="text-xl mx-2">add</a>
                   <a href="{{route('order')}}" class="text-xl mx-2">order</a>
                   <a href="{{route('about')}}" class="text-xl mx-2">contact us</a>
                   <div>
                     @auth
-                    <cart-component user-id="{{Auth::user()->id}}">   
-                    @endauth    
-                  </div>    
+                    <cart-component user-id="{{Auth::user()->id}}">
+                    @endauth
+                  </div>
                    @auth
                    <div>
                     @auth
-                    <notifications-component user-id="{{Auth::user()->id}}"/>   
-                    @endauth    
-                   </div>  
-                   @endauth 
+                    <notifications-component user-id="{{Auth::user()->id}}"/>
+                    @endauth
+                   </div>
+                   @endauth
                </ul>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -57,7 +54,7 @@
                                     <a class="text-xl text-white mx-1" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-                            
+
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="text-xl text-white mx-1" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -93,15 +90,15 @@
             <option value="all" selected>all</option>
              @isset($categories)
               @foreach ($categories as $category)
-               <option value="{{$category->id}}">{{$category->name}}</option>  
-              @endforeach    
-             @endisset 
-            </select>    
-         </form> 
+               <option value="{{$category->id}}">{{$category->name}}</option>
+              @endforeach
+             @endisset
+            </select>
+         </form>
          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
             @csrf
-         </form>  
-         <navigation-component @auth user-id="{{Auth::user()->id}}"@endauth />  
+         </form>
+         <navigation-component @auth user-id="{{Auth::user()->id}}"@endauth />
        </div>
         <main class="">
             @yield('content')
