@@ -14,32 +14,30 @@
   <div v-if="eidtPopup" @click="eidtPopup=false" class="z-10 absolute -inset-full bg-black opacity-50"></div>
   </div>
 </template>
-<script>
-export default {
-  props:['userId','productId'],
-  data(){
-    return{
-      phoneNumber:'',
-      city:'',
-      street:'',
-      editPopup:false
-    }
-  },
-  mounted(){
-    axios.get('/profile',{params:{userId:this.userId}})
+<script setup>
+defineProps({
+  userId,productId
+})
+
+let phoneNumber=$ref('')
+let city=$ref('')
+let street=$ref('')
+let editPopup=$ref(false)
+
+onMounted=()=>{
+    axios.get('/profile',{params:{userId:userId}})
     .then(res=>{
-      this.phoneNumber=res.data.user.phoneNumber;
-      this.city=res.data.user.city;
-      this.street=res.data.user.street; 
-    });
-  },
-  methods:{
-    editProfile(){
-      axios.post('/profile/update',{phoneNumber:this.phoneNumber,city:this.city,street:this.street})
-      .then(res=>{
-        this.editPopup=false;
-      });
-    }
-  }
+      phoneNumber=res.data.user.phoneNumber
+      city=res.data.user.city
+      street=res.data.user.street
+    })
 }
+
+const editProfile=()=>{
+    axios.post('/profile/update',{phoneNumber:phoneNumber,city:city,street:street})
+    .then(res=>{
+    editPopup=false
+    })
+}
+
 </script>

@@ -7,34 +7,19 @@
     <button @click="component=hellocash" class="text-white text-xl bg-yellow-600 p-3 m-0">hello cash</button>
     <keep-alive>
       <component :is="component"/>
-    </keep-alive>  
-   </div> 
-    <div v-if="checkoutModal" @click="checkoutModal=false" 
-     class="absolute -inset-x-0 -inset-y-full z-10 bg-black opacity-50"></div>  
-  </div> 
+    </keep-alive>
+   </div>
+    <div v-if="checkoutModal" @click="checkoutModal=false"
+     class="absolute -inset-x-0 -inset-y-full z-10 bg-black opacity-50"></div>
+  </div>
 </template>
-<script>
+<script setup>
 import cbebirr from './payment/cbebirrComponent.vue'
 import amole from './payment/amoleComponent.vue'
 import hellocash from './payment/hellocashComponent.vue'
-export default {
-  components:{
-    "cbebirr":cbebirr,
-    "amole":amole,
-    "hellocash":hellocash,
-  },
-  props:['userId'],
-  data(){
-   return{
-    checkoutModal:false, 
-    component:'cbebirr'
-   }
-  },
-  mounted(){
-    axios.get('/user',{params:{userId:this.userId}})
-  },
-  methods:{
-   
-  } 
-}
+
+defineProps({userId})
+
+let checkoutModal=$ref(false)
+let component=$ref(cbebirr)
 </script>

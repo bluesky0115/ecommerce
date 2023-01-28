@@ -14,33 +14,29 @@
      </li>
     </ul>
    </div>
-<div v-if="notificationPopup" @click="notificationPopup=false" class="absolute -inset-x-0 -inset-y-full opacity-50 bg-black z-10"></div>
-  </div>
+  <div v-if="notificationPopup" @click="notificationPopup=false" class="absolute -inset-x-0 -inset-y-full opacity-50 bg-black z-10"></div>
+</div>
 </template>
-<script>
-export default {
-   props:['userId'],
-   data(){
-    return{
-      notifications:[],
-      selectedCategories:[],
-      notificationPopup:false
-    }
-   },
-   mounted(){
-     axios.get('/notifications',{params:{userId:this.userId}})
+<script setup>
+defineProps({userId})
+
+let notifications=$ref([])
+let selectedCategories=$ref([])
+let notificationPopup=$ref(false)
+
+onMounted=()=>{
+     axios.get('/notifications',{params:{userId:userId}})
      .then(res=>{
-        this.notifications=res.data.notifications;
+        notifications=res.data.notifications
      })
-   },
-   methods:{
-     readNotification(notificationId){
-       axios.post('/notification/read',{notificationId:notificationId,userId:this.userId})
-       .then(res=>{
-          let index=notifications.findindex(item=> item.id==notificationId)
-          this.notifications.splice(index,1);
-       });
-     }
-   }
 }
+
+const readNotification=(notificationId)=>{
+    axios.post('/notification/read',{notificationId:notificationId,userId:this.userId})
+    .then(res=>{
+        let index=notifications.findindex(item=> item.id==notificationId)
+        this.notifications.splice(index,1)
+    })
+}
+
 </script>

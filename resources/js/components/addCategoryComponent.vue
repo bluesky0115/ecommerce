@@ -1,6 +1,5 @@
 <template>
-  <div>
-   <button @click="addCategory">add category</button> 
+  <button @click="addCategory">add category</button>
   <div v-if="categoryPopup" class="fixed z-20 sm:w-full md:w-full">
     <form @submit.prevent="createCategory">
       <input type="text" v-model="categoryName" placeholder="category name" required class="">
@@ -8,35 +7,28 @@
     </form>
   </div>
   <div v-if="categoryPopup" @click="categoryPopup=false" class="z-10 absolute -inset-full bg-black opacity-50"></div>
-  </div>
 </template>
-<script>
-export default {
-  props:['userId'],
-  data(){
-    return{
-      categoryName:'',
-      categoryPopup:false
-    }
-  },
-  mounted(){
+<script setup>
+import { onMounted, ref } from '@vue/runtime-core'
+
+let isAdmin=$ref(false)
+let categoryName=$ref('')
+let categoryPopup=ref(false)
+
+defineProps({
+    userId:{}
+})
+onMounted(() => {
     axios.get('/isAdmin',{params:{userId:this.userId}})
     .then(res=>{
-      this.isAdmin=res.data.isAdmin;
+      isAdmin=res.data.isAdmin;
     });
-  },
-  methods:{
-    addcategory(){
-      if(this.isAdmin){
-       axios.post('/category/create',{categoryName:this.categoryName})
-       .then(res=>{
-        this.categoryPopup=false;
-      });
-      }
-      else{
-        alert('only adminstrators can add new category');
-      }
-    }
-  }
+})
+
+const addcategory=()=>{
+    axios.get('/isAdmin',{params:{userId:this.userId}})
+    .then(res=>{
+      isAdmin=res.data.isAdmin;
+    });
 }
 </script>

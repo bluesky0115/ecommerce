@@ -17,49 +17,46 @@
        </div>
       </a>
     </li>
-    </ul>    
+    </ul>
    </div>
    <div v-if="cartPopup" @click="cartPopup=false" class="absolute z-10 inset-0 bg-black opacity-50"></div>
-  </div> 
+  </div>
 </template>
-<script>
+<script setup>
 import removeFromCartVue from './removeFromCart.vue';
-export default {
-  props:['userId'],
-  data(){
-   return{
-    cartId:'',
-    cartItems:[],
-    cartPopup:false,
-    products:[]
-   }
-  },
-  mounted(){
-    axios.get('/cartitems',{params:{userId:this.userId}})
-    .then(res=>{
-      this.cartItems=res.data.cartItems;
-    })
-  },
-  created(){
+
+let cartId=$ref('')
+let cartItems=$ref([])
+let cartPopup=$ref(false)
+let products=ref([])
+
+onCreated(()=>{
    bus.$on('productAddedToCart',id=>{
-     addToCart(id);
+     addToCart(id)
    });
    bus.$on('productRemovedFromCart',id=>{
-     removeFromCart(id);
+     removeFromCart(id)
    });
-  },
-  methods:{
-   addToCart(id){
-     axios.get('/product/data',{params:{productId:id}})
-     .then(res=>{
-     let product=res.data.product;
-     this.cartItems.push(product);
-     })
-   },
-   removeFromCart(id){
-    let product=this.cartItems.find(item=>item.id==id);
-    this.cartItems.splice(product);
-   }
-  } 
+})
+
+onMounted(()=>{
+    axios.get('/cartitems',{params:{userId:this.userId}})
+    .then(res=>{
+      cartItems=res.data.cartItems
+    })
+})
+
+const addToCart=(id)=>{
+    axios.get('/product/data',{params:{productId:id}})
+    .then(res=>{
+    let product=res.data.product
+    cartItems.push(product)
+    })
 }
+
+const removeFromCart=(id)=>{
+    let product=cartItems.find(item=>item.id==id)
+    cartItems.splice(product)
+}
+
 </script>

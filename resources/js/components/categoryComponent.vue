@@ -8,27 +8,20 @@
       <div>
        <span>{{product.totalComments}} comments</span>
        <a :href="'product/show'+product.id">details</a>
-      </div> 
+      </div>
      </a>
     </div>
    </div>
 </template>
-<script>
-export default {
-  data(){
-    return{
-      products:[],
-      categoryId:null
-    }
-  },
-  mounted(){
-    this.categoryId=this.$route.params.categoryId;
-    axios.get('/category/product',{params:{categoryId:this.categoryId}})
+<script setup>
+let products=$ref([])
+let categoryId=$ref(null)
+
+onMounted(()=>{
+    categoryId=t$route.params.categoryId;
+    axios.get('/category/product',{params:{categoryId:categoryId}})
     .then(res=>{
-      this.products=res.data.products;
-      console.log(this.categoryId);
-      console.log(this.products);
+      products=res.data.products;
     })
-  }
-}
+})
 </script>

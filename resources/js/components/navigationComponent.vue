@@ -18,19 +18,19 @@
          <svg xmlns="http://www.w3.org/2000/svg" class="text-white h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
-       </button>   
+       </button>
       </form>
     </div>
     <div class="my-auto flex mx-14">
       <div>
-       <saved-component :userId="userId"/>   
+       <saved-component :userId="userId"/>
       </div>
       <div>
-       <notifications-component :userId="userId"/>   
-      </div> 
+       <notifications-component :userId="userId"/>
+      </div>
       <div>
-        <cart-component :userId="userId"/>   
-      </div>  
+        <cart-component :userId="userId"/>
+      </div>
     </div>
     <div class="hidden">
       <button @click="userDropdownMenu=true">
@@ -39,19 +39,19 @@
       </svg>
     </button>
     </div>
-    <div class="my-auto ml-5"> 
+    <div class="my-auto ml-5">
      <div v-if="userId" class="my-auto inline">
        <button @click="userDropdownMenu=true" class="my-auto flex">
         <span class="text-xl capitalize">{{user.name}}</span>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
-       </button>   
+       </button>
      </div>
      <div v-else class="flex text-white text-2xl w-full my-auto">
      <a href="/login" class="mx-2 rounded px-2 py-1 my-auto">sign in</a>
-     <a href="/register" class="bg-green-700 mx-2  rounded-3xl px-5 py-1.5 my-auto">sign up</a>  
-     </div> 
+     <a href="/register" class="bg-green-700 mx-2  rounded-3xl px-5 py-1.5 my-auto">sign up</a>
+     </div>
      <div v-if="userDropdownMenu" class="fixed z-20 text-xl bg-gray-100 top-2 right-2">
       <ul>
        <li class="hover:bg-blue-200 px-5 py-1"><a href="/">home</a></li>
@@ -61,12 +61,12 @@
        <li class="hover:bg-blue-200 px-5 py-1"><a href="/order">order</a></li>
        <li class="hover:bg-blue-200 px-5 py-1"><a href="/about">contact us</a></li>
        <li class="hover:bg-blue-200 px-5 py-1">
-        <button @click="logout">logout</button>  
-       </li>  
+        <button @click="logout">logout</button>
+       </li>
       </ul>
      </div>
      <div v-if="userDropdownMenu" @click="userDropdownMenu=false" class="absolute z-10 -inset-y-0 -inset-x-0 bg-black opacity-50"></div>
-    </div> 
+    </div>
    </div>
    <div class="py-2 my-auto flex justify-between">
     <div class="bg-green-600 flex rounded-sm">
@@ -105,39 +105,36 @@
     </div>
    </div>
   </div>
-   
+
  </div>
 </template>
-<script>
-export default {
-   props:['userId'],
-   data(){
-    return{
-      user:{},
-      categoryId:'all',
-      searchQuery:'',
-      categories:[],
-      userDropdownMenu:false,
-    }
-   },
-   created(){
-    axios.get('/navigation',{params:{userId:this.userId}})
+<script setup>
+defineProps({userId})
+
+let user=$ref({})
+let categoryId=$ref('all')
+let searchQuery=$ref('')
+let categories=$ref([])
+let userDropdownMenu=$ref(false)
+
+onCreated(()=>{
+    axios.get('/navigation',{params:{userId:userId}})
     .then(res=>{
-      this.user=res.data.user;
-      this.categories=res.data.categories;
+      user=res.data.user
+      categories=res.data.categories
     })
-   },
-   methods:{
-    search(){
-      if(this.searchQuery){
-      document.getElementById('searchQuery').value=this.searchQuery;
-      document.getElementById('category').value=this.categoryId;
-      document.getElementById('search-form').submit();
-      }
-    },
-    logout(){
-      document.getElementById('logout-form').submit(); 
+})
+
+const search=()=>{
+    if(searchQuery){
+      document.getElementById('searchQuery').value=searchQuery
+      document.getElementById('category').value=categoryId
+      document.getElementById('search-form').submit()
     }
-   }
 }
+
+const logout=()=>{
+    document.getElementById('logout-form').submit()
+}
+
 </script>

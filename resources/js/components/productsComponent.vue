@@ -8,27 +8,19 @@
      <div class="flex">
       <span>{{product.totalComments}} comments</span>
       <addtocart-component :productId="product.id" :userId="userId" />
-     </div> 
+     </div>
     </a>
    </div>
-   </div>    
+   </div>
 </template>
-<script>
-export default {
-  props:['userId'],
-  data(){
-    return{
-      products:[], 
-     }     
-  },
-  mounted(){
+<script setup>
+let products=$ref([])
+
+onMounted=()=>{
    axios.get('/products')
    .then(res=>{
-     this.products=res.data.products;
+      products=res.data.products;
    });
-  },
-  methods:{
-
-  }     
 }
+
 </script>

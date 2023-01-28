@@ -1,29 +1,15 @@
 <template>
   <div>
-  
-  </div> 
+
+  </div>
 </template>
-<script>
-export default {
-  props:[],
-  data(){
-  return{
-    
-  }
-  },
-  mounted(){
+<script setup>
+defineProps({userId})
 
-  },
-  methods:{
-   completeOrder(){
-     axios.post('/order/complete',{orderId:this.userId})
-     .then(res=>{
-
-     })
-     .catch(err=>{
-
-     }); 
-   }
-  } 
+const completeOrder=()=>{
+    axios.post('/order/complete',{orderId:userId})
+    .then(res=>{})
+    .catch(err=>{})
 }
+
 </script>

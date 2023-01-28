@@ -8,26 +8,20 @@
   </button>
  </div>
 </template>
-<script>
-export default {
-props:{
-   userId:{
-    required:true
-   }
- },
-  data(){
-   return{
-    products:[]
-   }
-  },
-  mounted(){
-   axios.get('/product/savedProducts',{params:{userId:this.userId}})
-   .then(res=>{
-     this.products=res.data.products;
-   });
-  },
-  methods:{
+<script setup>
 
+defineProps({
+  userId:{
+    required:true
   }
+})
+
+let products=$ref([])
+
+onMounted=()=>{
+   axios.get('/product/savedProducts',{params:{userId:userId}})
+   .then(res=>{
+     products=res.data.products
+   })
 }
 </script>

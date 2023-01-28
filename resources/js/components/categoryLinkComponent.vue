@@ -6,18 +6,13 @@
   <router-view></router-view>
   </div>
 </template>
-<script>
-export default {
-  data(){
-    return{
-     categories:[]
-    }
-  },
-  mounted(){
+<script setup>
+let categories=$ref([])
+
+onMounted(()=>{
     axios.get('/categories')
     .then(res=>{
-      this.categories=res.data.categories;
+      categories=res.data.categories;
     })
-  }
-}
+})
 </script>

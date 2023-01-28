@@ -16,24 +16,17 @@
 </div>
 </template>
 <script>
-export default{
-  props:['productId'],
-  data(){
-    return{
-      readyToDelete:false,
-    }  
-    },
-    methods:{
-       deleteProduct(){
-           axios.post('product/delete',{productId:this.productId})
-           .then(res=>{
-             this.deleted=true;
-             this.deleteText='deleted';
-           })
-           .catch(err=>{
-             
-           });
-        }
-    } 
+defineProps({productId})
+let readyToDelete=$ref(false)
+
+const deleteProduct=()=>{
+    axios.post('product/delete',{productId:productId})
+    .then(res=>{
+        deleted=true
+        deleteText='deleted'
+    })
+    .catch(err=>{
+
+    })
 }
 </script>
